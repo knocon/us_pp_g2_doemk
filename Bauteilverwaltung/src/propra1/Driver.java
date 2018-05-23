@@ -13,7 +13,7 @@ public class Driver {
 			ResultSet myRs = myStmt.executeQuery("select * from bauverwaltung");
 			
 			while(myRs.next()) {
-				System.out.println(myRs.getString("name")+ ", " + myRs.getString("link")+", " + myRs.getDouble("einzelpreis")+ " €, " + myRs.getInt("menge")
+				System.out.println(myRs.getString("name")+ ", " + myRs.getString("link")+", " + myRs.getDouble("einzelpreis")+ " € , " + myRs.getInt("menge")
 				+ ", " + myRs.getString("lagerort"));
 			}
 		}
