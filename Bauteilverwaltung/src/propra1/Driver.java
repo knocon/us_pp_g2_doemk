@@ -7,13 +7,13 @@ public class Driver {
 	public static void main(String[] args) {
 	
 		try {
-			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bauteilverwaltung", "root", "fenerbahce34");
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bauteilverwaltung?useSSL=false", "root", "fenerbahce34");
 			
 					Statement myStmt = myConn.createStatement();
 			ResultSet myRs = myStmt.executeQuery("select * from bauverwaltung");
 			
 			while(myRs.next()) {
-				System.out.println(myRs.getString("name")+ ", " + myRs.getString("link")+ ", " + myRs.getInt("einzelpreis")+ ", " + myRs.getInt("menge")
+				System.out.println(myRs.getString("name")+ ", " + myRs.getString("link")+", " + myRs.getDouble("einzelpreis")+ " € , " + myRs.getInt("menge")
 				+ ", " + myRs.getString("lagerort"));
 			}
 		}
