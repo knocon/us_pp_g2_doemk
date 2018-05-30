@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.Controller">
    <bottom>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </bottom>
@@ -21,9 +21,9 @@
                            <left>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="150.0" prefHeight="458.0" prefWidth="150.0" spacing="15.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
-                                    <Button alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
-                                    <Button alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
+                                    <Button fx:id="anlegenButtonPerson" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#anlegenGeklicktPerson" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
+                                    <Button fx:id="bearbeitenButtonPerson" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bearbeitenGeklicktPerson" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
+                                    <Button fx:id="loeschenButtonPerson" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#loeschenGeklicktPerson" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -45,6 +45,9 @@
                                                 <TableColumn fx:id="rolleCol" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" text="Rolle" />
                                                 <TableColumn fx:id="emailCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Email" />
                                                 <TableColumn fx:id="telefonCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Telefon" />
+                                                <TableColumn fx:id="stadtCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Stadt" />
+                                                <TableColumn fx:id="adresseCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Adresse" />
+                                                <TableColumn fx:id="nummerCol" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" text="Nr" />
                                                 <TableColumn fx:id="stempelCol" maxWidth="-1.0" minWidth="75.0" prefWidth="-1.0" text="Stempel" />
                                             </columns>
                                              <columnResizePolicy>
