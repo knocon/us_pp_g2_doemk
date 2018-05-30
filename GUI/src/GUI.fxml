@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <bottom>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <items>
+            <Label text="Person X wurde angelegt" />
+         </items></ToolBar>
+   </bottom>
+   <center>
+      <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Personen">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="960.0">
+                           <center>
+                              <TreeTableView tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+                                <columns>
+                                  <TreeTableColumn id="personenTabelle" minWidth="150.0" prefWidth="150.0" text="Vorname" />
+                                  <TreeTableColumn minWidth="150.0" prefWidth="150.0" text="Nachname" />
+                                    <TreeTableColumn minWidth="100.0" prefWidth="100.0" text="Rolle" />
+                                    <TreeTableColumn minWidth="150.0" prefWidth="150.0" text="Telefon" />
+                                    <TreeTableColumn minWidth="150.0" prefWidth="150.0" text="Email" />
+                                    <TreeTableColumn minWidth="75.0" prefWidth="75.0" text="Stempel" />
+                                </columns>
+                                 <BorderPane.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </BorderPane.margin>
+                              </TreeTableView>
+                           </center>
+                           <left>
+                              <VBox fx:id="tabContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="150.0" prefHeight="458.0" prefWidth="150.0" spacing="15.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="anlegen" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
+                                    <Button alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
+                                    <Button alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                                 <BorderPane.margin>
+                                    <Insets />
+                                 </BorderPane.margin>
+                              </VBox>
+                           </left>
+                        </BorderPane>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </AnchorPane>
+            </content>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                     <image>
+                        <Image url="@../../../Desktop/person%20icon.PNG" />
+                     </image></ImageView>
+               </graphic>
+          </Tab>
+            <Tab text="Finanzen">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+          <Tab text="Aufträge">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab text="Bauteile">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+        </tabs>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </TabPane>
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Hilfe">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
