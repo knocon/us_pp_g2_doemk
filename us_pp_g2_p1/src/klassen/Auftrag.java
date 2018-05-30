@@ -11,10 +11,9 @@ public class Auftrag {
 	private double kosten;
 	private String status;
 	private Calendar statusZeitstempel = Calendar.getInstance();
-	private int persId;
 	
 	public Auftrag(int aufId, String titel, String art, String dateiname, double kosten, String status,
-			Calendar statusZeitstempel, int persId) {
+			Calendar statusZeitstempel) {
 		super();
 		this.aufId = aufId;
 		this.titel = titel;
@@ -23,7 +22,6 @@ public class Auftrag {
 		this.kosten = kosten;
 		this.status = status;
 		this.statusZeitstempel = statusZeitstempel;
-		this.persId = persId;
 	}
 
 	public int getAufId() {
@@ -82,13 +80,6 @@ public class Auftrag {
 		this.statusZeitstempel = statusZeitstempel;
 	}
 
-	public int getPersId() {
-		return persId;
-	}
-
-	public void setPersId(int persId) {
-		this.persId = persId;
-	}
 	
 	//// METHODEN ////
 	
