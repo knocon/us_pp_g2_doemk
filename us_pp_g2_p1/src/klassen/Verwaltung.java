@@ -28,7 +28,8 @@ public class Verwaltung {
 		
 		dbconnection();
 		filterByParameter("vorname", "Daman", "Person");
-		addPerson( "Ömer", "abc", "Kunde", "abcstrasse","5","abc","01292929999","ömer@web.de");
+		//addPerson( "Ömer", "abc", "Kunde", "abcstrasse","5","abc","01292929999","ömer@web.de");
+		deletePerson(2);
 	}
 	public static Connection dbconnection() {
 		
@@ -81,9 +82,9 @@ public class Verwaltung {
 	    }
 	 
 	 public static void deletePerson(int id) {
+		 String query="DELETE FROM Person WHERE persId ="+ id;
 		 try {
-			 resultSet = statement.executeQuery("DELETE FROM Person"
-			 									+ "WHERE idPerson="+ id);
+			  statement.executeUpdate(query);
 		 }catch(SQLException e) {
 			 e.printStackTrace();
 		 }
