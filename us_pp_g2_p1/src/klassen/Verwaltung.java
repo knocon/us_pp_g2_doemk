@@ -27,14 +27,14 @@ public class Verwaltung {
 	public static void main(String[] args) {
 		
 		dbconnection();
-		filterByParameter("vorname", "Daman");
-		addPerson(1, "Ömer", "abc", "Kunde", "abcstrasse","5","abc","01292929999","ömer@web.de");
+		filterByParameter("vorname", "Daman", "Person");
+		addPerson( "Ömer", "abc", "Kunde", "abcstrasse","5","abc","01292929999","ömer@web.de");
 	}
 	public static Connection dbconnection() {
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:db.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:database/db.db");
 			statement =  conn.createStatement();
 			System.out.println("funkt");
 			return conn;
@@ -44,11 +44,11 @@ public class Verwaltung {
 		return null;
 	}
 	//Person
-	public static void addPerson(int id,  String vorname, String nachname, String typ, String strasse, String hausnummer,
+	public static void addPerson(  String vorname, String nachname, String typ, String strasse, String hausnummer,
 			String stadt, String telefon, String email) {
 	
-		String query = "INSERT INTO PERSON(id,  date,vorname, nachname,  typ, strasse, hausnummer, stadt,  telefon, email) VALUES("
-				+ "'"+id+"',"
+		String query = "INSERT INTO PERSON(  date,vorname, nachname,  typ, strasse, hausnummer, stadt,  telefon, email) VALUES("
+				
 				+ "'"+date.now()+"',"
 				+ "'"+vorname+"',"
 				+ "'"+nachname+"',"
@@ -60,7 +60,7 @@ public class Verwaltung {
 				+ "'"+email+"')";
 		System.out.println(query);
 		try {
-			statement.executeQuery(query);
+			statement.executeUpdate(query);
 		}catch (SQLException e ) {
 			e.printStackTrace();
 		}
@@ -257,10 +257,10 @@ public class Verwaltung {
 		}
     }
     
-    public static ResultSet filterByParameter(String parameter, String value){
+    public static ResultSet filterByParameter(String parameter, String value, String name){
     	try {
-			resultSet =  statement.executeQuery("SELECT * FROM Auftrag "
-											+ "where " + parameter +  " = "
+			resultSet =  statement.executeQuery("SELECT * FROM "+ name
+											+ " where " + parameter +  " = "
 											+ "'" + value + "'");
 			return resultSet;
 		} catch (SQLException e) {
