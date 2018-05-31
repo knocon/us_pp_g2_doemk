@@ -18,18 +18,24 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Verwaltung {
 	static Connection conn = null;
 	static ResultSet resultSet;
 	static java.sql.Statement statement;
 	static LocalDate date;
+	static ObservableList<Person> listPerson ;
+	static ObservableList<Rechnung> listRechnung ;
 	
 	public static void main(String[] args) {
 		
 		dbconnection();
 		filterByParameter("vorname", "Daman", "Person");
 		//addPerson( "Ömer", "abc", "Kunde", "abcstrasse","5","abc","01292929999","ömer@web.de");
-		deletePerson(2);
+		//deletePerson(4);
+		updatePerson("vorname","�mer",1);
 	}
 	public static Connection dbconnection() {
 		
@@ -43,6 +49,16 @@ public class Verwaltung {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static ObservableList givePerson(ResultSet rs) throws SQLException {
+		listPerson = FXCollections.observableArrayList();
+		while (rs.next()) {
+			Person p = new  Person(rs.getInt("persId"), rs.getDate("date"), rs.getString("vorname"),rs.getString("nachname"),rs.getString("typ"), rs.getString("strasse"), rs.getString("hausnummer"), rs.getString("stadt"), rs.getString("telefon"), rs.getString("email"));
+			listPerson.add(p);
+		
+		}
+		return listPerson;
 	}
 	//Person
 	public static void addPerson(  String vorname, String nachname, String typ, String strasse, String hausnummer,
@@ -60,6 +76,7 @@ public class Verwaltung {
 				+ "'"+telefon+"',"
 				+ "'"+email+"')";
 		System.out.println(query);
+		
 		try {
 			statement.executeUpdate(query);
 		}catch (SQLException e ) {
@@ -69,12 +86,10 @@ public class Verwaltung {
 	}
 	
 	 public static ResultSet updatePerson(String parameter, String value, int id){
-	    	try {
-				resultSet =  statement.executeQuery("UPDATE  Person "
-												+ "SET" + parameter +  " = "
-												+ "'" + value + "'"
-												+ "WHERE idPerson="+ id);
-				return resultSet;
+	    	String query = "UPDATE  Person SET " + parameter +  " = '" + value + "' WHERE persId="+ id;
+		 try {
+	    		statement.executeUpdate(query);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -136,9 +151,17 @@ public class Verwaltung {
 			 e.printStackTrace();
 		 }
 	 }
+	 public static ObservableList giveRechnung(ResultSet rs) throws SQLException {
+		 listRechnung = FXCollections.observableArrayList();
+			while (rs.next()) {
+			Rechnung r = new Rechnung(rs.getInt("rechId"), rs.getDate("rechnungsDatum"),rs.getString("rechnungsName"), rs.getString("auftaggeber"), rs.getString("ansprechpartner"), rs.getInt("kassenId"), rs.getInt("topfId"), rs.getString("art"), rs.getInt("kontoId"), rs.getDouble("betrag"), rs.getString("status"), rs.getDate("statusZeitstempel"));
+			listRechnung.add(r);
+			}
+			return listRechnung;
+		}
 	 public void exportPDF( int id) {
 		 
-		 com.itextpdf.text.Document name = new Document();
+		 com.itextpdf.text.Document name = (com.itextpdf.text.Document) new Document();
          PdfWriter.getInstance(name, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
          name.open();            
          //we have four columns in our table

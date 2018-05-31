@@ -1,11 +1,12 @@
 package klassen;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Person {
 	
 	private int persId;
-	private LocalDate date;
+	private Date date;
 	private String vorname;
 	private String nachname;
 	private String typ;
@@ -15,11 +16,11 @@ public class Person {
 	private String telefon;
 	private String email;
 	
-	public Person(int id, LocalDate date, String vorname, String nachname, String typ, String strasse, String hausnummer,
+	public Person(int id, Date date2,String vorname, String nachname, String typ, String strasse, String hausnummer,
 			String stadt, String telefon, String email) {
 		super();
+		this.date = date2;
 		this.persId = id;
-		this.date = date;
 		this.vorname = vorname;
 		this.nachname = nachname;
 		this.typ = typ;
@@ -29,15 +30,7 @@ public class Person {
 		this.telefon = telefon;
 		this.email = email;
 	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
+	
 	public String getVorname() {
 		return vorname;
 	}

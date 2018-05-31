@@ -16,11 +16,11 @@ public class Rechnung {
 	private int kontoId; 
 	private double betrag;
 	private String status;
-	private Calendar statusZeitstempel = Calendar.getInstance();
+	private Date statusZeitstempel;
 	
 	public Rechnung(int id, Date rechnungsDatum, String rechnungsName, String auftraggeber, String ansprechpartner,
 			int kassenId, int topfId, String art, int kontoId, double betrag, String status,
-			Calendar statusZeitstempel) {
+			Date statusZeitstempel) {
 		super();
 		this.rechId = id;
 		this.rechnungsDatum = rechnungsDatum;
@@ -116,13 +116,6 @@ public class Rechnung {
 		this.status = status;
 	}
 
-	public Calendar getStatusZeitstempel() {
-		return statusZeitstempel;
-	}
-
-	public void setStatusZeitstempel(Calendar statusZeitstempel) {
-		this.statusZeitstempel = statusZeitstempel;
-	}
 
 	public int getRechId() {
 		return rechId;
