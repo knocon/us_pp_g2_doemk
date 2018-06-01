@@ -5,9 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="280.0" minWidth="426.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="280.0" minWidth="426.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.Controller">
    <bottom>
-      <Button mnemonicParsing="false" text="Speichern" BorderPane.alignment="CENTER">
+      <Button fx:id="speichernButtonPersonen" mnemonicParsing="false" onAction="#personSpeichern" text="Speichern" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="15.0" />
          </BorderPane.margin>
@@ -38,7 +38,7 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1">
+            <TextField fx:id="vornameFeld" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -48,20 +48,20 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="nachnameFeld" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label alignment="CENTER" contentDisplay="CENTER" text="Email" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="emailFeld" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="CENTER" contentDisplay="CENTER" text="Telefon" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="telefonFeld" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="rolleFeld" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label alignment="CENTER" contentDisplay="CENTER" text="Rolle" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="20.0" />
@@ -78,10 +78,10 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="4" />
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <TextField fx:id="plzFeld" GridPane.columnIndex="4" />
+            <TextField fx:id="stadtFeld" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <TextField fx:id="strasseFeld" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField fx:id="nummerFeld" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <Label text="Nummer" GridPane.columnIndex="3" GridPane.rowIndex="3" />
          </children>
       </GridPane>

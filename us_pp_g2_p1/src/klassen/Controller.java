@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -82,15 +83,33 @@ public class Controller extends Application {
 	
 	// Personen Eingabe Fenster
 	@FXML
+	private TextField vornameFeld;
+	@FXML
+	private TextField nachnameFeld;
+	@FXML
+	private TextField rolleFeld;
+	@FXML
+	private TextField strasseFeld;
+	@FXML
+	private TextField stadtFeld;
+	@FXML
+	private TextField plzFeld;
+	@FXML
+	private TextField telefonFeld;
+	@FXML
+	private TextField emailFeld;
+	
+	@FXML
 	private Button speichernButtonPersonen;
 	@FXML
 	void personSpeichern(ActionEvent event) {
 		System.out.println("Person gespeichert");
+		//dialog.close();
 	}
 	
 	public Controller(){
+		Stage dialog;
 		System.out.println("asd");
-		
 	}
 
 	@Override
@@ -119,6 +138,10 @@ public class Controller extends Application {
         dialog.show();
     }
 	
+	private void closeDialogWindow() {
+		dialog.close();
+	}
+	
 	public void initTabelle() {
 		vornameCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("vorname"));
@@ -142,7 +165,7 @@ public class Controller extends Application {
 	}
 	
 	public void schreibeDummis() {
-		LocalDate date = LocalDate.now();
+		Date date = new Date();
 		ObservableList<Person> pList = FXCollections.observableArrayList(
 				new Person (1, date,"Daman", "Kaur", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
 				new Person (1, date,"Ömer", "Tümen", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
