@@ -1,5 +1,6 @@
 package klassen;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,13 +17,12 @@ public class Rechnung {
 	private int kontoId; 
 	private double betrag;
 	private String status;
-	private Date statusZeitstempel;
+	private LocalDate statusZeitstempel;
 	
-	public Rechnung(int id, Date rechnungsDatum, String rechnungsName, String auftraggeber, String ansprechpartner,
-			int kassenId, int topfId, String art, int kontoId, double betrag, String status,
-			Date statusZeitstempel) {
+	public Rechnung(Date rechnungsDatum, String rechnungsName, String auftraggeber, String ansprechpartner,
+			int kassenId, int topfId, String art, int kontoId, double betrag, String status) {
 		super();
-		this.rechId = id;
+	
 		this.rechnungsDatum = rechnungsDatum;
 		this.rechnungsName = rechnungsName;
 		this.auftraggeber = auftraggeber;
@@ -33,7 +33,7 @@ public class Rechnung {
 		this.kontoId = kontoId;
 		this.betrag = betrag;
 		this.status = status;
-		this.statusZeitstempel = statusZeitstempel;
+		this.statusZeitstempel = LocalDate.now();
 	}
 
 	public Date getRechnungsDatum() {

@@ -32,10 +32,13 @@ public class Verwaltung {
 	public static void main(String[] args) {
 		
 		dbconnection();
-		filterByParameter("vorname", "Daman", "Person");
+		//updateRechnung("rechnungsName", "nein!!", 3);
+		deleteRechnung(3);
+		//addRechnung( "abc", "person1", "person2", 2, 2, "chg", 20.00, "fertig");
+		//filterByParameter("vorname", "Daman", "Person");
 		//addPerson( "Ömer", "abc", "Kunde", "abcstrasse","5","abc","01292929999","ömer@web.de");
 		//deletePerson(4);
-		updatePerson("vorname","�mer",1);
+		//updatePerson("vorname","�mer",1);
 	}
 	public static Connection dbconnection() {
 		
@@ -51,15 +54,7 @@ public class Verwaltung {
 		return null;
 	}
 	
-	public static ObservableList givePerson(ResultSet rs) throws SQLException {
-		listPerson = FXCollections.observableArrayList();
-		while (rs.next()) {
-			Person p = new  Person(rs.getInt("persId"), rs.getDate("date"), rs.getString("vorname"),rs.getString("nachname"),rs.getString("typ"), rs.getString("strasse"), rs.getString("hausnummer"), rs.getString("stadt"), rs.getString("telefon"), rs.getString("email"));
-			listPerson.add(p);
-		
-		}
-		return listPerson;
-	}
+	
 	//Person
 	public static void addPerson(  String vorname, String nachname, String typ, String strasse, String hausnummer,
 			String stadt, String telefon, String email) {
@@ -104,14 +99,23 @@ public class Verwaltung {
 			 e.printStackTrace();
 		 }
 	 }
+	 
+	 public static ObservableList givePerson(ResultSet rs) throws SQLException {
+			listPerson = FXCollections.observableArrayList();
+			while (rs.next()) {
+				Person p = new  Person(rs.getInt("persId"), rs.getDate("date"), rs.getString("vorname"),rs.getString("nachname"),rs.getString("typ"), rs.getString("strasse"), rs.getString("hausnummer"), rs.getString("stadt"), rs.getString("telefon"), rs.getString("email"));
+				listPerson.add(p);
+			
+			}
+			return listPerson;
+		}
 	 //Finanzen
 	 
-	 public static void addRechnung(int id, String rechnungsName, String auftraggeber, String ansprechpartner,
-				int kassenId, int topfId, String art, double betrag, String status,
-				Calendar statusZeitstempel) {
+	 public static void addRechnung( String rechnungsName, String auftraggeber, String ansprechpartner,
+				int kassenId, int topfId, String art, double betrag, String status) {
 		
-			String query = "INSERT INTO Rechnung(id,  date, rechnungsName, auftraggeber, ansprechpatner, kassenId, topfId, art, betrag, status, statusZeitstempel) VALUES("
-					+ "'"+id+"',"
+			String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpar"
+					+ "tner, kassenId, topfId, art, betrag, status) VALUES("
 					+ "'"+date.now()+"',"
 					+ "'"+rechnungsName+"',"
 					+ "'"+auftraggeber+"',"
@@ -123,7 +127,7 @@ public class Verwaltung {
 					+ "'"+status+"')";
 			System.out.println(query);
 			try {
-				statement.executeQuery(query);
+				statement.executeUpdate(query);
 			}catch (SQLException e ) {
 				e.printStackTrace();
 			}
@@ -132,11 +136,8 @@ public class Verwaltung {
 	 
 	 public static ResultSet updateRechnung(String parameter, String value, int id){
 	    	try {
-				resultSet =  statement.executeQuery("UPDATE  Rechnung "
-												+ "SET" + parameter +  " = "
-												+ "'" + value + "'"
-												+ "WHERE idRechnung="+ id);
-				return resultSet;
+				statement.executeUpdate("UPDATE  Rechnung SET " + parameter +  " = '" + value + "' WHERE rechId="+ id);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -145,8 +146,7 @@ public class Verwaltung {
 	 
 	 public static void deleteRechnung(int id) {
 		 try {
-			 resultSet = statement.executeQuery("DELETE FROM Rechnung"
-			 									+ "WHERE idRechnung="+ id);
+			 statement.executeUpdate("DELETE FROM Rechnung WHERE rechId="+ id);
 		 }catch(SQLException e) {
 			 e.printStackTrace();
 		 }
@@ -154,16 +154,16 @@ public class Verwaltung {
 	 public static ObservableList giveRechnung(ResultSet rs) throws SQLException {
 		 listRechnung = FXCollections.observableArrayList();
 			while (rs.next()) {
-			Rechnung r = new Rechnung(rs.getInt("rechId"), rs.getDate("rechnungsDatum"),rs.getString("rechnungsName"), rs.getString("auftaggeber"), rs.getString("ansprechpartner"), rs.getInt("kassenId"), rs.getInt("topfId"), rs.getString("art"), rs.getInt("kontoId"), rs.getDouble("betrag"), rs.getString("status"), rs.getDate("statusZeitstempel"));
+			Rechnung r = new Rechnung( rs.getDate("rechnungsDatum"),rs.getString("rechnungsName"), rs.getString("auftaggeber"), rs.getString("ansprechpartner"), rs.getInt("kassenId"), rs.getInt("topfId"), rs.getString("art"), rs.getInt("kontoId"), rs.getDouble("betrag"), rs.getString("status"));
 			listRechnung.add(r);
 			}
 			return listRechnung;
 		}
-	 public void exportPDF( int id) {
+	 /*public void exportPDF( int id) {
 		 
-		 com.itextpdf.text.Document name = (com.itextpdf.text.Document) new Document();
-         PdfWriter.getInstance(name, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
-         name.open();            
+		 Document name = new Document();
+         PdfWriter.getInstance((com.itextpdf.text.Document) name, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
+         ((PdfWriter) name).open();            
          //we have four columns in our table
          PdfPTable RechnungT = new PdfPTable(10);
          //create a cell object
@@ -250,8 +250,8 @@ public class Verwaltung {
          
          name.add(RechnungT);
          name.close();
-	 }
-	//Fertigung
+	 }*/
+	 //Fertigung
 	
 	public int getIDofRow(String name) {
     	int id = -1;
@@ -269,10 +269,7 @@ public class Verwaltung {
     }
     
     public void updateParameterByID(String parameter, String value, int id){
-    	String query = "UPDATE production "
-					+ "SET " + parameter + " = "
-					+ "'" + value + "' "
-					+ "WHERE idproduction = " + id;
+    	String query = "UPDATE Auftrag SET " + parameter + " = '" + value + "' WHERE aufId = " + id;
     	try {
 			((java.sql.Statement) statement).executeUpdate(query);
 			//readDataBase();
@@ -281,7 +278,7 @@ public class Verwaltung {
 		}
     }
     
-    public static ResultSet filterByParameter(String parameter, String value, String name){
+    public static ResultSet filterByParameter( String parameter, String value, String name){
     	try {
 			resultSet =  statement.executeQuery("SELECT * FROM "+ name
 											+ " where " + parameter +  " = "
