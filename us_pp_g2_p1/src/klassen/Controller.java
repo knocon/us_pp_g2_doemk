@@ -2,6 +2,7 @@ package klassen;
 import com.sun.xml.internal.bind.v2.schemagen.episode.Package;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javafx.application.Application;
@@ -11,10 +12,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,11 +31,14 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Controller extends Application {
+	private Verwaltung verwaltung;
+	Stage dialog;
 	
 	public static void main(String[] args){
 		Application.launch(Controller.class, args);
-    }
+	}
 	
+	///////////////////////////////   Tabelle Personen   ////////////////////////////////
 	@FXML
 	private TableView<Person> tableView;
 	@FXML
@@ -58,8 +68,8 @@ public class Controller extends Application {
 	void anlegenGeklicktPerson(ActionEvent event) {
 		System.out.println("Person angelegt");
 		try {
-			newDialogWindow("/gui/personen_eingabe.fxml");
-			initTabelle();
+			neuesFenster("/gui/personen_eingabe.fxml");
+			initialisiereTabellen();
 			schreibeDummis();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,6 +81,8 @@ public class Controller extends Application {
 	@FXML
 	void bearbeitenGeklicktPerson(ActionEvent event) {
 		tableView.setEditable(true);
+		Person person = tableView.getSelectionModel().getSelectedItem();
+		System.out.println(person.getVorname());   
 		System.out.println("Bearbeitet");
 	}
 	
@@ -81,7 +93,25 @@ public class Controller extends Application {
 		System.out.println("Geloescht");
 	}
 	
-	// Personen Eingabe Fenster
+	@FXML
+	private Button buttonFilterPerson;
+	@FXML
+	void filterPerson(ActionEvent event) {
+		System.out.println("Gefiltert");
+	}
+	
+	@FXML
+	private Button buttonAllePersonen;
+	@FXML
+	void allePersonen(ActionEvent event) {
+		ladeAllePersonen();
+		System.out.println("Alle Personen");
+	}
+	
+	@FXML
+	private ComboBox<String> comboPersonen;
+	
+	///////////////////////     Personen Eingabe Fenster   //////////////////////////////
 	@FXML
 	private TextField vornameFeld;
 	@FXML
@@ -98,18 +128,42 @@ public class Controller extends Application {
 	private TextField telefonFeld;
 	@FXML
 	private TextField emailFeld;
+	@FXML
+	private TextField nummerFeld;
 	
 	@FXML
 	private Button speichernButtonPersonen;
 	@FXML
 	void personSpeichern(ActionEvent event) {
-		System.out.println("Person gespeichert");
-		//dialog.close();
+		String vorname = vornameFeld.getText();
+		String nachname = nachnameFeld.getText();
+		String rolle = rolleFeld.getText();
+		String strasse = strasseFeld.getText();
+		String stadt = stadtFeld.getText();
+		String plz = plzFeld.getText();
+		String telefon = telefonFeld.getText();
+		String email = emailFeld.getText();
+		String nummer = nummerFeld.getText();
+		if(vorname.isEmpty() || nachname.isEmpty()
+				|| email.isEmpty() || telefon.isEmpty()
+				|| rolle.isEmpty() || plz.isEmpty()
+				|| stadt.isEmpty() || strasse.isEmpty() || nummer.isEmpty()){
+			System.out.println(nachnameFeld.getText());
+			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
+			alert.showAndWait();
+		}
+		else {
+			verwaltung.addPerson(vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
+			((Node)(event.getSource())).getScene().getWindow().hide();
+		}
 	}
 	
+	/////////////////////////////////     Controller    //////////////////////////////////////////////
+	
 	public Controller(){
-		Stage dialog;
 		System.out.println("asd");
+		verwaltung = new Verwaltung();
+		//ladeAllePersonen();
 	}
 
 	@Override
@@ -130,7 +184,15 @@ public class Controller extends Application {
 		System.out.println("??");
 	}
 	
-	private void newDialogWindow(String fxml) throws Exception{
+	public void ladeAllePersonen() {
+		try {
+			verwaltung.givePerson(verwaltung.ladeAllePersonen());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void neuesFenster(String fxml) throws Exception{
         Stage dialog = new Stage();
         Parent page = FXMLLoader.load(getClass().getResource(fxml));
         Scene scene = new Scene(page);
@@ -138,11 +200,15 @@ public class Controller extends Application {
         dialog.show();
     }
 	
-	private void closeDialogWindow() {
-		dialog.close();
-	}
-	
-	public void initTabelle() {
+	public void initialisiereTabellen() {
+		ObservableList<String> options = 
+			    FXCollections.observableArrayList(
+			        "Option 1",
+			        "Option 2",
+			        "Option 3"
+			    );
+		comboPersonen.setItems(options);
+		// Personen
 		vornameCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("vorname"));
 		nachnameCol.setCellValueFactory(
@@ -165,12 +231,12 @@ public class Controller extends Application {
 	}
 	
 	public void schreibeDummis() {
-		Date date = new Date();
+		Date date = new Date(2322414);
 		ObservableList<Person> pList = FXCollections.observableArrayList(
 				new Person (1, date,"Daman", "Kaur", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
-				new Person (1, date,"Ömer", "Tümen", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
-				new Person (1, date,"Kevin", "Nocon", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
-				new Person (1, date,"Martin", "Marburger", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"));
+				new Person (2, date,"Ömer", "Tümen", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
+				new Person (3, date,"Kevin", "Nocon", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
+				new Person (4, date,"Martin", "Marburger", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"));
 		tableView.setItems(pList);
 	}
 	

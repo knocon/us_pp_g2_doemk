@@ -29,18 +29,18 @@ public class Verwaltung {
 	static ObservableList<Person> listPerson ;
 	static ObservableList<Rechnung> listRechnung ;
 	
-	public static void main(String[] args) {
-		
+	public Verwaltung() {
 		dbconnection();
 		//updateRechnung("rechnungsName", "nein!!", 3);
-		deleteRechnung(3);
+		//deleteRechnung(3);
 		//addRechnung( "abc", "person1", "person2", 2, 2, "chg", 20.00, "fertig");
 		//filterByParameter("vorname", "Daman", "Person");
 		//addPerson( "Ömer", "abc", "Kunde", "abcstrasse","5","abc","01292929999","ömer@web.de");
 		//deletePerson(4);
 		//updatePerson("vorname","�mer",1);
 	}
-	public static Connection dbconnection() {
+	
+	public Connection dbconnection() {
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -56,7 +56,17 @@ public class Verwaltung {
 	
 	
 	//Person
-	public static void addPerson(  String vorname, String nachname, String typ, String strasse, String hausnummer,
+	public ResultSet ladeAllePersonen() {
+		try {
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Person"); 
+			return resultSet;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public void addPerson(  String vorname, String nachname, String typ, String strasse, String hausnummer,
 			String stadt, String telefon, String email) {
 	
 		String query = "INSERT INTO PERSON(  date,vorname, nachname,  typ, strasse, hausnummer, stadt,  telefon, email) VALUES("
@@ -80,18 +90,18 @@ public class Verwaltung {
 		
 	}
 	
-	 public static ResultSet updatePerson(String parameter, String value, int id){
-	    	String query = "UPDATE  Person SET " + parameter +  " = '" + value + "' WHERE persId="+ id;
+	 public ResultSet updatePerson(String parameter, String value, int id){
+    	String query = "UPDATE  Person SET " + parameter +  " = '" + value + "' WHERE persId="+ id;
 		 try {
-	    		statement.executeUpdate(query);
+    		statement.executeUpdate(query);
 				
-			} catch (SQLException e) {
+		 } catch (SQLException e) {
 				e.printStackTrace();
-			}
-	    	return null;
-	    }
+    	}
+		 return null;
+	 }
 	 
-	 public static void deletePerson(int id) {
+	 public void deletePerson(int id) {
 		 String query="DELETE FROM Person WHERE persId ="+ id;
 		 try {
 			  statement.executeUpdate(query);
@@ -100,18 +110,18 @@ public class Verwaltung {
 		 }
 	 }
 	 
-	 public static ObservableList givePerson(ResultSet rs) throws SQLException {
-			listPerson = FXCollections.observableArrayList();
-			while (rs.next()) {
-				Person p = new  Person(rs.getInt("persId"), rs.getDate("date"), rs.getString("vorname"),rs.getString("nachname"),rs.getString("typ"), rs.getString("strasse"), rs.getString("hausnummer"), rs.getString("stadt"), rs.getString("telefon"), rs.getString("email"));
-				listPerson.add(p);
-			
-			}
-			return listPerson;
+	 public ObservableList<Person> givePerson(ResultSet rs) throws SQLException {
+		listPerson = FXCollections.observableArrayList();
+		while (rs.next()) {
+			Person p = new  Person(rs.getInt("persId"), rs.getDate("date"), rs.getString("vorname"),rs.getString("nachname"),rs.getString("typ"), rs.getString("strasse"), rs.getString("hausnummer"), rs.getString("stadt"), rs.getString("telefon"), rs.getString("email"));
+			listPerson.add(p);
 		}
+		return listPerson;
+	}
+	 
 	 //Finanzen
 	 
-	 public static void addRechnung( String rechnungsName, String auftraggeber, String ansprechpartner,
+	 public void addRechnung( String rechnungsName, String auftraggeber, String ansprechpartner,
 				int kassenId, int topfId, String art, double betrag, String status) {
 		
 			String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpar"
@@ -134,7 +144,7 @@ public class Verwaltung {
 			
 		}
 	 
-	 public static ResultSet updateRechnung(String parameter, String value, int id){
+	 public ResultSet updateRechnung(String parameter, String value, int id){
 	    	try {
 				statement.executeUpdate("UPDATE  Rechnung SET " + parameter +  " = '" + value + "' WHERE rechId="+ id);
 				
@@ -144,14 +154,15 @@ public class Verwaltung {
 	    	return null;
 	    }
 	 
-	 public static void deleteRechnung(int id) {
+	 public void deleteRechnung(int id) {
 		 try {
 			 statement.executeUpdate("DELETE FROM Rechnung WHERE rechId="+ id);
 		 }catch(SQLException e) {
 			 e.printStackTrace();
 		 }
 	 }
-	 public static ObservableList giveRechnung(ResultSet rs) throws SQLException {
+	 
+	 public ObservableList giveRechnung(ResultSet rs) throws SQLException {
 		 listRechnung = FXCollections.observableArrayList();
 			while (rs.next()) {
 			Rechnung r = new Rechnung( rs.getDate("rechnungsDatum"),rs.getString("rechnungsName"), rs.getString("auftaggeber"), rs.getString("ansprechpartner"), rs.getInt("kassenId"), rs.getInt("topfId"), rs.getString("art"), rs.getInt("kontoId"), rs.getDouble("betrag"), rs.getString("status"));
