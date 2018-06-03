@@ -16,10 +16,10 @@ public class Person {
 	private String telefon;
 	private String email;
 	
-	public Person(int id, Date date2,String vorname, String nachname, String typ, String strasse, String hausnummer,
+	public Person(int id,String vorname, String nachname, String typ, String strasse, String hausnummer,
 			String stadt, String telefon, String email) {
 		super();
-		this.date = date2;
+		//this.date = date2;
 		this.persId = id;
 		this.vorname = vorname;
 		this.nachname = nachname;

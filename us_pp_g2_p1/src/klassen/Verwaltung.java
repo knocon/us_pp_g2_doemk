@@ -56,30 +56,30 @@ public class Verwaltung {
 	
 	
 	//Person
-	public ResultSet ladeAllePersonen() {
+	public ObservableList<Person> ladeAllePersonen() {
 		try {
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM Person"); 
-			return resultSet;
+			ObservableList<Person> ret = givePerson(resultSet);
+			return ret;
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	public void addPerson(  String vorname, String nachname, String typ, String strasse, String hausnummer,
-			String stadt, String telefon, String email) {
+	public void addPerson(Person p) {
 	
-		String query = "INSERT INTO PERSON(  date,vorname, nachname,  typ, strasse, hausnummer, stadt,  telefon, email) VALUES("
+		String query = "INSERT INTO PERSON(  datum,vorname, nachname,  typ, strasse, hausnummer, stadt,  telefon, email) VALUES("
 				
-				+ "'"+date.now()+"',"
-				+ "'"+vorname+"',"
-				+ "'"+nachname+"',"
-				+ "'"+typ+"',"
-				+ "'"+strasse+"',"
-				+ "'"+hausnummer+"',"
-				+ "'"+stadt+"',"
-				+ "'"+telefon+"',"
-				+ "'"+email+"')";
+				+ "'"+LocalDate.now()+"',"
+				+ "'"+p.getVorname()+"',"
+				+ "'"+p.getNachname()+"',"
+				+ "'"+p.getTyp()+"',"
+				+ "'"+p.getStrasse()+"',"
+				+ "'"+p.getHausnummer()+"',"
+				+ "'"+p.getStadt()+"',"
+				+ "'"+p.getTelefon()+"',"
+				+ "'"+p.getEmail()+"')";
 		System.out.println(query);
 		
 		try {
@@ -90,7 +90,7 @@ public class Verwaltung {
 		
 	}
 	
-	 public ResultSet updatePerson(String parameter, String value, int id){
+	 public void updatePerson(String parameter, String value, int id){
     	String query = "UPDATE  Person SET " + parameter +  " = '" + value + "' WHERE persId="+ id;
 		 try {
     		statement.executeUpdate(query);
@@ -98,7 +98,6 @@ public class Verwaltung {
 		 } catch (SQLException e) {
 				e.printStackTrace();
     	}
-		 return null;
 	 }
 	 
 	 public void deletePerson(int id) {
@@ -113,7 +112,7 @@ public class Verwaltung {
 	 public ObservableList<Person> givePerson(ResultSet rs) throws SQLException {
 		listPerson = FXCollections.observableArrayList();
 		while (rs.next()) {
-			Person p = new  Person(rs.getInt("persId"), rs.getDate("date"), rs.getString("vorname"),rs.getString("nachname"),rs.getString("typ"), rs.getString("strasse"), rs.getString("hausnummer"), rs.getString("stadt"), rs.getString("telefon"), rs.getString("email"));
+			Person p = new  Person(rs.getInt("persId"), rs.getString("vorname"),rs.getString("nachname"),rs.getString("typ"), rs.getString("strasse"), rs.getString("hausnummer"), rs.getString("stadt"), rs.getString("telefon"), rs.getString("email"));
 			listPerson.add(p);
 		}
 		return listPerson;
@@ -170,98 +169,7 @@ public class Verwaltung {
 			}
 			return listRechnung;
 		}
-	 /*public void exportPDF( int id) {
-		 
-		 Document name = new Document();
-         PdfWriter.getInstance((com.itextpdf.text.Document) name, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
-         ((PdfWriter) name).open();            
-         //we have four columns in our table
-         PdfPTable RechnungT = new PdfPTable(10);
-         //create a cell object
-         PdfPCell table_cell;
-		 
-         while (resultSet.next()) {    
-        	 if(resultSet.getRowId(id).equals(id)) {
-             String dept_id = resultSet.getString("Rechnung_rechId");
-             table_cell=new PdfPCell(new Phrase("Rechnung_id:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_id));
-             RechnungT.addCell(table_cell);
-             
-             String dept_rechnungsId = resultSet.getString("Rechnung_rechnungsDatum");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Datum:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_rechnungsId));
-             RechnungT.addCell(table_cell);
-             
-             String dept_rechnungsName = resultSet.getString("Rechnung_rechnungsName");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Name:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_rechnungsName));
-             RechnungT.addCell(table_cell);
-             
-             String dept_auftraggeber = resultSet.getString("Rechnung_auftraggeber");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Auftraggeber:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_auftraggeber));
-             RechnungT.addCell(table_cell);
-             
-             String dept_ansprechpartner = resultSet.getString("Rechnung_ansprechpartner");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Ansprechpartner:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_ansprechpartner));
-             RechnungT.addCell(table_cell);
-            
-             String dept_kassenId = resultSet.getString("Rechnung_kassenId");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Kasse:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_kassenId));
-             RechnungT.addCell(table_cell);
-             
-             String dept_topfId = resultSet.getString("Rechnung_topfId");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Topf:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_topfId));
-             RechnungT.addCell(table_cell);
-             
-             String dept_art = resultSet.getString("Rechnung_art");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Art:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_art));
-             RechnungT.addCell(table_cell);
-             
-             String dept_kontoId = resultSet.getString("Rechnung_kontoId");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Konto:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_kontoId));
-             RechnungT.addCell(table_cell);
-             
-             String dept_betrag = resultSet.getString("Rechnung_betrag");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Betrag:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_betrag));
-             RechnungT.addCell(table_cell);
-             
-             String dept_status = resultSet.getString("Rechnung_status");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Status:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_status));
-             RechnungT.addCell(table_cell);
-             
-             String dept_statusZeitstempel = resultSet.getString("Rechnung_statusZeitstempel");
-             table_cell=new PdfPCell(new Phrase("Rechnung_Zeitstempel:"));
-             RechnungT.addCell(table_cell);
-             table_cell=new PdfPCell(new Phrase(dept_statusZeitstempel));
-             RechnungT.addCell(table_cell);
-             
-             
-        	 }
-         
-         }
-         
-         name.add(RechnungT);
-         name.close();
-	 }*/
+	 
 	 //Fertigung
 	
 	public int getIDofRow(String name) {
@@ -289,20 +197,18 @@ public class Verwaltung {
 		}
     }
     
-    public static ResultSet filterByParameter( String parameter, String value, String name){
+    public ObservableList<Person> filterByParameter( String parameter, String value, String tabellenname){
+    	String query = "SELECT * FROM "+ tabellenname + " where " + parameter +  " = " + "'" + value + "'";
+    	System.out.println(query);
     	try {
-			resultSet =  statement.executeQuery("SELECT * FROM "+ name
+			resultSet =  statement.executeQuery("SELECT * FROM "+ tabellenname
 											+ " where " + parameter +  " = "
 											+ "'" + value + "'");
-			return resultSet;
+			ObservableList<Person> list = givePerson(resultSet);
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
     	return null;
     }
-    
-    
-	
-	
-	
 }
