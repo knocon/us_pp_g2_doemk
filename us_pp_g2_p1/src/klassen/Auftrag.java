@@ -8,18 +8,20 @@ public class Auftrag {
 	private String titel;
 	private String art;
 	private String dateiname;
-	private double kosten;
+	private String rkosten;
+	private String pkosten;
 	private String status;
 	private Calendar statusZeitstempel = Calendar.getInstance();
 	
-	public Auftrag(int aufId, String titel, String art, String dateiname, double kosten, String status,
+	public Auftrag(int aufId, String titel, String art, String dateiname, String rkosten, String pkosten, String status,
 			Calendar statusZeitstempel) {
 		super();
 		this.aufId = aufId;
 		this.titel = titel;
 		this.art = art;
 		this.dateiname = dateiname;
-		this.kosten = kosten;
+		this.setRkosten(rkosten);
+		this.setPkosten(pkosten);
 		this.status = status;
 		this.statusZeitstempel = statusZeitstempel;
 	}
@@ -56,14 +58,6 @@ public class Auftrag {
 		this.dateiname = dateiname;
 	}
 
-	public double getKosten() {
-		return kosten;
-	}
-
-	public void setKosten(double kosten) {
-		this.kosten = kosten;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -78,6 +72,34 @@ public class Auftrag {
 
 	public void setStatusZeitstempel(Calendar statusZeitstempel) {
 		this.statusZeitstempel = statusZeitstempel;
+	}
+
+	/**
+	 * @return the rkosten
+	 */
+	public String getRkosten() {
+		return rkosten;
+	}
+
+	/**
+	 * @param rkosten the rkosten to set
+	 */
+	public void setRkosten(String rkosten) {
+		this.rkosten = rkosten;
+	}
+
+	/**
+	 * @return the pkosten
+	 */
+	public String getPkosten() {
+		return pkosten;
+	}
+
+	/**
+	 * @param pkosten the pkosten to set
+	 */
+	public void setPkosten(String pkosten) {
+		this.pkosten = pkosten;
 	}
 
 	

@@ -1,25 +1,11 @@
 package klassen;
-import com.sun.xml.internal.bind.v2.schemagen.episode.Package;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import javax.swing.text.DateFormatter;
-
 import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,16 +14,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 
 
 public class Controller extends Application {
@@ -48,6 +30,8 @@ public class Controller extends Application {
 		Application.launch(Controller.class, args);
 	}
 	
+	@FXML
+	private Label toolText;
 	///////////////////////////////   Tabelle Personen   ////////////////////////////////
 	@FXML
 	private TableView<Person> tableView;
@@ -77,7 +61,7 @@ public class Controller extends Application {
 	@FXML
 	void anlegenGeklicktPerson(ActionEvent event) {
 		try {
-			neuesFenster("/gui/personen_eingabe.fxml");
+			neuesFenster("/gui/personen_eingabe.fxml", "Anlegen einer neuen Person");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,14 +74,14 @@ public class Controller extends Application {
 		tableView.setEditable(true);
 		Person person = tableView.getSelectionModel().getSelectedItem();
 		if(person!=null) {
-			neuesFenster("/gui/personen_eingabe.fxml");
+			neuesFenster("/gui/personen_eingabe.fxml","Bearbeiten einer Person");
 			befuelleFenster(person);
 		}
 		else {
 			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
 			abfrage.showAndWait();
 		}
-		System.out.println("Bearbeitet");
+		schreibeStatus("Person bearbeitet");
 	}
 
 	@FXML
@@ -111,7 +95,7 @@ public class Controller extends Application {
 			if(abfrage.getResult() == ButtonType.YES) {
 				verwaltung.deletePerson(person.getPersId());
 				ladeAllePersonen();
-				System.out.println("Geloescht");
+				schreibeStatus("Person Gelöscht");
 			}
 		}
 		else {
@@ -144,9 +128,8 @@ public class Controller extends Application {
 	private Button buttonAllePersonen;
 	@FXML
 	void allePersonen(ActionEvent event) {
-		initialisiereTabellen();
 		ladeAllePersonen();
-		System.out.println("Alle Personen");
+		schreibeStatus("Alle Personen werden angezeigt");
 	}
 	
 	@FXML
@@ -197,14 +180,65 @@ public class Controller extends Application {
 			alert.showAndWait();
 		}
 		else {
-			ObjectProperty<Date> date =  new SimpleObjectProperty<>();
-			long millis = System.currentTimeMillis();
-			Person p = new Person(1, millis ,vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
+			long time = System.currentTimeMillis();
+			Person p = new Person(1, time ,vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
 			verwaltung.addPerson(p);
 			((Node)(event.getSource())).getScene().getWindow().hide();
 			ladeAllePersonen();
 			System.out.println("Person angelegt");
 		}
+	}
+	
+	////////////////////////////////     Auftragsverwaltung   /////////////////////////////////////////
+	@FXML
+	private TableView<Auftrag> auftragTable;
+	@FXML
+	private TableColumn<Person, String> titelAuftrag;
+	@FXML
+	private TableColumn<Person, String> artAuftrag;
+	@FXML
+	private TableColumn<Person, String> dateiAuftrag;
+	@FXML
+	private TableColumn<Person, String> pKostenAuftrag;
+	@FXML
+	private TableColumn<Person, String> rKostenAuftrag;
+	@FXML
+	private TableColumn<Person, String> statusAuftrag;
+	@FXML
+	private TableColumn<Person, String> datumAuftrag;
+	
+	@FXML ComboBox<String> comboAuftrag;
+	
+	@FXML
+	private Button anlegenButtonAuftrag;
+	@FXML
+	void anlegenGeklicktAuftrag(ActionEvent event) {
+		try {
+			neuesFenster("/gui/auftrag_eingabe.fxml", "Anlegen eines neuen Auftrags");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private Button bearbeitenButtonAuftrag;
+	@FXML
+	void bearbeitenGeklicktAuftrag(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	private Button loeschenButtonAuftrag;
+	@FXML
+	void loeschenGeklicktAuftrag(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	private Button exportButtonAuftrag;
+	@FXML
+	void exportGeklicktAuftrag(ActionEvent event) {
+		
 	}
 	
 	/////////////////////////////////     Controller    //////////////////////////////////////////////
@@ -235,48 +269,21 @@ public class Controller extends Application {
 		
 	}
 	
-	public void ladeAllePersonen() {
-		ObservableList<Person> personen = verwaltung.ladeAllePersonen();
-		tableView.setItems(personen);
-	}
-	
-	private void neuesFenster(String fxml) {
-        Stage dialog = new Stage();
-        Parent page;
-		try {
-			page = FXMLLoader.load(getClass().getResource(fxml));
-			Scene scene = new Scene(page);
-			dialog.setScene(scene);
-	        dialog.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
-	
-	public void initialisiereTabellen() {
-		ObservableList<String> options = 
+	@FXML
+	public void initialize() {
+		// Personen
+		ObservableList<String> optionsPers = 
 			    FXCollections.observableArrayList(
 			        "Vorname",
 			        "Nachname",
 			        "Rolle",
 			        "Stadt"
 			    );
-		comboPersonen.setItems(options);
+		comboPersonen.setItems(optionsPers);
 		comboPersonen.getSelectionModel().selectFirst();
-
-		// Personen
+		
 		vornameCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("vorname"));
-		vornameCol.setOnEditCommit(
-	            new EventHandler<CellEditEvent<Person, String>>() {
-	                @Override
-	                public void handle(CellEditEvent<Person, String> t) {
-	                    ((Person) t.getTableView().getItems().get(
-	                            t.getTablePosition().getRow())
-	                            ).setVorname(t.getNewValue());
-	                }
-	            }
-	        );
 		nachnameCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("nachname"));
 		emailCol.setCellValueFactory(
@@ -287,29 +294,62 @@ public class Controller extends Application {
                 new PropertyValueFactory<Person, String>("dateString"));
 		telefonCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("telefon"));
-		stadtCol.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("stadt"));
 		adresseCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("strasse"));
 		nummerCol.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("hausnummer"));
+                new PropertyValueFactory<Person, String>("hausnummer"));	
+		ladeAllePersonen();
 		
+		// Aufträge
+		ObservableList<String> optionsAuf = 
+			    FXCollections.observableArrayList(
+			        "Titel",
+			        "Art",
+			        "Status"
+			    );
+		comboAuftrag.setItems(optionsAuf);
+		comboAuftrag.getSelectionModel().selectFirst();
+		
+		titelAuftrag.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("titel"));
+		artAuftrag.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("art"));
+		dateiAuftrag.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("dateiname"));
+		pKostenAuftrag.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("pkosten"));
+		rKostenAuftrag.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("rkosten"));
+		statusAuftrag.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("datum"));
+	}
+	
+	public void ladeAllePersonen() {
+		ObservableList<Person> personen = verwaltung.ladeAllePersonen();
+		tableView.setItems(personen);
+	}
+	
+	private void neuesFenster(String fxml, String fensterTitel) {
+        Stage dialog = new Stage();
+        Parent page;
+		try {
+			page = FXMLLoader.load(getClass().getResource(fxml));
+			Scene scene = new Scene(page);
+			dialog.setScene(scene);
+			dialog.setTitle(fensterTitel);
+	        dialog.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+	
+	private void schreibeStatus(String status) {
+		String nStatus = "eLab Verwaltung  :  " + status;
+		//toolText.setText(nStatus);
 	}
 	
 	private void befuelleFenster(Person person) {
 		vornameFeld.setText("Hallo");
-		
+		System.out.println("Hi");
 	}
-	
-	public void schreibeDummis() {
-		Date date = new Date(2322414);
-		/**
-		ObservableList<Person> pList = FXCollections.observableArrayList(
-				new Person (1, "Daman", "Kaur", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
-				new Person (2, "Ömer", "Tümen", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
-				new Person (3, "Kevin", "Nocon", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
-				new Person (4, "Martin", "Marburger", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"));
-		tableView.setItems(pList); **/
-	}
-	
 }

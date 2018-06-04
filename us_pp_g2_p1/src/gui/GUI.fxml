@@ -6,9 +6,12 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.Controller">
    <bottom>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <items>
+            <Label fx:id="toolText" text="Willkommen" />
+         </items></ToolBar>
    </bottom>
    <center>
       <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
@@ -122,76 +125,72 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <top>
-                              <HBox minHeight="50.0" BorderPane.alignment="CENTER">
+                           <left>
+                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="150.0" prefHeight="458.0" prefWidth="150.0" spacing="15.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAllePersonen1" mnemonicParsing="false" onAction="#allePersonen" text="Alle anzeigen">
-                                       <HBox.margin>
-                                          <Insets left="15.0" right="15.0" top="15.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Separator orientation="VERTICAL" prefHeight="20.0" />
-                                    <ComboBox fx:id="comboPersonen1" prefWidth="150.0">
-                                       <HBox.margin>
-                                          <Insets left="15.0" top="15.0" />
-                                       </HBox.margin>
-                                    </ComboBox>
-                                    <Label text="nach">
-                                       <HBox.margin>
-                                          <Insets left="15.0" right="15.0" top="20.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <TextField minWidth="150.0" prefWidth="200.0">
-                                       <HBox.margin>
-                                          <Insets top="15.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                    <Button fx:id="buttonFilterPerson1" mnemonicParsing="false" onAction="#filterPerson" text="Filtern">
-                                       <HBox.margin>
-                                          <Insets left="15.0" top="15.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Separator orientation="VERTICAL" prefHeight="20.0">
-                                       <HBox.margin>
-                                          <Insets left="15.0" />
-                                       </HBox.margin>
-                                    </Separator>
-                                    <Button mnemonicParsing="false" text="Anlegen">
-                                       <HBox.margin>
-                                          <Insets left="15.0" right="15.0" top="15.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" text="Bearbeiten">
-                                       <HBox.margin>
-                                          <Insets top="15.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" text="Status verändern">
-                                       <HBox.margin>
-                                          <Insets left="15.0" right="15.0" top="15.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" text="Löschen">
-                                       <HBox.margin>
-                                          <Insets right="15.0" top="15.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Separator orientation="VERTICAL" prefHeight="20.0" />
+                                    <Button fx:id="anlegenButtonAuftrag" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#anlegenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
+                                    <Button fx:id="bearbeitenButtonAuftrag" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bearbeitenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
+                                    <Button fx:id="loeschenButtonAuftrag" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#loeschenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
+                                    <Button fx:id="exportButtonAuftrag" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#exportGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Export" />
                                  </children>
-                              </HBox>
-                           </top>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
                            <center>
-                              <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                <columns>
-                                  <TableColumn prefWidth="200.0" text="Titel" />
-                                  <TableColumn prefWidth="150.0" text="Art" />
-                                    <TableColumn prefWidth="150.0" text="Dateiname" />
-                                    <TableColumn prefWidth="105.0" text="prog. Kosten" />
-                                    <TableColumn prefWidth="100.0" text="reele Kosten" />
-                                    <TableColumn prefWidth="150.0" text="Status" />
-                                    <TableColumn prefWidth="75.0" text="Datum" />
-                                </columns>
-                              </TableView>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <TableView fx:id="auftragTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                      <columns>
+                                        <TableColumn fx:id="titelAuftrag" prefWidth="200.0" text="Titel" />
+                                        <TableColumn fx:id="artAuftrag" prefWidth="150.0" text="Art" />
+                                          <TableColumn fx:id="dateiAuftrag" prefWidth="150.0" text="Dateiname" />
+                                          <TableColumn fx:id="pKostenAuftrag" prefWidth="105.0" text="prog. Kosten" />
+                                          <TableColumn fx:id="rKostenAuftrag" prefWidth="100.0" text="reele Kosten" />
+                                          <TableColumn fx:id="statusAuftrag" prefWidth="150.0" text="Status" />
+                                          <TableColumn fx:id="datumAuftrag" prefWidth="75.0" text="Datum" />
+                                      </columns>
+                                    </TableView>
+                                 </center>
+                                 <top>
+                                    <HBox minHeight="50.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button fx:id="buttonAllePersonen1" mnemonicParsing="false" onAction="#allePersonen" text="Alle anzeigen">
+                                             <HBox.margin>
+                                                <Insets left="15.0" right="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Separator orientation="VERTICAL" prefHeight="20.0" />
+                                          <ComboBox fx:id="comboAuftrag" prefWidth="150.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <Label text="nach">
+                                             <HBox.margin>
+                                                <Insets left="15.0" right="15.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField minWidth="150.0" prefWidth="200.0">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="buttonFilterPerson1" mnemonicParsing="false" onAction="#filterPerson" text="Filtern">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Separator orientation="VERTICAL" prefHeight="20.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </Separator>
+                                       </children>
+                                    </HBox>
+                                 </top>
+                              </BorderPane>
                            </center>
                         </BorderPane>
                      </children></AnchorPane>
@@ -221,7 +220,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="Login">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="Anmelden" />
+                  <MenuItem mnemonicParsing="false" text="Registrieren" />
             </items>
           </Menu>
         </menus>

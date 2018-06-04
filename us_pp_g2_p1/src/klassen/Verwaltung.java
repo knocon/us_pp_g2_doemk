@@ -63,7 +63,7 @@ public class Verwaltung {
 	public ObservableList<Person> ladeAllePersonen() {
 		try {
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM Person"); 
-			ObservableList<Person> ret = givePerson(resultSet);
+			ObservableList<Person> ret = getPerson(resultSet);
 			return ret;
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -112,7 +112,7 @@ public class Verwaltung {
 		 }
 	 }
 	 
-	 public ObservableList<Person> givePerson(ResultSet rs) throws SQLException {
+	 public ObservableList<Person> getPerson(ResultSet rs) throws SQLException {
 		listPerson = FXCollections.observableArrayList();
 		while (rs.next()) {
 			System.out.println(rs.getLong("date"));
@@ -217,7 +217,7 @@ public class Verwaltung {
 			resultSet =  statement.executeQuery("SELECT * FROM "+ tabellenname
 											+ " where " + parameter +  " = "
 											+ "'" + value + "'");
-			ObservableList<Person> list = givePerson(resultSet);
+			ObservableList<Person> list = getPerson(resultSet);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
