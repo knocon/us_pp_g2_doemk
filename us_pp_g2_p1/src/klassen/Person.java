@@ -1,12 +1,17 @@
 package klassen;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 public class Person {
-	
 	private int persId;
-	private Date date;
+	long datum;
+	String dateString;
 	private String vorname;
 	private String nachname;
 	private String typ;
@@ -16,10 +21,15 @@ public class Person {
 	private String telefon;
 	private String email;
 	
-	public Person(int id,String vorname, String nachname, String typ, String strasse, String hausnummer,
+	public Person(int id, long datum,String vorname, String nachname, String typ, String strasse, String hausnummer,
 			String stadt, String telefon, String email) {
 		super();
-		//this.date = date2;
+		this.datum = datum;
+		Date date = new Date(datum);
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy HH:mm");
+		dateString = format.format(date);
+		System.out.println(datum);
+		System.out.println(dateString);
 		this.persId = id;
 		this.vorname = vorname;
 		this.nachname = nachname;
@@ -29,6 +39,14 @@ public class Person {
 		this.stadt = stadt;
 		this.telefon = telefon;
 		this.email = email;
+	}
+	
+	public String getDateString() {
+		return dateString;
+	}
+	
+	public long getDateLong() {
+		return datum;
 	}
 	
 	public String getVorname() {

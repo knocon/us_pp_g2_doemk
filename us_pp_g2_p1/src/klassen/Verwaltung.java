@@ -4,12 +4,13 @@ import java.beans.Statement;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.swing.text.Document;
 
@@ -18,6 +19,8 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -38,6 +41,7 @@ public class Verwaltung {
 		//addPerson( "Ömer", "abc", "Kunde", "abcstrasse","5","abc","01292929999","ömer@web.de");
 		//deletePerson(4);
 		//updatePerson("vorname","�mer",1);
+		
 	}
 	
 	public Connection dbconnection() {
@@ -68,10 +72,9 @@ public class Verwaltung {
 	}
 	
 	public void addPerson(Person p) {
-	
-		String query = "INSERT INTO PERSON(  datum,vorname, nachname,  typ, strasse, hausnummer, stadt,  telefon, email) VALUES("
+		String query = "INSERT INTO PERSON(  date,vorname, nachname,  typ, strasse, hausnummer, stadt,  telefon, email) VALUES("
 				
-				+ "'"+LocalDate.now()+"',"
+				+ "'"+p.getDateLong()+"',"
 				+ "'"+p.getVorname()+"',"
 				+ "'"+p.getNachname()+"',"
 				+ "'"+p.getTyp()+"',"
@@ -112,7 +115,18 @@ public class Verwaltung {
 	 public ObservableList<Person> givePerson(ResultSet rs) throws SQLException {
 		listPerson = FXCollections.observableArrayList();
 		while (rs.next()) {
-			Person p = new  Person(rs.getInt("persId"), rs.getString("vorname"),rs.getString("nachname"),rs.getString("typ"), rs.getString("strasse"), rs.getString("hausnummer"), rs.getString("stadt"), rs.getString("telefon"), rs.getString("email"));
+			System.out.println(rs.getLong("date"));
+			Person p = new  Person(
+					rs.getInt("persId"),
+					rs.getLong("date"), 
+					rs.getString("vorname"),
+					rs.getString("nachname"),
+					rs.getString("typ"), 
+					rs.getString("strasse"), 
+					rs.getString("hausnummer"), 
+					rs.getString("stadt"), 
+					rs.getString("telefon"), 
+					rs.getString("email"));
 			listPerson.add(p);
 		}
 		return listPerson;
@@ -122,7 +136,6 @@ public class Verwaltung {
 	 
 	 public void addRechnung( String rechnungsName, String auftraggeber, String ansprechpartner,
 				int kassenId, int topfId, String art, double betrag, String status) {
-		
 			String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpar"
 					+ "tner, kassenId, topfId, art, betrag, status) VALUES("
 					+ "'"+date.now()+"',"

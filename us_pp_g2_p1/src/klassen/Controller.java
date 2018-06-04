@@ -3,9 +3,16 @@ import com.sun.xml.internal.bind.v2.schemagen.episode.Package;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.text.DateFormatter;
 
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -189,7 +197,9 @@ public class Controller extends Application {
 			alert.showAndWait();
 		}
 		else {
-			Person p = new Person(1, vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
+			ObjectProperty<Date> date =  new SimpleObjectProperty<>();
+			long millis = System.currentTimeMillis();
+			Person p = new Person(1, millis ,vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
 			verwaltung.addPerson(p);
 			((Node)(event.getSource())).getScene().getWindow().hide();
 			ladeAllePersonen();
@@ -274,7 +284,7 @@ public class Controller extends Application {
 		rolleCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("typ"));
 		stempelCol.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("date"));
+                new PropertyValueFactory<Person, String>("dateString"));
 		telefonCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("telefon"));
 		stadtCol.setCellValueFactory(
@@ -293,12 +303,13 @@ public class Controller extends Application {
 	
 	public void schreibeDummis() {
 		Date date = new Date(2322414);
+		/**
 		ObservableList<Person> pList = FXCollections.observableArrayList(
 				new Person (1, "Daman", "Kaur", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
 				new Person (2, "Ömer", "Tümen", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
 				new Person (3, "Kevin", "Nocon", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"),
 				new Person (4, "Martin", "Marburger", "Student","Hölderlinstraße","3","Siegen","123","asd@asd.de"));
-		tableView.setItems(pList);
+		tableView.setItems(pList); **/
 	}
 	
 }

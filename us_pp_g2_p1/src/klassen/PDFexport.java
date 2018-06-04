@@ -22,7 +22,7 @@ import javafx.application.Application;
 public class PDFexport {
 	public static void main(String[] args) throws FileNotFoundException, SQLException, DocumentException{
 		dbconnection();
-		exportPDF(1);
+		exportPDF(1, "Dateiname");
 	}
 	static java.sql.Statement statement;
 	static Connection conn = null;
@@ -46,7 +46,7 @@ public class PDFexport {
         }
     }
 
-	public static void exportPDF( int id) throws SQLException, FileNotFoundException, DocumentException {
+	public static void exportPDF( int id, String pdfName) throws SQLException, FileNotFoundException, DocumentException {
 		Font f = new Font(Font.FontFamily.TIMES_ROMAN, 30, Font.BOLD);
 		ResultSet resultSet = ((java.sql.Statement) statement).executeQuery("SELECT * FROM Rechnung"); 
 		Document name = new Document();
