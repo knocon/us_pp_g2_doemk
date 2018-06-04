@@ -1,96 +1,126 @@
 package klassen;
 
+import java.beans.Statement;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import javafx.application.Application;
+
 public class PDFexport {
-	/*public void exportPDF( int id) {
-	 
-	 Document name = new Document();
-    PdfWriter.getInstance((com.itextpdf.text.Document) name, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
-    ((PdfWriter) name).open();            
-    //we have four columns in our table
-    PdfPTable RechnungT = new PdfPTable(10);
-    //create a cell object
-    PdfPCell table_cell;
-	 
-    while (resultSet.next()) {    
-   	 if(resultSet.getRowId(id).equals(id)) {
-        String dept_id = resultSet.getString("Rechnung_rechId");
-        table_cell=new PdfPCell(new Phrase("Rechnung_id:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_id));
-        RechnungT.addCell(table_cell);
-        
-        String dept_rechnungsId = resultSet.getString("Rechnung_rechnungsDatum");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Datum:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_rechnungsId));
-        RechnungT.addCell(table_cell);
-        
-        String dept_rechnungsName = resultSet.getString("Rechnung_rechnungsName");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Name:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_rechnungsName));
-        RechnungT.addCell(table_cell);
-        
-        String dept_auftraggeber = resultSet.getString("Rechnung_auftraggeber");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Auftraggeber:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_auftraggeber));
-        RechnungT.addCell(table_cell);
-        
-        String dept_ansprechpartner = resultSet.getString("Rechnung_ansprechpartner");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Ansprechpartner:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_ansprechpartner));
-        RechnungT.addCell(table_cell);
-       
-        String dept_kassenId = resultSet.getString("Rechnung_kassenId");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Kasse:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_kassenId));
-        RechnungT.addCell(table_cell);
-        
-        String dept_topfId = resultSet.getString("Rechnung_topfId");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Topf:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_topfId));
-        RechnungT.addCell(table_cell);
-        
-        String dept_art = resultSet.getString("Rechnung_art");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Art:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_art));
-        RechnungT.addCell(table_cell);
-        
-        String dept_kontoId = resultSet.getString("Rechnung_kontoId");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Konto:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_kontoId));
-        RechnungT.addCell(table_cell);
-        
-        String dept_betrag = resultSet.getString("Rechnung_betrag");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Betrag:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_betrag));
-        RechnungT.addCell(table_cell);
-        
-        String dept_status = resultSet.getString("Rechnung_status");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Status:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_status));
-        RechnungT.addCell(table_cell);
-        
-        String dept_statusZeitstempel = resultSet.getString("Rechnung_statusZeitstempel");
-        table_cell=new PdfPCell(new Phrase("Rechnung_Zeitstempel:"));
-        RechnungT.addCell(table_cell);
-        table_cell=new PdfPCell(new Phrase(dept_statusZeitstempel));
-        RechnungT.addCell(table_cell);
-        
-        
-   	 }
-    
+	public static void main(String[] args) throws FileNotFoundException, SQLException, DocumentException{
+		dbconnection();
+		exportPDF(1);
+	}
+	static java.sql.Statement statement;
+	static Connection conn = null;
+	public static Connection dbconnection() {
+	
+			try {
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:database/db.db");
+			statement = conn.createStatement();
+			System.out.println("funkt");
+			return conn;
+			}catch(Exception e) {
+			e.printStackTrace();
+			}
+			return null;
+	}
+	
+	private static void addEmptyLine(Paragraph paragraph, int number) {
+        for (int i = 0; i < number; i++) {
+            paragraph.add(new Paragraph(" "));
+        }
+    }
+
+	public static void exportPDF( int id) throws SQLException, FileNotFoundException, DocumentException {
+		Font f = new Font(Font.FontFamily.TIMES_ROMAN, 30, Font.BOLD);
+		ResultSet resultSet = ((java.sql.Statement) statement).executeQuery("SELECT * FROM Rechnung"); 
+		Document name = new Document();
+		PdfWriter.getInstance((com.itextpdf.text.Document) name, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
+		name.open();
+		while (resultSet.next()) {
+			if(resultSet.getInt("rechId")==id) {
+    	
+    		 Paragraph preface = new Paragraph();
+    		 addEmptyLine(preface, 1);
+    		 preface.add(new Paragraph("Rechnung", f));
+    		  name.add(preface);
+    		 
+    		  Paragraph ID = new Paragraph();
+    		  addEmptyLine(ID,1);
+    		  ID.add(new Paragraph("Rechnungs-Id:"+"       "+resultSet.getInt("rechId")));
+    		  name.add(ID);
+    		  
+    		 Paragraph Name = new Paragraph();
+    		  addEmptyLine(Name,1);
+    		  Name.add(new Paragraph("Rechnungsname:"+"   "+resultSet.getString("rechnungsName")));
+    		  name.add(Name);
+    		  
+    		  Paragraph auftraggeber = new Paragraph();
+    		 addEmptyLine(auftraggeber,1);
+    		 auftraggeber.add(new Paragraph("Auftragsgeber:"+"    "+resultSet.getString("auftraggeber")));
+    		 name.add(auftraggeber);
+    		  
+    		 Paragraph ansprechpartner = new Paragraph();
+    		 addEmptyLine(ansprechpartner,1);
+    		 ansprechpartner.add(new Paragraph("Ansprechpartner:"+"   "+resultSet.getString("ansprechpartner")));
+    		 name.add(ansprechpartner);
+    		 
+    		 Paragraph kassenId = new Paragraph();
+    		 addEmptyLine(kassenId,1);
+    		 kassenId.add(new Paragraph("Kasse:"+"			"+resultSet.getString("kassenId")));
+    		 name.add(kassenId);
+    		 
+    		 Paragraph topfId = new Paragraph();
+    		 addEmptyLine( topfId,1);
+    		 topfId.add(new Paragraph("Topf:"+"			"+resultSet.getString("topfId")));
+    		 name.add(topfId);
+    		 
+    		 Paragraph art = new Paragraph();
+    		 addEmptyLine( art,1);
+    		 art.add(new Paragraph("Art:"+resultSet.getString("art")));
+    		 name.add(art);
+    		 
+    		 Paragraph kontoId = new Paragraph();
+    		 addEmptyLine( kontoId,1);
+    		 kontoId.add(new Paragraph("Konto:"+resultSet.getString("kontoId")));
+    		 name.add(kontoId);
+    		 
+    		 Paragraph betrag = new Paragraph();
+    		 addEmptyLine( betrag,1);
+    		 betrag.add(new Paragraph("Betrag:"+resultSet.getString("betrag")));
+    		 name.add(betrag);
+    		 
+    		 Paragraph status = new Paragraph();
+    		 addEmptyLine( status,1);
+    		 status.add(new Paragraph("Status:"+resultSet.getString("status")));
+    		 name.add(status);
+    		 
+    		 Paragraph statusZeitstempel = new Paragraph();
+    		 addEmptyLine( statusZeitstempel,1);
+    		 statusZeitstempel.add(new Paragraph("Zeitstempel:"+resultSet.getString("statusZeitstempel")));
+    		 name.add(statusZeitstempel);
+    		 
+    		 
+    		 
+    		
+    	 }
     }
     
-    name.add(RechnungT);
     name.close();
-}*/
+}
 }
