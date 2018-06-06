@@ -185,6 +185,45 @@ public class Verwaltung {
 	 
 	 //Fertigung
 	
+	 
+	 public void addAuftrag(Auftrag a) {
+			String query = "INSERT INTO AUFTRAG(  titel,art, dateiname,  kosten, statuszeitstempel, persId) VALUES("
+					
+					+ "'"+a.getTitel()+"',"
+					+ "'"+a.getArt()+"',"
+					+ "'"+a.getDateiname()+"',"
+					+ "'"+a.getRkosten()+"',"
+					+ "'"+a.getDateLong()+"',"
+					+ "'"+a.getPersId()+"')";
+			System.out.println(query);
+			
+			try {
+				statement.executeUpdate(query);
+			}catch (SQLException e ) {
+				e.printStackTrace();
+			}
+			
+		}
+	 
+	 public ResultSet updateAuftrag(String parameter, String value, int id){
+	    	try {
+				statement.executeUpdate("UPDATE  Auftrag SET " + parameter +  " = '" + value + "' WHERE aufId="+ id);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    	return null;
+	    }
+	 
+	 public void delete(int id) {
+		 try {
+			 statement.executeUpdate("DELETE FROM Auftrag WHERE rechId="+ id);
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+		 }
+	 }
+	 
+	 
 	public int getIDofRow(String name) {
     	int id = -1;
     	try {

@@ -1,24 +1,56 @@
 package klassen;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Auftrag {
 	
+	long datum;
+	String dateString;
 	private int aufId;
 	private String titel;
 	private String art;
 	private String dateiname;
 	private String rkosten;
 	private String pkosten;
+	private int persId;
 	
-	public Auftrag(int aufId, String titel, String art, String dateiname, String rkosten, String pkosten) {
+	public Auftrag(int aufId,long datum, String titel, String art, String dateiname, String rkosten, String pkosten, int perId) {
 		super();
+		this.datum = datum;
+		Date date = new Date(datum);
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy HH:mm");
+		dateString = format.format(date);
+		System.out.println(datum);
+		System.out.println(dateString);
+		this.persId = persId;
 		this.aufId = aufId;
 		this.titel = titel;
 		this.art = art;
 		this.dateiname = dateiname;
 		this.setRkosten(rkosten);
 		this.setPkosten(pkosten);
+	}
+	
+	public String getDateString() {
+		return dateString;
+	}
+	
+	public long getDateLong() {
+		return datum;
+	}
+
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
+	}
+
+	public int getPersId() {
+		return persId;
+	}
+
+	public void setPersId(int persId) {
+		this.persId = persId;
 	}
 
 	public int getAufId() {
