@@ -25,6 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class Controller extends Application {
 	private Verwaltung verwaltung;
 	Stage dialog;
+	int init = 0;
 	
 	public static void main(String[] args){
 		Application.launch(Controller.class, args);
@@ -55,6 +56,9 @@ public class Controller extends Application {
 	private TableColumn<Person, String> plzCol;
 	@FXML
 	private TableColumn<Person, String> nummerCol;
+	
+	@FXML
+	private TextField filterFieldPerson;
 	
 	@FXML
 	private Button anlegenButtonPerson;
@@ -136,58 +140,7 @@ public class Controller extends Application {
 	private ComboBox<String> comboPersonen;
 	
 	///////////////////////     Personen Eingabe Fenster   //////////////////////////////
-	@FXML
-	private TextField filterFieldPerson;
 	
-	@FXML
-	private TextField vornameFeld;
-	@FXML
-	private TextField nachnameFeld;
-	@FXML
-	private TextField rolleFeld;
-	@FXML
-	private TextField strasseFeld;
-	@FXML
-	private TextField stadtFeld;
-	@FXML
-	private TextField plzFeld;
-	@FXML
-	private TextField telefonFeld;
-	@FXML
-	private TextField emailFeld;
-	@FXML
-	private TextField nummerFeld;
-	
-	@FXML
-	private Button speichernButtonPersonen;
-	@FXML
-	void personSpeichern(ActionEvent event) {
-		String vorname = vornameFeld.getText();
-		String nachname = nachnameFeld.getText();
-		String rolle = rolleFeld.getText();
-		String strasse = strasseFeld.getText();
-		String stadt = stadtFeld.getText();
-		String plz = plzFeld.getText();
-		String telefon = telefonFeld.getText();
-		String email = emailFeld.getText();
-		String nummer = nummerFeld.getText();
-		if(vorname.isEmpty() || nachname.isEmpty()
-				|| email.isEmpty() || telefon.isEmpty()
-				|| rolle.isEmpty() || plz.isEmpty()
-				|| stadt.isEmpty() || strasse.isEmpty() || nummer.isEmpty()){
-			System.out.println(nachnameFeld.getText());
-			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
-			alert.showAndWait();
-		}
-		else {
-			long time = System.currentTimeMillis();
-			Person p = new Person(1, time ,vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
-			verwaltung.addPerson(p);
-			((Node)(event.getSource())).getScene().getWindow().hide();
-			ladeAllePersonen();
-			System.out.println("Person angelegt");
-		}
-	}
 	
 	////////////////////////////////     Auftragsverwaltung   /////////////////////////////////////////
 	@FXML
@@ -290,6 +243,8 @@ public class Controller extends Application {
                 new PropertyValueFactory<Person, String>("email"));
 		rolleCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("typ"));
+		stadtCol.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("stadt"));
 		stempelCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("dateString"));
 		telefonCol.setCellValueFactory(
@@ -345,11 +300,10 @@ public class Controller extends Application {
 	
 	private void schreibeStatus(String status) {
 		String nStatus = "eLab Verwaltung  :  " + status;
-		//toolText.setText(nStatus);
+		toolText.setText(nStatus);
 	}
 	
 	private void befuelleFenster(Person person) {
-		vornameFeld.setText("Hallo");
 		System.out.println("Hi");
 	}
 }

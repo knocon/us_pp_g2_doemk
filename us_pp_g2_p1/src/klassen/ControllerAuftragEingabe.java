@@ -1,3 +1,4 @@
+
 package klassen;
 
 import com.sun.glass.ui.Application;
@@ -13,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 
-public abstract class ControllerAuftragEingabe extends Application {
+public class ControllerAuftragEingabe {
 	@FXML
 	private TextField titelFeld;
 	@FXML
@@ -23,12 +24,12 @@ public abstract class ControllerAuftragEingabe extends Application {
 	@FXML
 	private TextField reeleKFeld;
 	@FXML
-	private ComboBox comboAuftragEin;
+	private ComboBox<String> comboAuftragEin;
 	
 	@FXML
 	private Button speichernButtonAuftrag;
 	@FXML
-	void speichernButtonAuftrag(ActionEvent event) {
+	void auftragSpeichern(ActionEvent event) {
 		String titel = titelFeld.getText();
 		String datei = dateiFeld.getText();
 		String pKosten = pKostenFeld.getText();
@@ -42,16 +43,19 @@ public abstract class ControllerAuftragEingabe extends Application {
 		}
 		else {
 			long time = System.currentTimeMillis();
-			Auftrag a = new Auftrag(0, titel, rKosten, rKosten, time, rKosten, null)
-			verwaltung.addPerson(p);
+			Auftrag a = new Auftrag(0, titel, art, "datei", rKosten, pKosten);
+			Verwaltung verwaltung = new Verwaltung();
+			//verwaltung.addAuftrag(a);
 			((Node)(event.getSource())).getScene().getWindow().hide();
-			ladeAllePersonen();
 			System.out.println("Person angelegt");
 		}
 	}
 	
-	@Override 
 	public void initialize() {
+		titelFeld.setText("Hallo");
+	}
+	
+	public ControllerAuftragEingabe() {
 		
 	}
 	

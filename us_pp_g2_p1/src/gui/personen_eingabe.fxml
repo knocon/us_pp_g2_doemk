@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="280.0" minWidth="426.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="280.0" minWidth="426.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.ControllerPersonEingabe">
    <bottom>
       <Button fx:id="speichernButtonPersonen" mnemonicParsing="false" onAction="#personSpeichern" text="Speichern" BorderPane.alignment="CENTER">
          <BorderPane.margin>

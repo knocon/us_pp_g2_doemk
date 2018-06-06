@@ -10,11 +10,8 @@ public class Auftrag {
 	private String dateiname;
 	private String rkosten;
 	private String pkosten;
-	private String status;
-	private Calendar statusZeitstempel = Calendar.getInstance();
 	
-	public Auftrag(int aufId, String titel, String art, String dateiname, String rkosten, String pkosten, String status,
-			Calendar statusZeitstempel) {
+	public Auftrag(int aufId, String titel, String art, String dateiname, String rkosten, String pkosten) {
 		super();
 		this.aufId = aufId;
 		this.titel = titel;
@@ -22,8 +19,6 @@ public class Auftrag {
 		this.dateiname = dateiname;
 		this.setRkosten(rkosten);
 		this.setPkosten(pkosten);
-		this.status = status;
-		this.statusZeitstempel = statusZeitstempel;
 	}
 
 	public int getAufId() {
@@ -56,22 +51,6 @@ public class Auftrag {
 
 	public void setDateiname(String dateiname) {
 		this.dateiname = dateiname;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Calendar getStatusZeitstempel() {
-		return statusZeitstempel;
-	}
-
-	public void setStatusZeitstempel(Calendar statusZeitstempel) {
-		this.statusZeitstempel = statusZeitstempel;
 	}
 
 	/**
