@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,6 +30,29 @@ public class Controller extends Application {
 	
 	public static void main(String[] args){
 		Application.launch(Controller.class, args);
+	}
+	
+	//////////////////////////////          Menu          ////////////////////////////////
+	@FXML
+	private MenuItem loginMenu;
+	@FXML
+	void loginGeklickt(ActionEvent event) {
+		try {
+			neuesFenster("/gui/login.fxml", "Login");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private MenuItem registrierenMenu;
+	@FXML
+	void registrierenGeklickt(ActionEvent event) {
+		try {
+			neuesFenster("/gui/registrieren.fxml", "Registrierung");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -159,19 +183,19 @@ public class Controller extends Application {
 	@FXML
 	private TableView<Auftrag> auftragTable;
 	@FXML
-	private TableColumn<Person, String> titelAuftrag;
+	private TableColumn<Auftrag, String> titelAuftrag;
 	@FXML
-	private TableColumn<Person, String> artAuftrag;
+	private TableColumn<Auftrag, String> artAuftrag;
 	@FXML
-	private TableColumn<Person, String> dateiAuftrag;
+	private TableColumn<Auftrag, String> dateiAuftrag;
 	@FXML
-	private TableColumn<Person, String> pKostenAuftrag;
+	private TableColumn<Auftrag, String> pKostenAuftrag;
 	@FXML
-	private TableColumn<Person, String> rKostenAuftrag;
+	private TableColumn<Auftrag, String> rKostenAuftrag;
 	@FXML
-	private TableColumn<Person, String> statusAuftrag;
+	private TableColumn<Auftrag, String> statusAuftrag;
 	@FXML
-	private TableColumn<Person, String> datumAuftrag;
+	private TableColumn<Auftrag, String> datumAuftrag;
 	
 	@FXML ComboBox<String> comboAuftrag;
 	
@@ -179,7 +203,8 @@ public class Controller extends Application {
 	private Button buttonAlleAuftraege;
 	@FXML
 	void alleAuftraege(ActionEvent event) {
-		
+		ladeAlleAuftraege();
+		schreibeStatus("Alle Aufträge werden angezeigt");
 	}
 	
 	@FXML
@@ -193,8 +218,11 @@ public class Controller extends Application {
 	private Button anlegenButtonAuftrag;
 	@FXML
 	void anlegenGeklicktAuftrag(ActionEvent event) {
-		
-	   
+		try {
+			neuesFenster("/gui/personen_eingabe.fxml", "Anlegen einer neuen Person");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -242,7 +270,61 @@ public class Controller extends Application {
 		
 	}
 	
-	/////////////////////////////////     Controller    //////////////////////////////////////////////
+	/////////////////////////////////       Aufträge       //////////////////////////////////////////////
+	@FXML
+	private TableView<Rechnung> rechnungTabelle;
+	@FXML
+	private TableColumn<Rechnung, String> nameRechnung;
+	@FXML
+	private TableColumn<Rechnung, String> datumRechnung;
+	@FXML
+	private TableColumn<Rechnung, String> auftraggeberRechnung;
+	@FXML
+	private TableColumn<Rechnung, String> kasseRechnung;
+	@FXML
+	private TableColumn<Rechnung, String> bezahlungRechnung;
+	@FXML
+	private TableColumn<Rechnung, String> kontoRechnung;
+	@FXML
+	private TableColumn<Rechnung, String> betragRechnung;
+	@FXML
+	private TableColumn<Rechnung, String> statusRechnung;
+	@FXML
+	private TableColumn<Rechnung, String> stempelRechnung;
+	
+	@FXML
+	private Button anlegenButtonRechnung;
+	@FXML
+	void anlegenGeklicktRechnung(ActionEvent event) {
+		try {
+			neuesFenster("/gui/rechnung_eingabe.fxml", "Anlegen einer neuen Rechnung");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private Button bearbeitenButtonRechnung;
+	@FXML
+	void bearbeitenGeklicktRechnung(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	private Button loeschenButtonRechnung;
+	@FXML
+	void loeschenGeklicktRechnung(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	private Button pdfExport;
+	@FXML
+	void pdfExportGeklickt(ActionEvent event) {
+		
+	}
+	
+	/////////////////////////////////       Controller      //////////////////////////////////////////////
 	
 	public Controller(){
 		System.out.println("asd");
@@ -314,17 +396,37 @@ public class Controller extends Application {
 		comboAuftrag.getSelectionModel().selectFirst();
 		
 		titelAuftrag.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("titel"));
+                new PropertyValueFactory<Auftrag, String>("titel"));
 		artAuftrag.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("art"));
+                new PropertyValueFactory<Auftrag, String>("art"));
 		dateiAuftrag.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("dateiname"));
+                new PropertyValueFactory<Auftrag, String>("dateiname"));
 		pKostenAuftrag.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("pkosten"));
+                new PropertyValueFactory<Auftrag, String>("pkosten"));
 		rKostenAuftrag.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("rkosten"));
+                new PropertyValueFactory<Auftrag, String>("rkosten"));
 		statusAuftrag.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("datum"));
+                new PropertyValueFactory<Auftrag, String>("datum"));
+		
+		// Rechnungen
+		nameRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("rechnungsName"));
+		datumRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("rechnungsDatum"));
+		auftraggeberRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("auftraggeber"));
+		kasseRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("typ"));
+		bezahlungRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("stadt"));
+		kontoRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("dateString"));
+		betragRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("telefon"));
+		statusRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("status"));
+		stempelRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("hausnummer"));
 	}
 	
 	public void ladeAllePersonen() {
@@ -356,7 +458,4 @@ public class Controller extends Application {
 		toolText.setText(nStatus);
 	}
 	
-	private void befuelleFenster(Person person) {
-		System.out.println("Hi");
-	}
 }

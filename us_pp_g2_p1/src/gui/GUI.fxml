@@ -198,12 +198,156 @@
           </Tab>
             <Tab text="Finanzen">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <center>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <TableView fx:id="rechnungTabelle" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <columns>
+                                          <TableColumn fx:id="nameRechnung" prefWidth="200.0" text="Name" />
+                                          <TableColumn fx:id="datumRechnung" prefWidth="150.0" text="Datum" />
+                                          <TableColumn fx:id="auftraggeberRechnung" prefWidth="150.0" text="Auftraggeber" />
+                                          <TableColumn fx:id="kasseRechnung" prefWidth="150.0" text="Kasse" />
+                                          <TableColumn fx:id="bezahlungRechnung" prefWidth="100.0" text="Bezahlungsart" />
+                                          <TableColumn fx:id="kontoRechnung" prefWidth="150.0" text="Konto" />
+                                          <TableColumn fx:id="betragRechnung" prefWidth="75.0" text="Betrag" />
+                                          <TableColumn fx:id="statusRechnung" prefWidth="75.0" text="Status" />
+                                          <TableColumn fx:id="stempelRechnung" prefWidth="75.0" text="Stempel" />
+                                       </columns>
+                                    </TableView>
+                                 </center>
+                                 <top>
+                                    <HBox minHeight="50.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button fx:id="buttonAlleAuftraege1" mnemonicParsing="false" onAction="#alleAuftraege" text="Alle anzeigen">
+                                             <HBox.margin>
+                                                <Insets left="15.0" right="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Separator orientation="VERTICAL" prefHeight="20.0" />
+                                          <ComboBox fx:id="comboAuftrag1" prefWidth="150.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <Label text="nach">
+                                             <HBox.margin>
+                                                <Insets left="15.0" right="15.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField minWidth="150.0" prefWidth="200.0">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="buttonFilterAuftrag1" mnemonicParsing="false" onAction="#filterAuftrag" text="Filtern">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Separator orientation="VERTICAL" prefHeight="20.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </Separator>
+                                       </children>
+                                    </HBox>
+                                 </top>
+                              </BorderPane>
+                           </center>
+                           <left>
+                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="150.0" prefHeight="458.0" prefWidth="150.0" spacing="15.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="anlegenButtonRechnung" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#anlegenGeklicktRechnung" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
+                                    <Button fx:id="bearbeitenButtonRechnung" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bearbeitenGeklicktRechnung" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
+                                    <Button fx:id="loeschenButtonRechnung" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#loeschenGeklicktRechnung" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
+                                    <Button fx:id="pdfExport" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#pdfExportGeklickt" prefHeight="50.0" prefWidth="200.0" text="PDF Export" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                        </BorderPane>
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab text="Bauteile">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <center>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <TableView fx:id="auftragTable2" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <columns>
+                                          <TableColumn fx:id="titelAuftrag2" prefWidth="200.0" text="Titel" />
+                                          <TableColumn fx:id="artAuftrag2" prefWidth="150.0" text="Art" />
+                                          <TableColumn fx:id="dateiAuftrag2" prefWidth="150.0" text="Dateiname" />
+                                          <TableColumn fx:id="pKostenAuftrag2" prefWidth="105.0" text="prog. Kosten" />
+                                          <TableColumn fx:id="rKostenAuftrag2" prefWidth="100.0" text="reele Kosten" />
+                                          <TableColumn fx:id="statusAuftrag2" prefWidth="150.0" text="Status" />
+                                          <TableColumn fx:id="datumAuftrag2" prefWidth="75.0" text="Datum" />
+                                       </columns>
+                                    </TableView>
+                                 </center>
+                                 <top>
+                                    <HBox minHeight="50.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button fx:id="buttonAlleAuftraege2" mnemonicParsing="false" onAction="#alleAuftraege" text="Alle anzeigen">
+                                             <HBox.margin>
+                                                <Insets left="15.0" right="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Separator orientation="VERTICAL" prefHeight="20.0" />
+                                          <ComboBox fx:id="comboAuftrag2" prefWidth="150.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <Label text="nach">
+                                             <HBox.margin>
+                                                <Insets left="15.0" right="15.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField minWidth="150.0" prefWidth="200.0">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="buttonFilterAuftrag2" mnemonicParsing="false" onAction="#filterAuftrag" text="Filtern">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Separator orientation="VERTICAL" prefHeight="20.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </Separator>
+                                       </children>
+                                    </HBox>
+                                 </top>
+                              </BorderPane>
+                           </center>
+                           <left>
+                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="150.0" prefHeight="458.0" prefWidth="150.0" spacing="15.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="anlegenButtonAuftrag2" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#anlegenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
+                                    <Button fx:id="bearbeitenButtonAuftrag2" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bearbeitenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
+                                    <Button fx:id="loeschenButtonAuftrag2" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#loeschenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
+                                    <Button fx:id="exportButtonAuftrag2" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#exportGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Export" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </VBox>
+                           </left>
+                        </BorderPane>
+                     </children></AnchorPane>
                </content>
             </Tab>
         </tabs>
@@ -220,8 +364,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="Login">
             <items>
-              <MenuItem mnemonicParsing="false" text="Anmelden" />
-                  <MenuItem mnemonicParsing="false" text="Registrieren" />
+              <MenuItem fx:id="loginMenu" mnemonicParsing="false" onAction="#loginGeklickt" text="Anmelden" />
+                  <MenuItem fx:id="registrierenMenu" mnemonicParsing="false" onAction="#registrierenGeklickt" text="Registrieren" />
             </items>
           </Menu>
         </menus>
