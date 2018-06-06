@@ -40,14 +40,14 @@ public class ControllerPersonEingabe {
 		String rolle = rolleFeld.getText();
 		String strasse = strasseFeld.getText();
 		String stadt = stadtFeld.getText();
-		String plz = plzFeld.getText();
 		String telefon = telefonFeld.getText();
 		String email = emailFeld.getText();
 		String nummer = nummerFeld.getText();
+		
 		if(vorname.isEmpty() || nachname.isEmpty()
 				|| email.isEmpty() || telefon.isEmpty()
-				|| rolle.isEmpty() || plz.isEmpty()
-				|| stadt.isEmpty() || strasse.isEmpty() || nummer.isEmpty()){
+				|| rolle.isEmpty() || stadt.isEmpty() 
+				|| strasse.isEmpty() || nummer.isEmpty()){
 			System.out.println(nachnameFeld.getText());
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
 			alert.showAndWait();
@@ -62,8 +62,17 @@ public class ControllerPersonEingabe {
 		}
 	}
 	
-	
 	public void initialize() {
-		
+	}
+	
+	public void setzePerson(Person p) {
+		vornameFeld.setText(p.getVorname());
+		nachnameFeld.setText(p.getNachname());
+		rolleFeld.setText(p.getTyp());
+		strasseFeld.setText(p.getStrasse());
+		stadtFeld.setText(p.getStadt());
+		telefonFeld.setText(p.getTelefon());
+		emailFeld.setText(p.getEmail());
+		nummerFeld.setText(p.getHausnummer());
 	}
 }

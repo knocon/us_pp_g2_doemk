@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 
 public class ControllerAuftragEingabe {
+	
 	@FXML
 	private TextField titelFeld;
 	@FXML
@@ -43,20 +44,23 @@ public class ControllerAuftragEingabe {
 		}
 		else {
 			long time = System.currentTimeMillis();
-			Auftrag a = new Auftrag(0, time, titel, art, "datei", rKosten, pKosten, 0);
+			Auftrag a = new Auftrag(0, time, titel, art, datei, rKosten, pKosten);
 			Verwaltung verwaltung = new Verwaltung();
-			//verwaltung.addAuftrag(a);
+			verwaltung.addAuftrag(a);
 			((Node)(event.getSource())).getScene().getWindow().hide();
 			System.out.println("Person angelegt");
 		}
 	}
 	
 	public void initialize() {
-		titelFeld.setText("Hallo");
+		
 	}
 	
-	public ControllerAuftragEingabe() {
-		
+	public void setzeAuftrag(Auftrag a) {
+		titelFeld.setText(a.getTitel());
+		dateiFeld.setText(a.getDateiname());
+		pKostenFeld.setText(a.getPkosten());
+		reeleKFeld.setText(a.getRkosten());
 	}
 	
 }

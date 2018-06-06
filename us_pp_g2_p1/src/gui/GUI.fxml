@@ -156,7 +156,7 @@
                                  <top>
                                     <HBox minHeight="50.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Button fx:id="buttonAllePersonen1" mnemonicParsing="false" onAction="#allePersonen" text="Alle anzeigen">
+                                          <Button fx:id="buttonAlleAuftraege" mnemonicParsing="false" onAction="#alleAuftraege" text="Alle anzeigen">
                                              <HBox.margin>
                                                 <Insets left="15.0" right="15.0" top="15.0" />
                                              </HBox.margin>
@@ -177,7 +177,7 @@
                                                 <Insets top="15.0" />
                                              </HBox.margin>
                                           </TextField>
-                                          <Button fx:id="buttonFilterPerson1" mnemonicParsing="false" onAction="#filterPerson" text="Filtern">
+                                          <Button fx:id="buttonFilterAuftrag" mnemonicParsing="false" onAction="#filterAuftrag" text="Filtern">
                                              <HBox.margin>
                                                 <Insets left="15.0" top="15.0" />
                                              </HBox.margin>

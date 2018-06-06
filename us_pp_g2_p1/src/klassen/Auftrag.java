@@ -16,7 +16,7 @@ public class Auftrag {
 	private String pkosten;
 	private int persId;
 	
-	public Auftrag(int aufId,long datum, String titel, String art, String dateiname, String rkosten, String pkosten, int perId) {
+	public Auftrag(int aufId,long datum, String titel, String art, String dateiname, String rkosten, String pkosten) {
 		super();
 		this.datum = datum;
 		Date date = new Date(datum);
@@ -24,7 +24,6 @@ public class Auftrag {
 		dateString = format.format(date);
 		System.out.println(datum);
 		System.out.println(dateString);
-		this.persId = persId;
 		this.aufId = aufId;
 		this.titel = titel;
 		this.art = art;

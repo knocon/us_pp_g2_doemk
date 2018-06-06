@@ -133,7 +133,6 @@ public class Verwaltung {
 	}
 	 
 	 //Finanzen
-	 
 	 public void addRechnung( String rechnungsName, String auftraggeber, String ansprechpartner,
 				int kassenId, int topfId, String art, double betrag, String status) {
 			String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpar"
@@ -184,7 +183,26 @@ public class Verwaltung {
 		}
 	 
 	 //Fertigung
-	
+	 public ObservableList<Auftrag> ladeAlleAuftraege() {
+			try {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM Auftrag"); 
+				ObservableList<Auftrag> ret = getAuftraege(resultSet);
+				return ret;
+			} catch(Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+	}
+	 
+	 public ObservableList<Auftrag> getAuftraege(ResultSet rs) throws SQLException {
+		    ObservableList<Auftrag> listAuftraege = FXCollections.observableArrayList();
+			
+			
+			////////////// Hier fehlt Code
+			
+			
+			return listAuftraege;
+		}
 	 
 	 public void addAuftrag(Auftrag a) {
 			String query = "INSERT INTO AUFTRAG(  titel,art, dateiname,  kosten, statuszeitstempel, persId) VALUES("

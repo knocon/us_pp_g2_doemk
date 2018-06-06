@@ -75,11 +75,27 @@ public class Controller extends Application {
 	private Button bearbeitenButtonPerson;
 	@FXML
 	void bearbeitenGeklicktPerson(ActionEvent event) {
-		tableView.setEditable(true);
 		Person person = tableView.getSelectionModel().getSelectedItem();
 		if(person!=null) {
-			neuesFenster("/gui/personen_eingabe.fxml","Bearbeiten einer Person");
-			befuelleFenster(person);
+			try {
+				Stage st = new Stage();
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/personen_eingabe.fxml"));
+		        
+		        Parent sceneEingabe;
+			    sceneEingabe = loader.load();
+
+			    ControllerPersonEingabe controller = loader.<ControllerPersonEingabe>getController();
+			    controller.setzePerson(person);
+
+		        Scene scene = new Scene(sceneEingabe);
+		        st.setScene(scene);
+		        st.setTitle("Bearbeiten einer neuen Person");
+		        st.show();
+		        schreibeStatus("Person bearbeitet");
+			} catch (Exception e){
+				Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
+				e.printStackTrace();
+			}
 		}
 		else {
 			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
@@ -139,9 +155,6 @@ public class Controller extends Application {
 	@FXML
 	private ComboBox<String> comboPersonen;
 	
-	///////////////////////     Personen Eingabe Fenster   //////////////////////////////
-	
-	
 	////////////////////////////////     Auftragsverwaltung   /////////////////////////////////////////
 	@FXML
 	private TableView<Auftrag> auftragTable;
@@ -163,21 +176,56 @@ public class Controller extends Application {
 	@FXML ComboBox<String> comboAuftrag;
 	
 	@FXML
+	private Button buttonAlleAuftraege;
+	@FXML
+	void alleAuftraege(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	private Button filterAuftraege;
+	@FXML
+	void filterAuftrag(ActionEvent event) {
+		
+	}
+	
+	@FXML
 	private Button anlegenButtonAuftrag;
 	@FXML
 	void anlegenGeklicktAuftrag(ActionEvent event) {
-		try {
-			neuesFenster("/gui/auftrag_eingabe.fxml", "Anlegen eines neuen Auftrags");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
+	   
 	}
 	
 	@FXML
 	private Button bearbeitenButtonAuftrag;
 	@FXML
 	void bearbeitenGeklicktAuftrag(ActionEvent event) {
-		
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		if(auftrag!=null) {
+			try {
+				Stage st = new Stage();
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_eingabe.fxml"));
+
+		        Parent sceneEingabe;
+			    sceneEingabe = loader.load();
+
+		        ControllerAuftragEingabe controller = loader.<ControllerAuftragEingabe>getController();
+			    controller.setzeAuftrag(auftrag);
+
+		        Scene scene = new Scene(sceneEingabe);
+		        st.setScene(scene);
+		        st.setTitle("Bearbeiten eines neuen Auftrags");
+		        st.show();
+		        schreibeStatus("Auftrag bearbeitet");
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		else {
+			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+			abfrage.showAndWait();
+		}
 	}
 	
 	@FXML
@@ -282,6 +330,11 @@ public class Controller extends Application {
 	public void ladeAllePersonen() {
 		ObservableList<Person> personen = verwaltung.ladeAllePersonen();
 		tableView.setItems(personen);
+	}
+	
+	public void ladeAlleAuftraege() {
+		ObservableList<Auftrag> auftraege = verwaltung.ladeAlleAuftraege();
+		auftragTable.setItems(auftraege);
 	}
 	
 	private void neuesFenster(String fxml, String fensterTitel) {
