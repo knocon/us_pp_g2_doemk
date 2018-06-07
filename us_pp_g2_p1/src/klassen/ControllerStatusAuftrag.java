@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class ControllerStatusRechnung {
+public class ControllerStatusAuftrag {
 	
 	@FXML
 	private Label datum1;
@@ -20,18 +20,11 @@ public class ControllerStatusRechnung {
 	private Label datum3;
 	@FXML
 	private Label datum4;
-	@FXML
-	private Label datum5;
-	@FXML
-	private Label datum6;
-	@FXML
-	private Label datum7;
-	
 	
 	@FXML
-	private Button schliessenButtonAuf;
+	private Button schliessenButton;
 	@FXML
-	void schliessenAuf(ActionEvent event) {
+	void schliessen(ActionEvent event) {
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	

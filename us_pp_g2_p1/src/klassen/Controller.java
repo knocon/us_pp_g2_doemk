@@ -294,7 +294,25 @@ public class Controller extends Application {
 	private Button statusButtonAuf;
 	@FXML
 	void statusAuftrag(ActionEvent event) {
-		
+		try {
+			Stage st = new Stage();
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/status_auftrag.fxml"));
+	        
+	        Parent sceneEingabe;
+		    sceneEingabe = loader.load();
+
+		    ControllerStatusAuftrag controller = loader.<ControllerStatusAuftrag>getController();
+		    //controller.setzePerson(person);
+
+	        Scene scene = new Scene(sceneEingabe);
+	        st.setScene(scene);
+	        st.setTitle("Bearbeiten einer neuen Person");
+	        st.show();
+	        schreibeStatus("Person bearbeitet");
+		} catch (Exception e){
+			Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -692,18 +710,6 @@ public class Controller extends Application {
 		ladeAlleRechnungen();
 		
 		// Bauteile
-		ObservableList<String> optionsBau = 
-			    FXCollections.observableArrayList(
-			        "Name",
-			        "Lagerort"
-			      
-			    );
-		comboBauteil.setItems(optionsBau);
-		comboBauteil.getSelectionModel().selectFirst();
-		
-	
-		
-
 		nameBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("name"));
 		preisBauteil.setCellValueFactory(
