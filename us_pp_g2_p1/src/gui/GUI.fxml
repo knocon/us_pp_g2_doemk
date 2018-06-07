@@ -411,7 +411,7 @@
                                     <Separator minWidth="0.0" prefWidth="230.0" />
                                     <Button fx:id="bauteilAnlegenButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilAnlegen" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
                                     <Button fx:id="bauteilBearbeitenButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilBearbeiten" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
-                                    <Button fx:id="loeschenButtonBauteil" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilLoeschen" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
+                                    <Button fx:id="loeschenButtonBauteil" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilLoeschen" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
