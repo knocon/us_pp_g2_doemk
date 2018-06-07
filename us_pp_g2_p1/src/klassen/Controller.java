@@ -583,7 +583,7 @@ public class Controller extends Application {
 			primaryStage = new Stage();
 			primaryStage.setTitle("Bestes Verwaltungsprogramm aller Zeiten!");
 			primaryStage.setScene(scene);
-			primaryStage.setMaximized(true);
+			//primaryStage.setMaximized(true);
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -692,6 +692,18 @@ public class Controller extends Application {
 		ladeAlleRechnungen();
 		
 		// Bauteile
+		ObservableList<String> optionsBau = 
+			    FXCollections.observableArrayList(
+			        "Name",
+			        "Lagerort"
+			      
+			    );
+		comboBauteil.setItems(optionsBau);
+		comboBauteil.getSelectionModel().selectFirst();
+		
+	
+		
+
 		nameBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("name"));
 		preisBauteil.setCellValueFactory(
