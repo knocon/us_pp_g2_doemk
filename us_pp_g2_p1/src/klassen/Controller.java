@@ -206,6 +206,8 @@ public class Controller extends Application {
 	ComboBox<String> comboAuftrag;
 	@FXML
 	TextField eingabeAuftrag;
+	@FXML
+	ComboBox<String> comboAuftragFilter;
 	
 	@FXML
 	private Button buttonAlleAuftraege;
@@ -289,6 +291,13 @@ public class Controller extends Application {
 	}
 	
 	@FXML
+	private Button statusButtonAuf;
+	@FXML
+	void statusAuftrag(ActionEvent event) {
+		
+	}
+	
+	@FXML
 	private Button loeschenButtonAuftrag;
 	@FXML
 	void loeschenGeklicktAuftrag(ActionEvent event) {
@@ -299,6 +308,13 @@ public class Controller extends Application {
 	private Button exportButtonAuftrag;
 	@FXML
 	void exportGeklicktAuftrag(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	private Button aendernButton;
+	@FXML
+	void aendernStatusAuftrag(ActionEvent event) {
 		
 	}
 	

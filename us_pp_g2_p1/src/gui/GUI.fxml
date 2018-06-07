@@ -131,6 +131,7 @@
                                  <children>
                                     <Button fx:id="anlegenButtonAuftrag" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#anlegenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
                                     <Button fx:id="bearbeitenButtonAuftrag" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bearbeitenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
+                                    <Button fx:id="statusButtonAuf" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#statusAuftrag" prefHeight="50.0" prefWidth="200.0" text="Status" />
                                     <Button fx:id="personenButtonAuftrag" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#personenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Personen" />
                                     <Button fx:id="exportButtonAuftrag" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#exportGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Export" />
                                     <Button fx:id="loeschenButtonAuftrag" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#loeschenGeklicktAuftrag" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
@@ -174,7 +175,7 @@
                                                 <Insets left="15.0" right="15.0" top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <TextField minWidth="150.0" prefWidth="200.0">
+                                          <TextField fx:id="eingabeAuftrag" minWidth="150.0" prefWidth="200.0">
                                              <HBox.margin>
                                                 <Insets top="15.0" />
                                              </HBox.margin>
@@ -185,6 +186,26 @@
                                              </HBox.margin>
                                           </Button>
                                           <Separator orientation="VERTICAL" prefHeight="20.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </Separator>
+                                          <Label text="Status">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ComboBox fx:id="comboAuftragFilter" prefWidth="150.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <Button fx:id="aendernButton" mnemonicParsing="false" onAction="#aendernStatusAuftrag" text="Ändern">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Separator orientation="VERTICAL" prefHeight="30.0">
                                              <HBox.margin>
                                                 <Insets left="15.0" />
                                              </HBox.margin>
