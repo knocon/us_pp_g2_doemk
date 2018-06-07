@@ -396,7 +396,11 @@ public class Controller extends Application {
 	private Button plusButton;
 	@FXML
 	void plusKategorie(ActionEvent event){
-		
+		try {
+			neuesFenster("/gui/kategorien.fxml", "Anlegen einer neuen Kategorie");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -417,7 +421,24 @@ public class Controller extends Application {
 	private Button bearbeitenKategorie;
 	@FXML
 	void kategorieBearbeiten(ActionEvent event){
-		
+		try {
+			Stage st = new Stage();
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/kategorien.fxml"));
+
+	        Parent sceneEingabe;
+		    sceneEingabe = loader.load();
+
+		    ControllerKategorien controller = loader.<ControllerKategorien>getController();
+		    //controller.setzeAuftrag(auftrag);
+
+	        Scene scene = new Scene(sceneEingabe);
+	        st.setScene(scene);
+	        st.setTitle("Bearbeiten der Kategorie");
+	        st.show();
+	        schreibeStatus("Kategorie bearbeitet");
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -567,6 +588,24 @@ public class Controller extends Application {
                 new PropertyValueFactory<Rechnung, String>("status"));
 		stempelRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("hausnummer"));
+		ladeAlleRechnungen();
+		
+		// Bauteile
+		nameBaut.setCellValueFactory(
+                new PropertyValueFactory<Bauteil, String>("name"));
+		preisBaut.setCellValueFactory(
+                new PropertyValueFactory<Bauteil, String>("epreis"));
+		//lagerortBaut.setCellValueFactory(
+        //        new PropertyValueFactory<Bauteil, String>("auftraggeber"));
+		lagerBaut.setCellValueFactory(
+                new PropertyValueFactory<Bauteil, String>("bestandLager"));
+		geplantBaut.setCellValueFactory(
+                new PropertyValueFactory<Bauteil, String>("bestandGeplant"));
+		bestelltBaut.setCellValueFactory(
+                new PropertyValueFactory<Bauteil, String>("bestandBestellt"));
+		linkBaut.setCellValueFactory(
+                new PropertyValueFactory<Bauteil, String>("link"));
+		ladeAlleBauteil();
 	}
 	
 	public void ladeAllePersonen() {
@@ -577,6 +616,17 @@ public class Controller extends Application {
 	public void ladeAlleAuftraege() {
 		ObservableList<Auftrag> auftraege = verwaltung.ladeAlleAuftraege();
 		auftragTable.setItems(auftraege);
+	}
+	
+	public void ladeAlleRechnungen() {
+		ObservableList<Rechnung> rechnungen = verwaltung.ladeAlleRechnungen();
+		rechnungTabelle.setItems(rechnungen);
+	}
+	
+	public void ladeAlleBauteil() {
+		BauteileLogik bauteileLogik;
+		//ObservableList<Bauteil> bauteile = bauteileLogik.ladeAlleBauteile();
+		//bauteileTable.setItems(bauteile);
 	}
 	
 	private void neuesFenster(String fxml, String fensterTitel) {
