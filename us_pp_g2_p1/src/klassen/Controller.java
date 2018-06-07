@@ -357,19 +357,19 @@ public class Controller extends Application {
 	@FXML
 	private TableView<Bauteil> bauteileTable;
 	@FXML
-	private TableColumn<Bauteil, String> nameBaut;
+	private TableColumn<Bauteil, String> nameBauteil;
 	@FXML
-	private TableColumn<Bauteil, String> preisBaut;
+	private TableColumn<Bauteil, String> preisBauteil;
 	@FXML
-	private TableColumn<Bauteil, String> lagerortBaut;
+	private TableColumn<Bauteil, String> lagerortBauteil;
 	@FXML
-	private TableColumn<Bauteil, String> lagerBaut;
+	private TableColumn<Bauteil, String> lagerBauteil;
 	@FXML
-	private TableColumn<Bauteil, String> geplantBaut;
+	private TableColumn<Bauteil, String> geplantBauteil;
 	@FXML
-	private TableColumn<Bauteil, String> bestelltBaut;
+	private TableColumn<Bauteil, String> bestelltBauteil;
 	@FXML
-	private TableColumn<Bauteil, String> linkBaut;
+	private TableColumn<Bauteil, String> linkBauteil;
 	
 	@FXML
 	private Button inkrementierenButton;
@@ -591,19 +591,19 @@ public class Controller extends Application {
 		ladeAlleRechnungen();
 		
 		// Bauteile
-		nameBaut.setCellValueFactory(
+		nameBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("name"));
-		preisBaut.setCellValueFactory(
+		preisBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("epreis"));
-		//lagerortBaut.setCellValueFactory(
+		//lagerortBauteil.setCellValueFactory(
         //        new PropertyValueFactory<Bauteil, String>("auftraggeber"));
-		lagerBaut.setCellValueFactory(
+		lagerortBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("bestandLager"));
-		geplantBaut.setCellValueFactory(
+		geplantBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("bestandGeplant"));
-		bestelltBaut.setCellValueFactory(
+		bestelltBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("bestandBestellt"));
-		linkBaut.setCellValueFactory(
+		linkBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("link"));
 		ladeAlleBauteil();
 	}
