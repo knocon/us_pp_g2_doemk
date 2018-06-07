@@ -194,6 +194,7 @@ public class BauteileLogik {
 	
 	/*
 	 * dekrementieren koennen admin und benutzer
+	 * methode ist noch nicht fertig, wird erst heute abend nochmal neu gepushed, habe jetzt bis 18 Uhr uni..lg
 	 */
 	
 	public void dekrementLager(int id, Bauteil b){
