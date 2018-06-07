@@ -50,7 +50,7 @@ public class PDFexport {
 		Font f = new Font(Font.FontFamily.HELVETICA, 30, Font.BOLD);
 		ResultSet resultSet = ((java.sql.Statement) statement).executeQuery("SELECT * FROM Rechnung"); 
 		Document name = new Document();
-		PdfWriter.getInstance((com.itextpdf.text.Document) name, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
+		PdfWriter.getInstance((com.itextpdf.text.Document) name, new FileOutputStream(pdfName));
 		name.open();
 		while (resultSet.next()) {
 			if(resultSet.getInt("rechId")==id) {
@@ -72,47 +72,47 @@ public class PDFexport {
     		  
     		  Paragraph auftraggeber = new Paragraph();
     		 addEmptyLine(auftraggeber,1);
-    		 auftraggeber.add(new Paragraph("Auftragsgeber:"+"    "+resultSet.getString("auftraggeber")));
+    		 auftraggeber.add(new Paragraph("Auftragsgeber:"+"        "+resultSet.getString("auftraggeber")));
     		 name.add(auftraggeber);
     		  
     		 Paragraph ansprechpartner = new Paragraph();
     		 addEmptyLine(ansprechpartner,1);
-    		 ansprechpartner.add(new Paragraph("Ansprechpartner:"+"   "+resultSet.getString("ansprechpartner")));
+    		 ansprechpartner.add(new Paragraph("Ansprechpartner:"+"    "+resultSet.getString("ansprechpartner")));
     		 name.add(ansprechpartner);
     		 
     		 Paragraph kassenId = new Paragraph();
     		 addEmptyLine(kassenId,1);
-    		 kassenId.add(new Paragraph("Kasse:"+"			"+resultSet.getString("kassenId")));
+    		 kassenId.add(new Paragraph("Kasse:"+"                    "+resultSet.getString("kassenId")));
     		 name.add(kassenId);
     		 
     		 Paragraph topfId = new Paragraph();
     		 addEmptyLine( topfId,1);
-    		 topfId.add(new Paragraph("Topf:"+"			"+resultSet.getString("topfId")));
+    		 topfId.add(new Paragraph("Topf:"+"                       "+resultSet.getString("topfId")));
     		 name.add(topfId);
     		 
     		 Paragraph art = new Paragraph();
     		 addEmptyLine( art,1);
-    		 art.add(new Paragraph("Art:"+resultSet.getString("art")));
+    		 art.add(new Paragraph("Art:"+"                         "+resultSet.getString("art")));
     		 name.add(art);
     		 
     		 Paragraph kontoId = new Paragraph();
     		 addEmptyLine( kontoId,1);
-    		 kontoId.add(new Paragraph("Konto:"+resultSet.getString("kontoId")));
+    		 kontoId.add(new Paragraph("Konto:"+"                    "+resultSet.getString("kontoId")));
     		 name.add(kontoId);
     		 
     		 Paragraph betrag = new Paragraph();
     		 addEmptyLine( betrag,1);
-    		 betrag.add(new Paragraph("Betrag:"+resultSet.getString("betrag")));
+    		 betrag.add(new Paragraph("Betrag:"+"                   "+resultSet.getString("betrag")));
     		 name.add(betrag);
     		 
     		 Paragraph status = new Paragraph();
     		 addEmptyLine( status,1);
-    		 status.add(new Paragraph("Status:"+resultSet.getString("status")));
+    		 status.add(new Paragraph("Status:"+"                   "+resultSet.getString("status")));
     		 name.add(status);
     		 
     		 Paragraph statusZeitstempel = new Paragraph();
     		 addEmptyLine( statusZeitstempel,1);
-    		 statusZeitstempel.add(new Paragraph("Zeitstempel:"+resultSet.getString("statusZeitstempel")));
+    		 statusZeitstempel.add(new Paragraph("Zeitstempel:"+"           "+resultSet.getString("statusZeitstempel")));
     		 name.add(statusZeitstempel);
     		 
     		 
