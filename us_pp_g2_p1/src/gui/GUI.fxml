@@ -320,6 +320,11 @@
                                                 <Insets right="5.0" top="15.0" />
                                              </HBox.margin>
                                           </Button>
+                                          <Button fx:id="bearbeitenKategorie" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#kategorieBearbeiten" text="e">
+                                             <HBox.margin>
+                                                <Insets right="5.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
                                           <Button fx:id="minusButton" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#minusKategorie" text="-">
                                              <HBox.margin>
                                                 <Insets right="15.0" top="15.0" />
@@ -361,6 +366,10 @@
                                  <children>
                                     <Button fx:id="inkrementierenButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#inkrementierenBauteil" prefHeight="50.0" prefWidth="200.0" text="Inkrementieren" />
                                     <Button fx:id="dekrementierenButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#dekrementierenBauteil" prefHeight="50.0" prefWidth="200.0" text="Dekrementieren" />
+                                    <Separator minWidth="0.0" prefWidth="230.0" />
+                                    <Button fx:id="bauteilAnlegenButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilAnlegen" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
+                                    <Button fx:id="bauteilBearbeitenButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilBearbeiten" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
+                                    <Button fx:id="loeschenButtonBauteil" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilLoeschen" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

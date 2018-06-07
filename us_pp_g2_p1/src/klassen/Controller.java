@@ -413,6 +413,34 @@ public class Controller extends Application {
 		
 	}
 	
+	@FXML
+	private Button bearbeitenKategorie;
+	@FXML
+	void kategorieBearbeiten(ActionEvent event){
+		
+	}
+	
+	@FXML
+	private Button bauteilAnlegenButton;
+	@FXML
+	void bauteilAnlegen(ActionEvent event){
+		
+	}
+	
+	@FXML
+	private Button bauteilBearbeitenButton;
+	@FXML
+	void bauteilBearbeiten(ActionEvent event){
+		
+	}
+	
+	@FXML
+	private Button loeschenButtonBauteil;
+	@FXML
+	void bauteilLoeschen(ActionEvent event){
+		
+	}
+	
 	
 	/////////////////////////////////       Controller      //////////////////////////////////////////////
 	
