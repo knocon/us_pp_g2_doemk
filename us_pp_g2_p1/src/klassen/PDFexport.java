@@ -47,7 +47,7 @@ public class PDFexport {
     }
 
 	public static void exportPDF( int id, String pdfName) throws SQLException, FileNotFoundException, DocumentException {
-		Font f = new Font(Font.FontFamily.TIMES_ROMAN, 30, Font.BOLD);
+		Font f = new Font(Font.FontFamily.HELVETICA, 30, Font.BOLD);
 		ResultSet resultSet = ((java.sql.Statement) statement).executeQuery("SELECT * FROM Rechnung"); 
 		Document name = new Document();
 		PdfWriter.getInstance((com.itextpdf.text.Document) name, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
