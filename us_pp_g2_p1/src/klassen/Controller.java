@@ -202,7 +202,10 @@ public class Controller extends Application {
 	@FXML
 	private TableColumn<Auftrag, String> datumAuftrag;
 	
-	@FXML ComboBox<String> comboAuftrag;
+	@FXML
+	ComboBox<String> comboAuftrag;
+	@FXML
+	TextField eingabeAuftrag;
 	
 	@FXML
 	private Button buttonAlleAuftraege;
