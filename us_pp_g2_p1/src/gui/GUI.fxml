@@ -229,7 +229,7 @@
                                              </HBox.margin>
                                           </Button>
                                           <Separator orientation="VERTICAL" prefHeight="20.0" />
-                                          <ComboBox fx:id="comboAuftrag1" prefWidth="150.0">
+                                          <ComboBox fx:id="comboRechn" prefWidth="150.0">
                                              <HBox.margin>
                                                 <Insets left="15.0" top="15.0" />
                                              </HBox.margin>
@@ -245,6 +245,26 @@
                                              </HBox.margin>
                                           </TextField>
                                           <Button fx:id="buttonFilterAuftrag1" mnemonicParsing="false" onAction="#filterAuftrag" text="Filtern">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Separator orientation="VERTICAL" prefHeight="20.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </Separator>
+                                          <Label text="Status">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ComboBox fx:id="statusCombo" prefWidth="150.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                          <Button fx:id="statusAButton" mnemonicParsing="false" onAction="#aendernStatus" text="Ändern">
                                              <HBox.margin>
                                                 <Insets left="15.0" top="15.0" />
                                              </HBox.margin>

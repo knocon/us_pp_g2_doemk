@@ -20,10 +20,12 @@ import com.itextpdf.text.pdf.PdfWriter;
 import javafx.application.Application;
 
 public class PDFexport {
-	public static void main(String[] args) throws FileNotFoundException, SQLException, DocumentException{
+	
+	public PDFexport() throws FileNotFoundException, SQLException, DocumentException{
 		dbconnection();
 		exportPDF(1, "Dateiname");
 	}
+	
 	static java.sql.Statement statement;
 	static Connection conn = null;
 	public static Connection dbconnection() {
@@ -32,7 +34,7 @@ public class PDFexport {
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection("jdbc:sqlite:database/db.db");
 			statement = conn.createStatement();
-			System.out.println("funkt");
+			System.out.println("pdf funkt");
 			return conn;
 			}catch(Exception e) {
 			e.printStackTrace();
@@ -40,13 +42,13 @@ public class PDFexport {
 			return null;
 	}
 	
-	private static void addEmptyLine(Paragraph paragraph, int number) {
+	private void addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
     }
 
-	public static void exportPDF( int id, String pdfName) throws SQLException, FileNotFoundException, DocumentException {
+	public void exportPDF( int id, String pdfName) throws SQLException, FileNotFoundException, DocumentException {
 		Font f = new Font(Font.FontFamily.HELVETICA, 30, Font.BOLD);
 		ResultSet resultSet = ((java.sql.Statement) statement).executeQuery("SELECT * FROM Rechnung"); 
 		Document name = new Document();

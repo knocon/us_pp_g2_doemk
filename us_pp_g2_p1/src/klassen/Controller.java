@@ -1,5 +1,10 @@
 package klassen;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+
+import com.itextpdf.text.DocumentException;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -294,7 +299,7 @@ public class Controller extends Application {
 		
 	}
 	
-	/////////////////////////////////       Aufträge       //////////////////////////////////////////////
+	/////////////////////////////////       Rechnungen     //////////////////////////////////////////////
 	@FXML
 	private TableView<Rechnung> rechnungTabelle;
 	@FXML
@@ -315,6 +320,11 @@ public class Controller extends Application {
 	private TableColumn<Rechnung, String> statusRechnung;
 	@FXML
 	private TableColumn<Rechnung, String> stempelRechnung;
+	
+	@FXML
+	private ComboBox<String> statusCombo;
+	@FXML
+	private ComboBox<String> comboRechn;
 	
 	@FXML
 	private Button anlegenButtonRechnung;
@@ -342,10 +352,36 @@ public class Controller extends Application {
 	}
 	
 	@FXML
+	private Button statusAButton;
+	@FXML
+	void aendernStatus(ActionEvent event) {
+		
+	}
+	
+	@FXML
 	private Button pdfExport;
 	@FXML
 	void pdfExportGeklickt(ActionEvent event) {
-		
+		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
+		if(rechnung!=null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie die Rechnung wirklich exportieren", ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if(abfrage.getResult() == ButtonType.YES) {
+				int id = rechnung.getRechId();
+				try {
+					PDFexport export = new PDFexport();
+					String name = rechnung.getRechnungsName();
+					export.exportPDF(id, name);
+					schreibeStatus("Rechnung exportiert");
+				} catch (FileNotFoundException | SQLException | DocumentException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		else {
+			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Rechnung in der Tabelle auswählen.", ButtonType.OK);
+			abfrage.showAndWait();
+		}
 	}
 	
 	/////////////////////////////////      Bauteile        ///////////////////////////////////////////////
@@ -389,7 +425,7 @@ public class Controller extends Application {
 	private Button buttonAlleBauteile;
 	@FXML
 	void alleBauteile(ActionEvent event){
-		
+		ladeAlleBauteil();
 	}
 	
 	@FXML
@@ -570,6 +606,27 @@ public class Controller extends Application {
 		ladeAlleAuftraege();
 		
 		// Rechnungen
+		ObservableList<String> rechnungsFilter = 
+			    FXCollections.observableArrayList(
+			        "Name",
+			        "Kasse",
+			        "Topf",
+			        "Ansprechpartner",
+			        "Status"
+			    );
+		comboRechn.setItems(rechnungsFilter);
+		comboRechn.getSelectionModel().selectFirst();
+		
+		ObservableList<String> status = 
+			    FXCollections.observableArrayList(
+			        "Bearbeitung",
+			        "Eingereicht",
+			        "Abgewickelt",
+			        "Ausstehend"
+			    );
+		statusCombo.setItems(status);
+		statusCombo.getSelectionModel().selectFirst();
+		
 		nameRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("rechnungsName"));
 		datumRechnung.setCellValueFactory(
