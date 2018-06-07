@@ -167,4 +167,40 @@ public class BauteileLogik {
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	 * dekrementBestellt und dekrementGeplant sollen nur vom admin kontrollierbar sein
+	 */
+	
+	public void dekrementBestellt(int id){
+		String query = "UPDATE Bauteil SET bestandBestellt = bestandBestellt - 1 WHERE teilId =" + id;
+		try{
+			statement.executeQuery(query);
+			System.out.println(id+"dekrementiert");
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void dekrementGeplant(int id){
+		String query = "UPDATE Bauteil SET bestandGeplant = bestandGeplant -1 WHERE teilId =" + id;
+		try{
+			statement.executeQuery(query);
+			System.out.println(id+"dekrementiert");
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * dekrementLager ist vom Benutzer sowohl als auch vom admin zugaenglich
+	 */
+	
+	public void dekrementLager(int id, Bauteil b){
+		String query = "UPDATE Bauteil SET bestandLager = bestandLager -1 WHERE teilId =" + id;
+		String query2 = "INSERT INTO Warenkorb() VALUES("
+
+				+ "'" + b.getName() + "'," + "'" + b.getLink() + "'," + "'" + b.getEpreis() + "'," + "'"
+				+ b.getBestandLager() + "'," + "'" + b.getBestandBestellt() + "'," + "'" + b.getBestandGeplant() + "')";
+	}
 }
