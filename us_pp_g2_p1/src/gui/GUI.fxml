@@ -284,6 +284,7 @@
                                  <children>
                                     <Button fx:id="anlegenButtonRechnung" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#anlegenGeklicktRechnung" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
                                     <Button fx:id="bearbeitenButtonRechnung" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bearbeitenGeklicktRechnung" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
+                                    <Button fx:id="statusButtonFin" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#statusRechnungen" prefHeight="50.0" prefWidth="200.0" text="Status" />
                                     <Button fx:id="loeschenButtonRechnung" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#loeschenGeklicktRechnung" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
                                     <Button fx:id="pdfExport" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#pdfExportGeklickt" prefHeight="50.0" prefWidth="200.0" text="PDF Export" />
                                  </children>

@@ -345,6 +345,31 @@ public class Controller extends Application {
 	}
 	
 	@FXML
+	private Button statusButtonFin;
+	@FXML
+	void statusRechnungen(ActionEvent event) {
+		try {
+			Stage st = new Stage();
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/status_rechnung.fxml"));
+	        
+	        Parent sceneEingabe;
+		    sceneEingabe = loader.load();
+
+		    ControllerStatusRechnung controller = loader.<ControllerStatusRechnung>getController();
+		    //controller.setzePerson(person);
+
+	        Scene scene = new Scene(sceneEingabe);
+	        st.setScene(scene);
+	        st.setTitle("Bearbeiten einer neuen Person");
+	        st.show();
+	        schreibeStatus("Person bearbeitet");
+		} catch (Exception e){
+			Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
 	private Button loeschenButtonRechnung;
 	@FXML
 	void loeschenGeklicktRechnung(ActionEvent event) {
@@ -652,8 +677,8 @@ public class Controller extends Application {
                 new PropertyValueFactory<Bauteil, String>("name"));
 		preisBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("epreis"));
-		//lagerortBauteil.setCellValueFactory(
-        //        new PropertyValueFactory<Bauteil, String>("auftraggeber"));
+		lagerortBauteil.setCellValueFactory(
+                new PropertyValueFactory<Bauteil, String>("auftraggeber"));
 		lagerortBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("bestandLager"));
 		geplantBauteil.setCellValueFactory(
