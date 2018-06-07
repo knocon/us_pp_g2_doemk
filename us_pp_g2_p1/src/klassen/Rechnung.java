@@ -1,13 +1,15 @@
 package klassen;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Rechnung {
 	
+	long datum;
+	String dateString;
 	private int rechId;
-	private Date rechnungsDatum;
 	private String rechnungsName;
 	private String auftraggeber;
 	private String ansprechpartner;
@@ -19,11 +21,15 @@ public class Rechnung {
 	private String status;
 	private LocalDate statusZeitstempel;
 	
-	public Rechnung(Date rechnungsDatum, String rechnungsName, String auftraggeber, String ansprechpartner,
+	public Rechnung(long datum, String rechnungsName, String auftraggeber, String ansprechpartner,
 			int kassenId, int topfId, String art, int kontoId, double betrag, String status) {
 		super();
-	
-		this.rechnungsDatum = rechnungsDatum;
+		this.datum = datum;
+		Date date = new Date(datum);
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy HH:mm");
+		dateString = format.format(date);
+		System.out.println(datum);
+		System.out.println(dateString);
 		this.rechnungsName = rechnungsName;
 		this.auftraggeber = auftraggeber;
 		this.ansprechpartner = ansprechpartner;
@@ -36,12 +42,12 @@ public class Rechnung {
 		this.statusZeitstempel = LocalDate.now();
 	}
 
-	public Date getRechnungsDatum() {
-		return rechnungsDatum;
+	public String getDateString() {
+		return dateString;
 	}
-
-	public void setRechnungsDatum(Date rechnungsDatum) {
-		this.rechnungsDatum = rechnungsDatum;
+	
+	public long getDateLong() {
+		return datum;
 	}
 
 	public String getRechnungsName() {

@@ -133,19 +133,18 @@ public class Verwaltung {
 	}
 	 
 	 //Finanzen
-	 public void addRechnung( String rechnungsName, String auftraggeber, String ansprechpartner,
-				int kassenId, int topfId, String art, double betrag, String status) {
+	 public void addRechnung(Rechnung r) {
 			String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpar"
 					+ "tner, kassenId, topfId, art, betrag, status) VALUES("
-					+ "'"+date.now()+"',"
-					+ "'"+rechnungsName+"',"
-					+ "'"+auftraggeber+"',"
-					+ "'"+ansprechpartner+"',"
-					+ "'"+kassenId+"',"
-					+ "'"+topfId+"',"
-					+ "'"+art+"',"
-					+ "'"+betrag+"',"
-					+ "'"+status+"')";
+					+ "'"+r.getDateLong()+"',"
+					+ "'"+r.getRechnungsName()+"',"
+					+ "'"+r.getAuftraggeber()+"',"
+					+ "'"+r.getAnsprechpartner()+"',"
+					+ "'"+r.getKassenId()+"',"
+					+ "'"+r.getTopfId()+"',"
+					+ "'"+r.getArt()+"',"
+					+ "'"+r.getBetrag()+"',"
+					+ "'"+r.getStatus()+"')";
 			System.out.println(query);
 			try {
 				statement.executeUpdate(query);
@@ -173,14 +172,32 @@ public class Verwaltung {
 		 }
 	 }
 	 
-	 public ObservableList giveRechnung(ResultSet rs) throws SQLException {
-		 listRechnung = FXCollections.observableArrayList();
-			while (rs.next()) {
-			Rechnung r = new Rechnung( rs.getDate("rechnungsDatum"),rs.getString("rechnungsName"), rs.getString("auftaggeber"), rs.getString("ansprechpartner"), rs.getInt("kassenId"), rs.getInt("topfId"), rs.getString("art"), rs.getInt("kontoId"), rs.getDouble("betrag"), rs.getString("status"));
-			listRechnung.add(r);
-			}
-			return listRechnung;
+	 public ObservableList<Rechnung> getRechnung(ResultSet rs) throws SQLException {
+		 try{
+			 listRechnung = FXCollections.observableArrayList();
+			 	while (rs.next()) {
+			 		Rechnung r = new Rechnung( rs.getLong("rechnungsDatum"),rs.getString("rechnungsName"), rs.getString("auftaggeber"), rs.getString("ansprechpartner"), rs.getInt("kassenId"), rs.getInt("topfId"), rs.getString("art"), rs.getInt("kontoId"), rs.getDouble("betrag"), rs.getString("status"));
+			 		listRechnung.add(r);
+			 	}
+			 	return listRechnung;
+		 }catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+			
+			return null;
 		}
+	 
+	 public ObservableList<Rechnung> ladeAlleRechnungen() {
+			try {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM Rechnung"); 
+				ObservableList<Rechnung> rech = getRechnung(resultSet);
+				return rech;
+			} catch(SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+	}
+	 
 	 
 	 //Fertigung
 	 public ObservableList<Auftrag> ladeAlleAuftraege() {
@@ -188,24 +205,28 @@ public class Verwaltung {
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM Auftrag"); 
 				ObservableList<Auftrag> ret = getAuftraege(resultSet);
 				return ret;
-			} catch(Exception e) {
+			} catch(SQLException e) {
 				e.printStackTrace();
 				return null;
 			}
 	}
 	 
 	 public ObservableList<Auftrag> getAuftraege(ResultSet rs) throws SQLException {
-		    ObservableList<Auftrag> listAuftraege = FXCollections.observableArrayList();
-			
-			
-			////////////// Hier fehlt Code
-			
-			
-			return listAuftraege;
+		    try{
+		    		ObservableList<Auftrag> listAuftraege = FXCollections.observableArrayList();
+		    		while ( rs.next()) {
+		    			Auftrag a = new Auftrag(rs.getString("titel"), rs.getString("art"), rs.getString("dateiname"), rs.getString("rkosten"), rs.getString("pkosten"), rs.getLong("statusZeitstempel"));
+		    			listAuftraege.add(a);
+		    		}
+		    		return listAuftraege;
+		    }catch (SQLException e) {
+		    	e.printStackTrace();
+		    }
+			return null;
 		}
 	 
 	 public void addAuftrag(Auftrag a) {
-			String query = "INSERT INTO AUFTRAG(  titel,art, dateiname,  kosten, statuszeitstempel, persId) VALUES("
+			String query = "INSERT INTO AUFTRAG(  titel,art, dateiname,  kosten, statuszeitstempel) VALUES("
 					
 					+ "'"+a.getTitel()+"',"
 					+ "'"+a.getArt()+"',"
