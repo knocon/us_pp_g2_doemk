@@ -193,7 +193,7 @@ public class BauteileLogik {
 	}
 	
 	/*
-	 * dekrementLager ist vom Benutzer sowohl als auch vom admin zugaenglich
+	 * dekrementieren koennen admin und benutzer
 	 */
 	
 	public void dekrementLager(int id, Bauteil b){
