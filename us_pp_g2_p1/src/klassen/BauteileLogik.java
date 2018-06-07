@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import javax.swing.text.Document;
@@ -26,7 +28,9 @@ public class BauteileLogik {
 	static Connection conn = null;
 	static ResultSet resultSet;
 	static java.sql.Statement statement;
+	static java.sql.Statement statement2;
 	static LocalDate date;
+	static ObservableList<Bauteil> listBauteil ;
 	
 	/*
 	 * kategorie spalte muss erstellt werden
@@ -55,7 +59,7 @@ public class BauteileLogik {
 	 * Bauteile hinzufuegen, loeschen,bearbeiten
 	 */
 
-	public void addBauteil(Bauteil b) {
+	public static void addBauteil(Bauteil b) {
 		String query = "INSERT INTO Bauteil(name,link,epreis,bestandLager,bestandBestellt,bestandGeplant) VALUES("
 
 				+ "'" + b.getName() + "'," + "'" + b.getLink() + "'," + "'" + b.getEpreis() + "'," + "'"
@@ -95,10 +99,8 @@ public class BauteileLogik {
 	 * Kategorie anlegen,loeschen,bearbeiten
 	 */
 
-	public void addKategorie(Kategorie k) {
-		String query = "INSERT INTO Kategorie(name,link,epreis,bestandLager,bestandBestellt,bestandGeplant) VALUES("
-
-				+ "'" + k.getName() + "')" ;
+	public static void addKategorie(Kategorie k) {
+		String query = "INSERT INTO Kategorie(name) VALUES" + "("+ "'" + k.getName() + "')" ;
 
 		try {
 			statement.executeUpdate(query);
@@ -175,7 +177,7 @@ public class BauteileLogik {
 	public void dekrementBestellt(int id){
 		String query = "UPDATE Bauteil SET bestandBestellt = bestandBestellt - 1 WHERE teilId =" + id;
 		try{
-			statement.executeQuery(query);
+			statement.executeUpdate(query);
 			System.out.println(id+"dekrementiert");
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -185,7 +187,7 @@ public class BauteileLogik {
 	public void dekrementGeplant(int id){
 		String query = "UPDATE Bauteil SET bestandGeplant = bestandGeplant -1 WHERE teilId =" + id;
 		try{
-			statement.executeQuery(query);
+			statement.executeUpdate(query);
 			System.out.println(id+"dekrementiert");
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -194,14 +196,27 @@ public class BauteileLogik {
 	
 	/*
 	 * dekrementieren koennen admin und benutzer
-	 * methode ist noch nicht fertig, wird erst heute abend nochmal neu gepushed, habe jetzt bis 18 Uhr uni..lg
+	 * datum muss gefixed werden
 	 */
 	
-	public void dekrementLager(int id, Bauteil b){
-		String query = "UPDATE Bauteil SET bestandLager = bestandLager -1 WHERE teilId =" + id;
-		String query2 = "INSERT INTO Warenkorb() VALUES("
+	public static void dekrementLager(Bauteil b){
+		String timeStamp = new SimpleDateFormat("dd.MM").format(new java.util.Date());
+		String query = "UPDATE Bauteil SET bestandLager = bestandLager -1 WHERE teilId =" + b.getTeilId();
+		String query2 = "INSERT INTO Warenkorb(bauteilId,preis) VALUES("
+				+b.getTeilId() + "," + "" + b.getEpreis() + ")";
+		String query3 = "INSERT INTO BauteilRechnung(datum,summe) VALUES("+timeStamp+",(SELECT sum(preis) FROM Warenkorb GROUP BY preis))";
+		String query4 = "DELETE FROM Warenkorb";
+		try {
+			statement.executeUpdate(query);
+			statement.executeUpdate(query2);
+			statement.executeUpdate(query3);
+			statement.executeUpdate(query4);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-				+ "'" + b.getName() + "'," + "'" + b.getLink() + "'," + "'" + b.getEpreis() + "'," + "'"
-				+ b.getBestandLager() + "'," + "'" + b.getBestandBestellt() + "'," + "'" + b.getBestandGeplant() + "')";
+
 	}
+
+	
 }
