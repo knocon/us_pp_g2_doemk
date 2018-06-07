@@ -219,7 +219,7 @@ public class Controller extends Application {
 	@FXML
 	void anlegenGeklicktAuftrag(ActionEvent event) {
 		try {
-			neuesFenster("/gui/personen_eingabe.fxml", "Anlegen einer neuen Person");
+			neuesFenster("/gui/auftrag_eingabe.fxml", "Anlegen eines neuen Auftrags");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -424,14 +424,35 @@ public class Controller extends Application {
 	private Button bauteilAnlegenButton;
 	@FXML
 	void bauteilAnlegen(ActionEvent event){
-		
+		try {
+			neuesFenster("/gui/bauteil_eingabe.fxml", "Anlegen eines neuen Bauteils");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
 	private Button bauteilBearbeitenButton;
 	@FXML
 	void bauteilBearbeiten(ActionEvent event){
-		
+		try {
+			Stage st = new Stage();
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/bauteil_eingabe.fxml"));
+
+	        Parent sceneEingabe;
+		    sceneEingabe = loader.load();
+
+		    ControllerBauteilEingabe controller = loader.<ControllerBauteilEingabe>getController();
+		    //controller.setzeAuftrag(auftrag);
+
+	        Scene scene = new Scene(sceneEingabe);
+	        st.setScene(scene);
+	        st.setTitle("Bearbeiten des Bauteils");
+	        st.show();
+	        schreibeStatus("Bauteil bearbeitet");
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -525,6 +546,7 @@ public class Controller extends Application {
                 new PropertyValueFactory<Auftrag, String>("rkosten"));
 		statusAuftrag.setCellValueFactory(
                 new PropertyValueFactory<Auftrag, String>("datum"));
+		ladeAlleAuftraege();
 		
 		// Rechnungen
 		nameRechnung.setCellValueFactory(
