@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -35,6 +36,7 @@ public class AccountLogik {
 	public static void main(String[] args) {
 		dbconnection();
 		//addAccount("test","pwpw","rolle");
+		login("test","pwpw");
 	}
 
 	public static Connection dbconnection() {
@@ -70,6 +72,21 @@ public class AccountLogik {
 	}
 	
 	public static void login(String name,String pw) {
+		
+		PreparedStatement ps;
+		
+		try {
+			ps = conn.prepareStatement("SELECT name,pw FROM Account WHERE name = '"+name+"' AND pw = '"+ pw +"'" );
+			ResultSet result = ps.executeQuery();
+			if(result.next()) {
+				System.out.println("Logged in");
+			}
+			else {
+				System.out.println("error");
+			}
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		}
 		
 	}
 }

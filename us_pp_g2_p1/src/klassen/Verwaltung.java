@@ -29,306 +29,366 @@ public class Verwaltung {
 	static ResultSet resultSet;
 	static java.sql.Statement statement;
 	static LocalDate date;
-	static ObservableList<Person> listPerson ;
-	static ObservableList<Rechnung> listRechnung ;
-	
+	static ObservableList<Person> listPerson;
+	static ObservableList<Rechnung> listRechnung;
+
 	public Verwaltung() {
 		dbconnection();
-		//updateRechnung("rechnungsName", "nein!!", 3);
-		//deleteRechnung(3);
-		//addRechnung( "abc", "person1", "person2", 2, 2, "chg", 20.00, "fertig");
-		//filterByParameter("vorname", "Daman", "Person");
-		//addPerson( "Ömer", "abc", "Kunde", "abcstrasse","5","abc","01292929999","ömer@web.de");
-		//deletePerson(4);
-		//updatePerson("vorname","�mer",1);
-		
+
+		Person p1 = new Person(78, 0, null, null, null, null, null, null, null, null);
+		personZuweisen(0, p1, null);
+
 	}
-	
+
 	public Connection dbconnection() {
-		
+
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection("jdbc:sqlite:database/db.db");
-			statement =  conn.createStatement();
+			statement = conn.createStatement();
 			System.out.println("funkt");
 			return conn;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	
-	//Person
+
+	// Person
 	public ObservableList<Person> ladeAllePersonen() {
 		try {
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM Person"); 
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Person");
 			ObservableList<Person> ret = getPerson(resultSet);
 			return ret;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	public void addPerson(Person p) {
 		String query = "INSERT INTO PERSON(  date,vorname, nachname,  typ, strasse, hausnummer, stadt,  telefon, email) VALUES("
-				
-				+ "'"+p.getDateLong()+"',"
-				+ "'"+p.getVorname()+"',"
-				+ "'"+p.getNachname()+"',"
-				+ "'"+p.getTyp()+"',"
-				+ "'"+p.getStrasse()+"',"
-				+ "'"+p.getHausnummer()+"',"
-				+ "'"+p.getStadt()+"',"
-				+ "'"+p.getTelefon()+"',"
-				+ "'"+p.getEmail()+"')";
+
+				+ "'" + p.getDateLong() + "'," + "'" + p.getVorname() + "'," + "'" + p.getNachname() + "'," + "'"
+				+ p.getTyp() + "'," + "'" + p.getStrasse() + "'," + "'" + p.getHausnummer() + "'," + "'" + p.getStadt()
+				+ "'," + "'" + p.getTelefon() + "'," + "'" + p.getEmail() + "')";
 		System.out.println(query);
-		
+
 		try {
 			statement.executeUpdate(query);
-		}catch (SQLException e ) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	 public void updatePerson(String parameter, String value, int id){
-    	String query = "UPDATE  Person SET " + parameter +  " = '" + value + "' WHERE persId="+ id;
-		 try {
-    		statement.executeUpdate(query);
-				
-		 } catch (SQLException e) {
-				e.printStackTrace();
-    	}
-	 }
-	 
-	 public void deletePerson(int id) {
-		 String query="DELETE FROM Person WHERE persId ="+ id;
-		 try {
-			  statement.executeUpdate(query);
-		 }catch(SQLException e) {
-			 e.printStackTrace();
-		 }
-	 }
-	 
-	 public ObservableList<Person> getPerson(ResultSet rs) throws SQLException {
+
+	public void updatePerson(String parameter, String value, int id) {
+		String query = "UPDATE  Person SET " + parameter + " = '" + value + "' WHERE persId=" + id;
+		try {
+			statement.executeUpdate(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deletePerson(int id) {
+		String query = "DELETE FROM Person WHERE persId =" + id;
+		try {
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ObservableList<Person> getPerson(ResultSet rs) throws SQLException {
 		listPerson = FXCollections.observableArrayList();
 		while (rs.next()) {
 			System.out.println(rs.getLong("date"));
-			Person p = new  Person(
-					rs.getInt("persId"),
-					rs.getLong("date"), 
-					rs.getString("vorname"),
-					rs.getString("nachname"),
-					rs.getString("typ"), 
-					rs.getString("strasse"), 
-					rs.getString("hausnummer"), 
-					rs.getString("stadt"), 
-					rs.getString("telefon"), 
-					rs.getString("email"));
+			Person p = new Person(rs.getInt("persId"), rs.getLong("date"), rs.getString("vorname"),
+					rs.getString("nachname"), rs.getString("typ"), rs.getString("strasse"), rs.getString("hausnummer"),
+					rs.getString("stadt"), rs.getString("telefon"), rs.getString("email"));
 			listPerson.add(p);
 		}
 		return listPerson;
 	}
-	 
-	 //Finanzen
-	 public void addRechnung(Rechnung r) {
-			String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpar"
-					+ "tner, kassenId, topfId, art, betrag, status) VALUES("
-					+ "'"+r.getDateLong()+"',"
-					+ "'"+r.getRechnungsName()+"',"
-					+ "'"+r.getAuftraggeber()+"',"
-					+ "'"+r.getAnsprechpartner()+"',"
-					+ "'"+r.getKassenId()+"',"
-					+ "'"+r.getTopfId()+"',"
-					+ "'"+r.getArt()+"',"
-					+ "'"+r.getBetrag()+"',"
-					+ "'"+r.getStatus()+"')";
-			System.out.println(query);
-			try {
-				statement.executeUpdate(query);
-			}catch (SQLException e ) {
-				e.printStackTrace();
-			}
-			
+
+	// Finanzen
+	public void addRechnung(Rechnung r) {
+		String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpar"
+				+ "tner, kassenId, topfId, art, betrag, status) VALUES(" + "'" + r.getDateLong() + "'," + "'"
+				+ r.getRechnungsName() + "'," + "'" + r.getAuftraggeber() + "'," + "'" + r.getAnsprechpartner() + "',"
+				+ "'" + r.getKassenId() + "'," + "'" + r.getTopfId() + "'," + "'" + r.getArt() + "'," + "'"
+				+ r.getBetrag() + "'," + "'" + r.getStatus() + "')";
+		System.out.println(query);
+		try {
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-	 
-	 public ResultSet updateRechnung(String parameter, String value, int id){
-	    	try {
-				statement.executeUpdate("UPDATE  Rechnung SET " + parameter +  " = '" + value + "' WHERE rechId="+ id);
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
+
+	}
+
+	public ResultSet updateRechnung(String parameter, String value, int id) {
+		try {
+			statement.executeUpdate("UPDATE  Rechnung SET " + parameter + " = '" + value + "' WHERE rechId=" + id);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void deleteRechnung(int id) {
+		try {
+			statement.executeUpdate("DELETE FROM Rechnung WHERE rechId=" + id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ObservableList<Rechnung> getRechnung(ResultSet rs) throws SQLException {
+		try {
+			listRechnung = FXCollections.observableArrayList();
+			while (rs.next()) {
+				Rechnung r = new Rechnung(rs.getInt("rechId"), rs.getLong("rechnungsDatum"),
+						rs.getString("rechnungsName"), rs.getString("auftraggeber"), rs.getString("ansprechpartner"),
+						rs.getString("kassenId"), rs.getString("topfId"), rs.getString("art"),
+						rs.getString("kontoId")/* , rs.getDouble("betrag"), rs.getString("status") */);
+				listRechnung.add(r);
 			}
-	    	return null;
-	    }
-	 
-	 public void deleteRechnung(int id) {
-		 try {
-			 statement.executeUpdate("DELETE FROM Rechnung WHERE rechId="+ id);
-		 }catch(SQLException e) {
-			 e.printStackTrace();
-		 }
-	 }
-	 
-	 public ObservableList<Rechnung> getRechnung(ResultSet rs) throws SQLException {
-		 try{
-			 listRechnung = FXCollections.observableArrayList();
-			 	while (rs.next()) {
-			 		Rechnung r = new Rechnung(rs.getInt("rechId"), rs.getLong("rechnungsDatum"),rs.getString("rechnungsName"), rs.getString("auftraggeber"), rs.getString("ansprechpartner"), rs.getString("kassenId"), rs.getString("topfId"), rs.getString("art"), rs.getString("kontoId")/*, rs.getDouble("betrag"), rs.getString("status")*/);
-			 		listRechnung.add(r);
-			 	}
-			 	return listRechnung;
-		 }catch (SQLException e) {
-			 e.printStackTrace();
-		 }
-			
+			return listRechnung;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public ObservableList<Rechnung> ladeAlleRechnungen() {
+		try {
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Rechnung");
+			ObservableList<Rechnung> rech = getRechnung(resultSet);
+			return rech;
+		} catch (SQLException e) {
+			e.printStackTrace();
 			return null;
 		}
-	 
-	 public ObservableList<Rechnung> ladeAlleRechnungen() {
-			try {
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM Rechnung"); 
-				ObservableList<Rechnung> rech = getRechnung(resultSet);
-				return rech;
-			} catch(SQLException e) {
-				e.printStackTrace();
-				return null;
-			}
 	}
-	 
-	 
-	 //Fertigung
-	 public ObservableList<Auftrag> ladeAlleAuftraege() {
-			try {
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM Auftrag"); 
-				ObservableList<Auftrag> ret = getAuftraege(resultSet);
-				return ret;
-			} catch(SQLException e) {
-				e.printStackTrace();
-				return null;
-			}
-	}
-	 
-	 public ObservableList<Auftrag> getAuftraege(ResultSet rs) throws SQLException {
-		    try{
-		    		ObservableList<Auftrag> listAuftraege = FXCollections.observableArrayList();
-		    		while (rs.next()) {
-		    			//System.out.println(rs.getLong("date"));
-		    			Auftrag a = new  Auftrag(
-		    					rs.getInt("aufId"),
-		    					rs.getString("titel"), 
-		    					rs.getString("art"),
-		    					rs.getString("dateiname"),
-		    					rs.getString("rkosten"), 
-		    					rs.getString("pkosten"),
-		    					rs.getLong("statusZeitstempel"));
-		    					listAuftraege.add(a);
-		    		}
-		    		return listAuftraege;
-		    }catch (SQLException e) {
-		    	e.printStackTrace();
-		    }
+
+	// Fertigung
+	public ObservableList<Auftrag> ladeAlleAuftraege() {
+		try {
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Auftrag");
+			ObservableList<Auftrag> ret = getAuftraege(resultSet);
+			return ret;
+		} catch (SQLException e) {
+			e.printStackTrace();
 			return null;
 		}
-	 
-	 public void addAuftrag(Auftrag a) {
-			String query = "INSERT INTO Auftrag(  titel,art, dateiname,  rkosten, statusZeitstempel, pkosten) VALUES("
-					
-					+ "'"+a.getTitel()+"',"
-					+ "'"+a.getArt()+"',"
-					+ "'"+a.getDateiname()+"',"
-					+ "'"+a.getRkosten()+"',"
-					+ "'"+a.getDateLong()+"',"
-					+ "'"+a.getPkosten()+"')";
-			System.out.println(query);
-			
-			try {
-				statement.executeUpdate(query);
-			}catch (SQLException e ) {
-				e.printStackTrace();
+	}
+
+	public ObservableList<Auftrag> getAuftraege(ResultSet rs) throws SQLException {
+		try {
+			ObservableList<Auftrag> listAuftraege = FXCollections.observableArrayList();
+			while (rs.next()) {
+				// System.out.println(rs.getLong("date"));
+				Auftrag a = new Auftrag(rs.getInt("aufId"), rs.getString("titel"), rs.getString("art"),
+						rs.getString("dateiname"), rs.getString("rkosten"), rs.getString("pkosten"),
+						rs.getLong("statusZeitstempel"));
+				listAuftraege.add(a);
 			}
-			
+			return listAuftraege;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-	 
-	 public ResultSet updateAuftrag(String parameter, String value, int id){
-	    	try {
-				statement.executeUpdate("UPDATE  Auftrag SET " + parameter +  " = '" + value + "' WHERE aufId="+ id);
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-	    	return null;
-	    }
-	 
-	 public void deleteAuftrag(int id) {
-		 try {
-			 statement.executeUpdate("DELETE FROM Auftrag WHERE aufId="+ id);
-		 }catch(SQLException e) {
-			 e.printStackTrace();
-		 }
-	 }
-	 
-	 public void statusAuftrag(String status, int id) {
-		 try {
-			 statement.executeUpdate("UPDATE Auftrag Set status = '"+status+"' WHERE aufId="+id);
-		 }catch(SQLException e) {
-			 e.printStackTrace();
-		 }
-	 }
-	 
+		return null;
+	}
+
+	public void addAuftrag(Auftrag a) {
+		String query = "INSERT INTO Auftrag(  titel,art, dateiname,  rkosten, statusZeitstempel, pkosten) VALUES("
+
+				+ "'" + a.getTitel() + "'," + "'" + a.getArt() + "'," + "'" + a.getDateiname() + "'," + "'"
+				+ a.getRkosten() + "'," + "'" + a.getDateLong() + "'," + "'" + a.getPkosten() + "')";
+		System.out.println(query);
+
+		try {
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public ResultSet updateAuftrag(String parameter, String value, int id) {
+		try {
+			statement.executeUpdate("UPDATE  Auftrag SET " + parameter + " = '" + value + "' WHERE aufId=" + id);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void deleteAuftrag(int id) {
+		try {
+			statement.executeUpdate("DELETE FROM Auftrag WHERE aufId=" + id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void statusAuftrag(String status, int id) {
+		try {
+			statement.executeUpdate("UPDATE Auftrag Set status = '" + status + "' WHERE aufId=" + id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public int getIDofRow(String name) {
-    	int id = -1;
-    	try {
-			resultSet =   ((java.sql.Statement) statement).executeQuery("select * from Auftrag"
-											+ " where name = " 
-											+ "'" + name + "'");
-			if(resultSet.next()) {
+		int id = -1;
+		try {
+			resultSet = ((java.sql.Statement) statement)
+					.executeQuery("select * from Auftrag" + " where name = " + "'" + name + "'");
+			if (resultSet.next()) {
 				id = resultSet.getInt("idproduction");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	return id;
-    }
-    
-    public void updateParameterByID(String parameter, String value, int id){
-    	String query = "UPDATE Auftrag SET " + parameter + " = '" + value + "' WHERE aufId = " + id;
-    	try {
+		return id;
+	}
+
+	public void updateParameterByID(String parameter, String value, int id) {
+		String query = "UPDATE Auftrag SET " + parameter + " = '" + value + "' WHERE aufId = " + id;
+		try {
 			((java.sql.Statement) statement).executeUpdate(query);
-			//readDataBase();
+			// readDataBase();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    }
-    
-    public ObservableList<Person> filterByParameterPerson( String parameter, String value, String tabellenname){
-    	String query = "SELECT * FROM "+ tabellenname + " where " + parameter +  " = " + "'" + value + "'";
-    	System.out.println(query);
-    	try {
-			resultSet =  statement.executeQuery("SELECT * FROM "+ tabellenname
-											+ " where " + parameter +  " = "
-											+ "'" + value + "'");
+	}
+
+	public ObservableList<Person> filterByParameterPerson(String parameter, String value, String tabellenname) {
+		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
+		System.out.println(query);
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
 			ObservableList<Person> list = getPerson(resultSet);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	return null;
-    }
-    public ObservableList<Auftrag> filterByParameterAuftrag( String parameter, String value, String tabellenname){
-    	String query = "SELECT * FROM "+ tabellenname + " where " + parameter +  " = " + "'" + value + "'";
-    	System.out.println(query);
-    	try {
-			resultSet =  statement.executeQuery("SELECT * FROM "+ tabellenname
-											+ " where " + parameter +  " = "
-											+ "'" + value + "'");
+		return null;
+	}
+
+	public ObservableList<Auftrag> filterByParameterAuftrag(String parameter, String value, String tabellenname) {
+		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
+		System.out.println(query);
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
 			ObservableList<Auftrag> list = getAuftraege(resultSet);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	return null;
-    }
+		return null;
+	}
+
+	/*
+	 * ZUWEISUNGSMETHODEN ( VERBINDUNGSTABELLEN )
+	 * 
+	 */
+
+	public void personZuweisen(int auftragId, Person p, String rolle) {
+		String query = "INSERT INTO VTAuftragPersonen(aufId,persId,rolle) VALUES("
+
+				+ "'" + auftragId + "'," + "'" + p.getPersId() + "'," + "'" + rolle + "')";
+
+		try {
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void kasseTopfZuweisen(Kasse k, int topfId) {
+		String query = "INSERT INTO VTKasseToepfe(kasId,topfId) VALUES("
+
+				+ "'" + k.getKasId() + "'," + "'" + topfId + "')";
+
+		try {
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void topfRechnungZuweisen(Topf t, int kassenId) {
+		String query = "INSERT INTO VTTopfRechnungen(topfId,rechId) VALUES("
+
+				+ "'" + t.getTopfId() + "'," + "'" + kassenId + "')";
+
+		try {
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * Toepfe erstellen,Loeschen, Kassen erstellen,loeschen
+	 * 
+	 */
+
+	public static void addTopf(Topf t) {
+		String query = "INSERT INTO Bauteil(name,sollBestand,istBestand) VALUES("
+
+				+ "'" + t.getName() + "'," + "'" + t.getSollBestand() + "'," + "'" + t.getIstBestand() + "')";
+		try {
+			statement.executeUpdate(query);
+			System.out.println("Query ausgefuehrt.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void deleteTopf(int id) {
+		String query = "DELETE FROM Topf WHERE topfId =" + id;
+		try {
+			statement.executeUpdate(query);
+			System.out.println("geloescht");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void addKasse(Kasse k) {
+		String query = "INSERT INTO Kasse(name,sollBestand,istBestand,art,zahlenfolge) VALUES("
+
+				+ "'" + k.getName() + "'," + "'" + k.getSollBestand() + "'," + "'" + k.getIstBestand() + "'," + "'"
+				+ k.getArt() + "'," + "'" + k.getZahlenfolge() + "')";
+		try {
+			statement.executeUpdate(query);
+			System.out.println("Query ausgefuehrt.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void deleteKasse(int id) {
+		String query = "DELETE FROM Kasse WHERE kasId =" + id;
+		try {
+			statement.executeUpdate(query);
+			System.out.println("geloescht");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
