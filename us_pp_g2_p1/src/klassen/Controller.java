@@ -162,10 +162,10 @@ public class Controller extends Application {
 		ObservableList<Person> pList = null;
 		if(!filterWert.isEmpty()) {
 			switch(filterParam) {
-				case "Vorname" : pList = verwaltung.filterByParameter("vorname", filterWert, "Person"); break;
-				case "Nachname" : pList = verwaltung.filterByParameter("nachname", filterWert, "Person"); break;
-				case "Rolle" : pList = verwaltung.filterByParameter("typ", filterWert, "Person"); break;
-				case "Stadt" : pList = verwaltung.filterByParameter("stadt", filterWert, "Person"); break;
+				case "Vorname" : pList = verwaltung.filterByParameterPerson("vorname", filterWert, "Person"); break;
+				case "Nachname" : pList = verwaltung.filterByParameterPerson("nachname", filterWert, "Person"); break;
+				case "Rolle" : pList = verwaltung.filterByParameterPerson("typ", filterWert, "Person"); break;
+				case "Stadt" : pList = verwaltung.filterByParameterPerson("stadt", filterWert, "Person"); break;
 			}
 		}
 		
@@ -209,6 +209,8 @@ public class Controller extends Application {
 	@FXML
 	ComboBox<String> comboAuftragFilter;
 	
+	
+	
 	@FXML
 	private Button buttonAlleAuftraege;
 	@FXML
@@ -221,7 +223,19 @@ public class Controller extends Application {
 	private Button filterAuftraege;
 	@FXML
 	void filterAuftrag(ActionEvent event) {
+		String filterParam = comboAuftrag.getValue();
+		String filterWert = eingabeAuftrag.getText();
+		ObservableList<Auftrag> aList = null;
+		if(!filterWert.isEmpty()) {
+			switch(filterParam) {
+				case "Titel" : aList = verwaltung.filterByParameterAuftrag("titel", filterWert, "Auftrag"); break;
+				case "Status": aList = verwaltung.filterByParameterAuftrag("Status", filterWert, "Auftrag"); break;
+				case "Art" : aList = verwaltung.filterByParameterAuftrag("art", filterWert, "Auftrag"); break;
+			}
+		}
 		
+		auftragTable.setItems(aList);
+		System.out.println(filterFieldPerson.getText());
 	}
 	
 	@FXML
@@ -319,7 +333,20 @@ public class Controller extends Application {
 	private Button loeschenButtonAuftrag;
 	@FXML
 	void loeschenGeklicktAuftrag(ActionEvent event) {
-		
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		if(auftrag!=null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Auftrag wirklich löschen?", ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if(abfrage.getResult() == ButtonType.YES) {
+				verwaltung.deleteAuftrag(auftrag.getAufId());
+				ladeAlleAuftraege();
+				schreibeStatus("Auftrag Gelöscht");
+			}
+		}
+		else {
+			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+			abfrage.showAndWait();
+		}
 	}
 	
 	@FXML
@@ -333,6 +360,27 @@ public class Controller extends Application {
 	private Button aendernButton;
 	@FXML
 	void aendernStatusAuftrag(ActionEvent event) {
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		String statusParam =comboAuftragFilter.getValue();
+		if(auftrag!=null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Status wirklich bearbeiten?", ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if(abfrage.getResult() == ButtonType.YES) {
+				switch(statusParam) {
+				case "Angenommen": verwaltung.statusAuftrag("Angenommen", auftrag.getAufId());; break;
+				case "Abgeholt": verwaltung.statusAuftrag("Abgeholt", auftrag.getAufId());; break;
+				case "Gefertigt": verwaltung.statusAuftrag("Gefertigt", auftrag.getAufId());; break;
+				case "Abgerechnet": verwaltung.statusAuftrag("Abgerechnet", auftrag.getAufId());; break;
+				case "Kosten kalkuliert": verwaltung.statusAuftrag("Kosten kalkuliert", auftrag.getAufId());; break;
+				case "Warten auf Material": verwaltung.statusAuftrag("Warten auf Material", auftrag.getAufId());; break;
+				case "Fertigung": verwaltung.statusAuftrag("Fertigung", auftrag.getAufId());; break;
+				}
+				ladeAlleAuftraege();
+			}else {
+				Alert ab = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+				ab.showAndWait();
+			}
+		}
 		
 	}
 	
@@ -667,6 +715,19 @@ public class Controller extends Application {
                 new PropertyValueFactory<Auftrag, String>("datum"));
 		ladeAlleAuftraege();
 		
+		ObservableList<String> optionStatus =
+				FXCollections.observableArrayList(
+						"Angenommen",
+						"Gefertigt",
+						"Abgeholt",
+						"Abgerechnet",
+						"Kosten kalkuliert",
+						"Warten auf Material",
+						"Fertigung");
+		comboAuftragFilter.setItems(optionStatus);
+		comboAuftragFilter.getSelectionModel().selectFirst();
+				
+				
 		// Rechnungen
 		ObservableList<String> rechnungsFilter = 
 			    FXCollections.observableArrayList(

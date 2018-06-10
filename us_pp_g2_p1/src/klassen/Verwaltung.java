@@ -214,9 +214,17 @@ public class Verwaltung {
 	 public ObservableList<Auftrag> getAuftraege(ResultSet rs) throws SQLException {
 		    try{
 		    		ObservableList<Auftrag> listAuftraege = FXCollections.observableArrayList();
-		    		while ( rs.next()) {
-		    			Auftrag a = new Auftrag(rs.getString("titel"), rs.getString("art"), rs.getString("dateiname"), rs.getString("rkosten"), rs.getString("pkosten"), rs.getLong("statusZeitstempel"));
-		    			listAuftraege.add(a);
+		    		while (rs.next()) {
+		    			//System.out.println(rs.getLong("date"));
+		    			Auftrag a = new  Auftrag(
+		    					rs.getInt("aufId"),
+		    					rs.getString("titel"), 
+		    					rs.getString("art"),
+		    					rs.getString("dateiname"),
+		    					rs.getString("rkosten"), 
+		    					rs.getString("pkosten"),
+		    					rs.getLong("statusZeitstempel"));
+		    					listAuftraege.add(a);
 		    		}
 		    		return listAuftraege;
 		    }catch (SQLException e) {
@@ -226,14 +234,14 @@ public class Verwaltung {
 		}
 	 
 	 public void addAuftrag(Auftrag a) {
-			String query = "INSERT INTO AUFTRAG(  titel,art, dateiname,  kosten, statuszeitstempel) VALUES("
+			String query = "INSERT INTO Auftrag(  titel,art, dateiname,  rkosten, statusZeitstempel, pkosten) VALUES("
 					
 					+ "'"+a.getTitel()+"',"
 					+ "'"+a.getArt()+"',"
 					+ "'"+a.getDateiname()+"',"
 					+ "'"+a.getRkosten()+"',"
 					+ "'"+a.getDateLong()+"',"
-					+ "'"+a.getPersId()+"')";
+					+ "'"+a.getPkosten()+"')";
 			System.out.println(query);
 			
 			try {
@@ -254,14 +262,21 @@ public class Verwaltung {
 	    	return null;
 	    }
 	 
-	 public void delete(int id) {
+	 public void deleteAuftrag(int id) {
 		 try {
-			 statement.executeUpdate("DELETE FROM Auftrag WHERE rechId="+ id);
+			 statement.executeUpdate("DELETE FROM Auftrag WHERE aufId="+ id);
 		 }catch(SQLException e) {
 			 e.printStackTrace();
 		 }
 	 }
 	 
+	 public void statusAuftrag(String status, int id) {
+		 try {
+			 statement.executeUpdate("UPDATE Auftrag Set status = '"+status+"' WHERE aufId="+id);
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+		 }
+	 }
 	 
 	public int getIDofRow(String name) {
     	int id = -1;
@@ -288,7 +303,7 @@ public class Verwaltung {
 		}
     }
     
-    public ObservableList<Person> filterByParameter( String parameter, String value, String tabellenname){
+    public ObservableList<Person> filterByParameterPerson( String parameter, String value, String tabellenname){
     	String query = "SELECT * FROM "+ tabellenname + " where " + parameter +  " = " + "'" + value + "'";
     	System.out.println(query);
     	try {
@@ -296,6 +311,20 @@ public class Verwaltung {
 											+ " where " + parameter +  " = "
 											+ "'" + value + "'");
 			ObservableList<Person> list = getPerson(resultSet);
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return null;
+    }
+    public ObservableList<Auftrag> filterByParameterAuftrag( String parameter, String value, String tabellenname){
+    	String query = "SELECT * FROM "+ tabellenname + " where " + parameter +  " = " + "'" + value + "'";
+    	System.out.println(query);
+    	try {
+			resultSet =  statement.executeQuery("SELECT * FROM "+ tabellenname
+											+ " where " + parameter +  " = "
+											+ "'" + value + "'");
+			ObservableList<Auftrag> list = getAuftraege(resultSet);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();

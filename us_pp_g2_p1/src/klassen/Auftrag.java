@@ -5,19 +5,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Auftrag {
-	
+	private int aufId;
 	long datum;
 	String dateString;
-	private int aufId;
+	private int id;
 	private String titel;
 	private String art;
 	private String dateiname;
 	private String rkosten;
 	private String pkosten;
 	private int persId;
+	private String status;
 	
-	public Auftrag( String titel, String art, String dateiname, String rkosten, String pkosten, long datum) {
+	public Auftrag( int id,String titel, String art, String dateiname, String rkosten, String pkosten, long datum) {
 		super();
+		this.aufId= id;
 		this.datum = datum;
 		Date date = new Date(datum);
 		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy HH:mm");
@@ -31,6 +33,14 @@ public class Auftrag {
 		this.setPkosten(pkosten);
 	}
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public String getDateString() {
 		return dateString;
 	}
