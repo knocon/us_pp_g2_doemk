@@ -51,9 +51,9 @@ public class ControllerRechnungEingabe {
 		}
 		else {
 			long time = System.currentTimeMillis();
-			//Person r = new Rechnung(1, time ,vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
+			Rechnung r = new Rechnung(1,time, name, auftraggeber, ansprechpartner, kasse, topf, art, konto);
 			Verwaltung verwaltung = new Verwaltung();
-			//verwaltung.addPerson(r);
+			verwaltung.addRechnung(r);
 			((Node)(event.getSource())).getScene().getWindow().hide();
 			System.out.println("Rechnung angelegt");
 		}

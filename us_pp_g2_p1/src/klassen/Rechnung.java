@@ -6,24 +6,25 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Rechnung {
-	
+	private int id;
 	long datum;
 	String dateString;
 	private int rechId;
 	private String rechnungsName;
 	private String auftraggeber;
 	private String ansprechpartner;
-	private int kassenId;
-	private int topfId;
+	private String kassenId;
+	private String topfId;
 	private String art;
-	private int kontoId; 
-	private double betrag;
+	private String kontoId; 
+	private String betrag;
 	private String status;
 	private LocalDate statusZeitstempel;
 	
-	public Rechnung(long datum, String rechnungsName, String auftraggeber, String ansprechpartner,
-			int kassenId, int topfId, String art, int kontoId, double betrag, String status) {
+	public Rechnung(int id,long datum, String rechnungsName, String auftraggeber, String ansprechpartner,
+			String kassenId, String topfId, String art, String kontoId/*, double betrag, String status*/) {
 		super();
+		this.rechId= id;
 		this.datum = datum;
 		Date date = new Date(datum);
 		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy HH:mm");
@@ -74,19 +75,19 @@ public class Rechnung {
 		this.ansprechpartner = ansprechpartner;
 	}
 
-	public int getKassenId() {
+	public String getKassenId() {
 		return kassenId;
 	}
 
-	public void setKassenId(int kassenId) {
+	public void setKassenId(String kassenId) {
 		this.kassenId = kassenId;
 	}
 
-	public int getTopfId() {
+	public String getTopfId() {
 		return topfId;
 	}
 
-	public void setTopfId(int topfId) {
+	public void setTopfId(String topfId) {
 		this.topfId = topfId;
 	}
 
@@ -98,19 +99,19 @@ public class Rechnung {
 		this.art = art;
 	}
 
-	public int getKontoId() {
+	public String getKontoId() {
 		return kontoId;
 	}
 
-	public void setKontoId(int kontoId) {
+	public void setKontoId(String kontoId) {
 		this.kontoId = kontoId;
 	}
 
-	public double getBetrag() {
+	public String getBetrag() {
 		return betrag;
 	}
 
-	public void setBetrag(double betrag) {
+	public void setBetrag(String betrag) {
 		this.betrag = betrag;
 	}
 

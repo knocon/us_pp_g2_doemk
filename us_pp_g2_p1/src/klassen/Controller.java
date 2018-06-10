@@ -412,6 +412,14 @@ public class Controller extends Application {
 	private ComboBox<String> comboRechn;
 	
 	@FXML
+	private Button buttonAlleRechnungen;
+	@FXML
+	void alleRechnungen(ActionEvent event) {
+		ladeAlleRechnungen();
+		schreibeStatus("Alle Rechnungen werden angezeigt");
+	}
+	
+	@FXML
 	private Button anlegenButtonRechnung;
 	@FXML
 	void anlegenGeklicktRechnung(ActionEvent event) {
@@ -426,7 +434,31 @@ public class Controller extends Application {
 	private Button bearbeitenButtonRechnung;
 	@FXML
 	void bearbeitenGeklicktRechnung(ActionEvent event) {
-		
+		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
+		if(rechnung!=null) {
+			try {
+				Stage st = new Stage();
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/rechnung_eingabe.fxml"));
+
+		        Parent sceneEingabe;
+			    sceneEingabe = loader.load();
+
+			    ControllerRechnungEingabe controller = loader.<ControllerRechnungEingabe>getController();
+			    controller.setzeRechnung(rechnung);
+
+		        Scene scene = new Scene(sceneEingabe);
+		        st.setScene(scene);
+		        st.setTitle("Bearbeiten einer neues Rechnung");
+		        st.show();
+		        schreibeStatus("Rechnung bearbeitet");
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		else {
+			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+			abfrage.showAndWait();
+		}
 	}
 	
 	@FXML
@@ -458,7 +490,20 @@ public class Controller extends Application {
 	private Button loeschenButtonRechnung;
 	@FXML
 	void loeschenGeklicktRechnung(ActionEvent event) {
-		
+		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
+		if(rechnung!=null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Auftrag wirklich löschen?", ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if(abfrage.getResult() == ButtonType.YES) {
+				verwaltung.deleteRechnung(rechnung.getRechId());
+				ladeAlleAuftraege();
+				schreibeStatus("Auftrag Gelöscht");
+			}
+		}
+		else {
+			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+			abfrage.showAndWait();
+		}
 	}
 	
 	@FXML
