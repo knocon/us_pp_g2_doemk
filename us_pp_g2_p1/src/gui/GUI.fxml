@@ -295,6 +295,16 @@
                                                 <Insets left="15.0" />
                                              </HBox.margin>
                                           </Separator>
+                                          <Label text="Topf">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ComboBox fx:id="comboRechnungTopf">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="15.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
                                        </children>
                                     </HBox>
                                  </top>
