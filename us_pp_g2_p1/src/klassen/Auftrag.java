@@ -17,7 +17,7 @@ public class Auftrag {
 	private int persId;
 	private String status;
 	
-	public Auftrag( int id,String titel, String art, String dateiname, String rkosten, String pkosten, long datum) {
+	public Auftrag( int id,String titel, String art, String dateiname, String rkosten, String pkosten, long datum, String Status) {
 		super();
 		this.aufId= id;
 		this.datum = datum;
@@ -29,6 +29,7 @@ public class Auftrag {
 		this.titel = titel;
 		this.art = art;
 		this.dateiname = dateiname;
+		this.status=status;
 		this.setRkosten(rkosten);
 		this.setPkosten(pkosten);
 	}

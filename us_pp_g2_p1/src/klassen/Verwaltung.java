@@ -193,7 +193,7 @@ public class Verwaltung {
 				// System.out.println(rs.getLong("date"));
 				Auftrag a = new Auftrag(rs.getInt("aufId"), rs.getString("titel"), rs.getString("art"),
 						rs.getString("dateiname"), rs.getString("rkosten"), rs.getString("pkosten"),
-						rs.getLong("statusZeitstempel"));
+						rs.getLong("statusZeitstempel"), rs.getString("status"));
 				listAuftraege.add(a);
 			}
 			return listAuftraege;

@@ -261,7 +261,7 @@ public class Controller extends Application {
 
 		        Parent sceneEingabe;
 			    sceneEingabe = loader.load();
-
+			    verwaltung.deleteAuftrag(auftrag.getAufId());
 		        ControllerAuftragEingabe controller = loader.<ControllerAuftragEingabe>getController();
 			    controller.setzeAuftrag(auftrag);
 
@@ -757,7 +757,9 @@ public class Controller extends Application {
 		rKostenAuftrag.setCellValueFactory(
                 new PropertyValueFactory<Auftrag, String>("rkosten"));
 		statusAuftrag.setCellValueFactory(
-                new PropertyValueFactory<Auftrag, String>("datum"));
+                new PropertyValueFactory<Auftrag, String>("status"));
+		datumAuftrag.setCellValueFactory(
+				new PropertyValueFactory<Auftrag, String>("dateString"));
 		ladeAlleAuftraege();
 		
 		ObservableList<String> optionStatus =

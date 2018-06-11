@@ -44,7 +44,7 @@ public class ControllerAuftragEingabe {
 		}
 		else {
 			long time = System.currentTimeMillis();
-			Auftrag a = new Auftrag(1, titel, art, datei, rKosten, pKosten, time);
+			Auftrag a = new Auftrag(1, titel, art, datei, rKosten, pKosten, time,null);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addAuftrag(a);
 			((Node)(event.getSource())).getScene().getWindow().hide();
