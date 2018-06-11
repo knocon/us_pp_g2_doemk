@@ -492,12 +492,12 @@ public class Controller extends Application {
 	void loeschenGeklicktRechnung(ActionEvent event) {
 		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
 		if(rechnung!=null) {
-			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Auftrag wirklich löschen?", ButtonType.YES, ButtonType.NO);
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diese Rechung wirklich löschen?", ButtonType.YES, ButtonType.NO);
 			abfrage.showAndWait();
 			if(abfrage.getResult() == ButtonType.YES) {
 				verwaltung.deleteRechnung(rechnung.getRechId());
-				ladeAlleAuftraege();
-				schreibeStatus("Auftrag Gelöscht");
+				ladeAlleRechnungen();
+				schreibeStatus("Rechnung Gelöscht");
 			}
 		}
 		else {
