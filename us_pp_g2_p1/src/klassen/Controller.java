@@ -520,6 +520,24 @@ public class Controller extends Application {
 	private Button statusAButton;
 	@FXML
 	void aendernStatus(ActionEvent event) {
+		Rechnung rechnung= rechnungTabelle.getSelectionModel().getSelectedItem();
+		String statusParam =statusCombo.getValue();
+		if(rechnung!=null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Status wirklich bearbeiten?", ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if(abfrage.getResult() == ButtonType.YES) {
+				switch(statusParam) {
+				case "Bearbeitung": verwaltung.statusRechnung("Bearbeitung", rechnung.getRechId());; break;
+				case "Eingereicht": verwaltung.statusRechnung("Eingereicht", rechnung.getRechId());; break;
+				case "Abgewickelt": verwaltung.statusRechnung("Abgewickel", rechnung.getRechId());; break;
+				case "Ausstehend": verwaltung.statusRechnung("Ausstehend", rechnung.getRechId());; break;
+				
+				}
+				ladeAlleRechnungen();
+			}else {
+				Alert ab = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+				ab.showAndWait();
+			}}
 		
 	}
 	
@@ -569,6 +587,7 @@ public class Controller extends Application {
 			abfrage.showAndWait();
 		}
 	}
+	
 	
 	/////////////////////////////////      Bauteile        ///////////////////////////////////////////////
 	@FXML
@@ -822,8 +841,7 @@ public class Controller extends Application {
 			        "Bearbeitung",
 			        "Eingereicht",
 			        "Abgewickelt",
-			        "Ausstehend"
-			    );
+			        "Ausstehend");
 		statusCombo.setItems(status);
 		statusCombo.getSelectionModel().selectFirst();
 		

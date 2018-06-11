@@ -143,7 +143,7 @@ public class Verwaltung {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public ObservableList<Rechnung> getRechnung(ResultSet rs) throws SQLException {
 		try {
 			listRechnung = FXCollections.observableArrayList();
@@ -172,6 +172,14 @@ public class Verwaltung {
 			return null;
 		}
 	}
+	public void statusRechnung(String status, int id) {
+		try {
+			statement.executeUpdate("UPDATE Rechnung Set status = '" + status + "' WHERE rechId=" + id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	// Fertigung
 	
