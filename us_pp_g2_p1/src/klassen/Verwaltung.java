@@ -6,11 +6,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 import javax.swing.text.Document;
 
@@ -27,11 +30,14 @@ import javafx.collections.ObservableList;
 public class Verwaltung {
 	static Connection conn = null;
 	static ResultSet resultSet;
+	static ResultSet rs;
 	static java.sql.Statement statement;
+	static PreparedStatement pst = null;
 	static LocalDate date;
 	static ObservableList<Person> listPerson;
 	static ObservableList<Rechnung> listRechnung;
 	static ObservableList<Bauteil> listBauteil;
+	static ObservableList options = FXCollections.observableArrayList();
 
 	public Verwaltung() {
 		dbconnection();
@@ -397,9 +403,9 @@ public class Verwaltung {
 		try {
 			listBauteil = FXCollections.observableArrayList();
 			while (rs.next()) {
-				Bauteil b = new Bauteil(rs.getString("name"), rs.getString("kategorie"),
-						rs.getString("link"), rs.getDouble("epreis"),
-						rs.getInt("bestandLager"), rs.getInt("bestandBestellt"), rs.getInt("bestandGeplant"));
+				Bauteil b = new Bauteil(rs.getString("name"), rs.getString("kate"),
+						rs.getString("link"), rs.getDouble("epreis"), rs.getString("lagerort"),
+						rs.getInt("bestandLager"), rs.getInt("bestandBestellt"), rs.getInt("bestandGeplant"), rs.getInt("teilId"));
 				listBauteil.add(b);
 			}
 			return listBauteil;
@@ -421,5 +427,205 @@ public class Verwaltung {
 			return null;
 		}
 	}
+	
+	public void addBauteil(Bauteil b) {
+		String query = "INSERT INTO Bauteil(name,link,epreis,bestandLager,bestandBestellt,bestandGeplant) VALUES("
+
+				+ "'" + b.getName() + "'," + "'" + b.getLink() + "'," + "'" + b.getEpreis() + "'," + "'"
+				+ b.getBestandLager() + "'," + "'" + b.getBestandBestellt() + "'," + "'" + b.getBestandGeplant() + "')";
+
+		try {
+			statement.executeUpdate(query);
+			System.out.println("Query ausgefuehrt.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void deleteBauteil(int id) {
+		String query = "DELETE FROM Bauteil WHERE teilId =" + id;
+		try {
+			statement.executeUpdate(query);
+			System.out.println("geloescht");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateBauteil(String parameter, String value, int id) {
+		String query = "UPDATE  Bauteil SET " + parameter + " = '" + value + "' WHERE teilId=" + id;
+		try {
+			statement.executeUpdate(query);
+			System.out.println("edit ausgefuehrt");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * Kategorie anlegen,loeschen,bearbeiten
+	 */
+
+	public static void addKategorie(Kategorie k) {
+		String query = "INSERT INTO Kategorie(name) VALUES" + "("+ "'" + k.getName() + "')" ;
+
+		try {
+			statement.executeUpdate(query);
+			System.out.println("Query ausgefuehrt.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static void deleteKategorie(String name) {
+		String query = "DELETE FROM Kategorie WHERE name ='" + name+"'";
+		try {
+			statement.executeUpdate(query);
+			System.out.println("geloescht");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteZugehoerigeKategorie(String name) {
+		String query = "DELETE FROM Bauteil WHERE kate ='"+name+"'";
+		try {
+			statement.executeUpdate(query);
+			System.out.println("zugehoerigkeitweg");
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void renameKategorie(String value, String name) {
+		String query = "UPDATE  Kategorie SET name = '" + value + "' WHERE name='" + name+"'";
+		try {
+			statement.executeUpdate(query);
+			System.out.println("edit ausgefuehrt");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * Bestand inkrementieren, dekrementieren
+	 * Beim dekrementieren das Objekt in Warenkorb laden
+	 */
+	
+	public static void inkrementLager(int id) {
+		String query = "UPDATE Bauteil SET bestandLager = bestandLager + 1 WHERE teilId=" + id;
+		try {
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void inkrementBestellt(int id) {
+		String query = "UPDATE Bauteil SET bestandBestellt= bestandBestellt + 1 WHERE teilId=" + id;
+		try {
+			statement.executeUpdate(query);
+			System.out.println(id+" inkrementiert");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void inkrementGeplant(int id) {
+		String query = "UPDATE Bauteil SET bestandGeplant = bestandGeplant + 1 WHERE teilId=" + id;
+		try {
+			statement.executeUpdate(query);
+			System.out.println(id+" inkrementiert");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * dekrementBestellt und dekrementGeplant sollen nur vom admin kontrollierbar sein
+	 */
+	
+	public void dekrementBestellt(int id){
+		String query = "UPDATE Bauteil SET bestandBestellt = bestandBestellt - 1 WHERE teilId =" + id;
+		try{
+			statement.executeUpdate(query);
+			System.out.println(id+"dekrementiert");
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void dekrementGeplant(int id){
+		String query = "UPDATE Bauteil SET bestandGeplant = bestandGeplant -1 WHERE teilId =" + id;
+		try{
+			statement.executeUpdate(query);
+			System.out.println(id+"dekrementiert");
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * dekrementieren koennen admin und benutzer
+	 * datum muss gefixed werden
+	 */
+	
+	public static void dekrementLager(Bauteil b){
+		String timeStamp = new SimpleDateFormat("dd.MM").format(new java.util.Date());
+		String query = "UPDATE Bauteil SET bestandLager = bestandLager -1 WHERE teilId =" + b.getTeilId();
+		String query2 = "INSERT INTO Warenkorb(bauteilId,preis) VALUES("
+				+b.getTeilId() + "," + "" + b.getEpreis() + ")";
+		String query3 = "INSERT INTO BauteilRechnung(datum,summe) VALUES("+timeStamp+",(SELECT sum(preis) FROM Warenkorb GROUP BY preis))";
+		String query4 = "DELETE FROM Warenkorb";
+		try {
+			statement.executeUpdate(query);
+			statement.executeUpdate(query2);
+			statement.executeUpdate(query3);
+			statement.executeUpdate(query4);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+	}
+	
+	public static ObservableList fillComboBoxKategorie() {
+		try {
+			String query = "SELECT name FROM Kategorie";
+			pst = conn.prepareStatement(query);
+			resultSet = pst.executeQuery();
+			while(resultSet.next()) {
+				options.add(resultSet.getString("name"));
+				System.out.println(resultSet.getString("name"));
+			}
+			pst.close();
+			resultSet.close();
+		}catch(SQLException ex) {
+			System.out.println("LOL");
+		}
+		return options;
+	}
+	
+	
+	public ObservableList<Bauteil> filterByParameterBauteil(String parameter) {
+		String query = "SELECT * FROM Bauteil WHERE kate ='"+parameter+"'";
+		System.out.println(query);
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM Bauteil WHERE kate = '" + parameter  + "'");
+			ObservableList<Bauteil> list = getBauteil(resultSet);
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 }

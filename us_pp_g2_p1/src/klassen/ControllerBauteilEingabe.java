@@ -10,7 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class ControllerBauteilEingabe {
+public class ControllerBauteilEingabe{
 	
 	
 	@FXML
@@ -34,13 +34,25 @@ public class ControllerBauteilEingabe {
 	private Button speichernButtonBauteil;
 	@FXML
 	void bauteilSpeichern(ActionEvent event) {
+		
 		String name = nameFeld.getText();
+		
 		String link = linkFeld.getText();
+		
 		String preis = preisFeld.getText();
+		double epreis = Double.parseDouble(preis);
+		
 		String lagerort = lagerortFeld.getText();
+		
 		String lagernd = lagerndFeld.getText();
+		int bestandLager = Integer.parseInt(lagernd);
+		
 		String bestellt = bestelltFeld.getText();
+		int bestandBestellt = Integer.parseInt(bestellt);
+		
 		String geplant = geplantFeld.getText();
+		int bestandGeplant = Integer.parseInt(geplant);
+		
 		String kategorie = comboKategorie.getValue();
 		
 		if(name.isEmpty() || link.isEmpty()
@@ -51,8 +63,8 @@ public class ControllerBauteilEingabe {
 			alert.showAndWait();
 		}
 		else {
-			long time = System.currentTimeMillis();
-			Bauteil b = new Bauteil(name,link,kategorie,2,2,2,2);
+			//long time = System.currentTimeMillis();
+			Bauteil b = new Bauteil(name, kategorie, link, epreis, lagerort, bestandGeplant, bestandGeplant, bestandGeplant, 0);
 			Verwaltung verwaltung = new Verwaltung();
 			//verwaltung.addPerson(b);
 			((Node)(event.getSource())).getScene().getWindow().hide();
@@ -60,17 +72,27 @@ public class ControllerBauteilEingabe {
 		}
 	}
 	
+	
 	public void initialize() {
+
+		
 	}
 	
 	public void setzeBauteil(Bauteil b) {
 		nameFeld.setText(b.getName());
 		linkFeld.setText(b.getLink());
-		//lagerortFeld.setText(b.);
-		//lagerndFeld.setText(b.getBestandLager());
-		//bestelltFeld.setText(b.getBestandBestellt());
-		//geplantFeld.setText(p.getTelefon());
-		//preisFeld.setText(p.getEmail());
-		//nummerFeld.setText(p.getHausnummer());
+
 	}
+
+
+	public ComboBox<String> getComboKategorie() {
+		return comboKategorie;
+	}
+
+
+	public void setComboKategorie(ComboBox<String> comboKategorie) {
+		this.comboKategorie = comboKategorie;
+	}
+	
+
 }

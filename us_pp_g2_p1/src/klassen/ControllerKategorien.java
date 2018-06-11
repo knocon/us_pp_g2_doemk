@@ -1,5 +1,7 @@
 package klassen;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
 public class ControllerKategorien {
-	
+	static ObservableList options = FXCollections.observableArrayList();
 	@FXML
 	private TextField nameFeld;
 	
@@ -19,6 +21,7 @@ public class ControllerKategorien {
 	@FXML
 	void speichern(ActionEvent event) {
 		String name = nameFeld.getText();
+		Kategorie k = new Kategorie(name);
 		
 		if(name.isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
@@ -26,8 +29,7 @@ public class ControllerKategorien {
 		}
 		else {
 			
-			// Neue Kategorie anlegen
-			
+			Verwaltung.addKategorie(k);
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		}
 	}

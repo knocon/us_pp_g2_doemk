@@ -335,6 +335,7 @@
                                           <TableColumn fx:id="geplantBauteil" prefWidth="100.0" text="Geplant" />
                                           <TableColumn fx:id="bestelltBauteil" prefWidth="100.0" text="Bestellt" />
                                           <TableColumn fx:id="linkBauteil" prefWidth="200.0" text="Produktlink" />
+                                          <TableColumn fx:id="kategorieBauteil" prefWidth="150.0" text="Kategorie" />
                                        </columns>
                                     </TableView>
                                  </center>
@@ -373,17 +374,17 @@
                                              </HBox.margin>
                                           </Button>
                                           <Separator orientation="VERTICAL" />
-                                          <ComboBox fx:id="comboBauteil" prefWidth="150.0">
+                                          <ComboBox fx:id="comboBauteil" disable="true" prefWidth="150.0">
                                              <HBox.margin>
                                                 <Insets left="15.0" top="15.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <Label text="nach">
+                                          <Label disable="true" text="nach">
                                              <HBox.margin>
                                                 <Insets left="15.0" right="15.0" top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <TextField minWidth="150.0" prefWidth="200.0">
+                                          <TextField fx:id="filterBauteilText" disable="true" minWidth="150.0" prefWidth="200.0">
                                              <HBox.margin>
                                                 <Insets top="15.0" />
                                              </HBox.margin>

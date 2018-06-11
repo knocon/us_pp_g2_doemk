@@ -3,23 +3,26 @@ package klassen;
 public class Bauteil {
 	
 	private String name;
-	private String kategorie;
+	private String kate;
 	private String link;
 	private double epreis;
+	private String lagerort;
 	private int bestandLager;
 	private int bestandBestellt;
 	private int bestandGeplant;
 	private int teilId;
 	
-	public Bauteil(String name,String kategorie, String link, double epreis,int bestandLager, int bestandBestellt, int bestandGeplant) {
+	public Bauteil(String name,String kate, String link, double epreis,String lagerort,int bestandLager, int bestandBestellt, int bestandGeplant,int teilId) {
 		super();
 		this.name = name;
 		this.link = link;
-		this.kategorie = kategorie;
+		this.kate = kate;
+		this.lagerort = lagerort;
 		this.epreis = epreis;
 		this.bestandLager = bestandLager;
 		this.bestandBestellt = bestandBestellt;
 		this.bestandGeplant = bestandGeplant;
+		this.teilId = teilId;
 	}
 
 	public String getName() {
@@ -78,12 +81,20 @@ public class Bauteil {
 		this.bestandGeplant = bestandGeplant;
 	}
 
-	public String getKategorie() {
-		return kategorie;
+	public String getKate() {
+		return kate;
 	}
 
-	public void setKategorie(String kategorie) {
-		this.kategorie = kategorie;
+	public void setKate(String kategorie) {
+		this.kate = kategorie;
+	}
+
+	public String getLagerort() {
+		return lagerort;
+	}
+
+	public void setLagerort(String lagerort) {
+		this.lagerort = lagerort;
 	}
 	
 	//// METHODEN ////

@@ -141,8 +141,6 @@ public class BauteileLogik {
 		String query = "UPDATE Bauteil SET bestandLager = bestandLager + 1 WHERE teilId=" + id;
 		try {
 			statement.executeUpdate(query);
-			System.out.println(id+" inkrementiert");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
