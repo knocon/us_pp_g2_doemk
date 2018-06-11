@@ -284,6 +284,8 @@ public class Controller extends Application {
 	private Button personenButtonAuftrag;
 	@FXML
 	void personenGeklicktAuftrag(ActionEvent event) {
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		
 		try {
 			Stage st = new Stage();
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_personen.fxml"));
@@ -293,7 +295,7 @@ public class Controller extends Application {
 
 		    ControllerAuftragBetreuer controller = loader.<ControllerAuftragBetreuer>getController();
 		    //controller.setzeAuftrag(auftrag);
-
+		    verwaltung.namen("typ", "Betreuer", "Person", auftrag);
 	        Scene scene = new Scene(sceneEingabe);
 	        st.setScene(scene);
 	        st.setTitle("Bearbeiten der Betreuer");

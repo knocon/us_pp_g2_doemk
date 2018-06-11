@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Iterator;
 
 import javax.swing.text.Document;
 
@@ -323,6 +324,33 @@ public class Verwaltung {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public void namen(String parameter, String value, String tabellenname, Auftrag a) {
+		String name = null;
+		int id= 0;
+		String rolle = null;
+		
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
+			ObservableList<Person> list = getPerson(resultSet);
+			Iterator<Person> it = list.iterator();
+			while ( it.hasNext()) {
+				Person p = it.next();
+				System.out.print(p.getVorname()+",");
+				id = p.getPersId();
+				rolle = p.getTyp();
+			}
+			String query = "INSERT INTO VTAuftragPersonen(aufId, persId, rolle) VALUES("
+					+ "'"+a.getAufId()+"',"
+					+"'"+id+"',"
+					+"'"+rolle+"')";
+			statement.executeUpdate(query);
+			}
+			
+		 catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	/*
 	 * ZUWEISUNGSMETHODEN ( VERBINDUNGSTABELLEN )
