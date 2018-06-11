@@ -815,7 +815,7 @@ public class Controller extends Application {
 		bezahlungRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("art"));
 		kontoRechnung.setCellValueFactory(
-                new PropertyValueFactory<Rechnung, String>("dateString"));
+                new PropertyValueFactory<Rechnung, String>("konto"));
 		betragRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("betrag"));
 		statusRechnung.setCellValueFactory(
