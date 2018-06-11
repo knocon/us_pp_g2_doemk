@@ -17,7 +17,7 @@ public class Auftrag {
 	private int persId;
 	private String status;
 	
-	public Auftrag( int id,String titel, String art, String dateiname, String rkosten, String pkosten, long datum, String Status) {
+	public Auftrag( int id,String titel, String art, String dateiname, String rkosten, String pkosten, long datum, String status) {
 		super();
 		this.aufId= id;
 		this.datum = datum;
