@@ -244,7 +244,7 @@
                                  <top>
                                     <HBox minHeight="50.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Button fx:id="buttonAlleAuftraege1" mnemonicParsing="false" onAction="#alleAuftraege" text="Alle anzeigen">
+                                          <Button fx:id="buttonAlleRechnungen" mnemonicParsing="false" onAction="#alleRechnungen" text="Alle anzeigen">
                                              <HBox.margin>
                                                 <Insets left="15.0" right="15.0" top="15.0" />
                                              </HBox.margin>
@@ -260,12 +260,12 @@
                                                 <Insets left="15.0" right="15.0" top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <TextField minWidth="150.0" prefWidth="200.0">
+                                          <TextField fx:id="eingabeRechnung" minWidth="150.0" prefWidth="200.0">
                                              <HBox.margin>
                                                 <Insets top="15.0" />
                                              </HBox.margin>
                                           </TextField>
-                                          <Button fx:id="buttonFilterAuftrag1" mnemonicParsing="false" onAction="#filterAuftrag" text="Filtern">
+                                          <Button fx:id="buttonFilterRechnung" mnemonicParsing="false" onAction="#filterRechnung" text="Filtern">
                                              <HBox.margin>
                                                 <Insets left="15.0" top="15.0" />
                                              </HBox.margin>
@@ -295,6 +295,16 @@
                                                 <Insets left="15.0" />
                                              </HBox.margin>
                                           </Separator>
+                                          <Label text="Topf">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ComboBox fx:id="comboRechnungTopf">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="15.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
                                        </children>
                                     </HBox>
                                  </top>

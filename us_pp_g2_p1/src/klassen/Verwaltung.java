@@ -13,7 +13,11 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+<<<<<<< HEAD
 import java.util.logging.Logger;
+=======
+import java.util.Iterator;
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 
 import javax.swing.text.Document;
 
@@ -119,8 +123,7 @@ public class Verwaltung {
 
 	// Finanzen
 	public void addRechnung(Rechnung r) {
-		String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpar"
-				+ "tner, kassenId, topfId, art, betrag, status) VALUES(" + "'" + r.getDateLong() + "'," + "'"
+		String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpartner, kassenId, topfId, art, betrag, status) VALUES(" + "'" + r.getDateLong() + "'," + "'"
 				+ r.getRechnungsName() + "'," + "'" + r.getAuftraggeber() + "'," + "'" + r.getAnsprechpartner() + "',"
 				+ "'" + r.getKassenId() + "'," + "'" + r.getTopfId() + "'," + "'" + r.getArt() + "'," + "'"
 				+ r.getBetrag() + "'," + "'" + r.getStatus() + "')";
@@ -150,7 +153,7 @@ public class Verwaltung {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public ObservableList<Rechnung> getRechnung(ResultSet rs) throws SQLException {
 		try {
 			listRechnung = FXCollections.observableArrayList();
@@ -158,7 +161,7 @@ public class Verwaltung {
 				Rechnung r = new Rechnung(rs.getInt("rechId"), rs.getLong("rechnungsDatum"),
 						rs.getString("rechnungsName"), rs.getString("auftraggeber"), rs.getString("ansprechpartner"),
 						rs.getString("kassenId"), rs.getString("topfId"), rs.getString("art"),
-						rs.getString("kontoId")/* , rs.getDouble("betrag"), rs.getString("status") */);
+						rs.getString("kontoId") , rs.getString("betrag"), rs.getString("status") );
 				listRechnung.add(r);
 			}
 			return listRechnung;
@@ -179,8 +182,24 @@ public class Verwaltung {
 			return null;
 		}
 	}
+	public void statusRechnung(String status, int id) {
+		try {
+			statement.executeUpdate("UPDATE Rechnung Set status = '" + status + "' WHERE rechId=" + id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	// Fertigung
+	
+	public void exportAuftrag(Auftrag a) {
+		long time = System.currentTimeMillis();
+		Rechnung r = new Rechnung(1,time,a.getTitel(), " ", " ",
+				" ", " ", " ", "",a.getRkosten()," ");
+		addRechnung(r);
+	}
+	
 	public ObservableList<Auftrag> ladeAlleAuftraege() {
 		try {
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM Auftrag");
@@ -302,6 +321,46 @@ public class Verwaltung {
 		return null;
 	}
 
+	public ObservableList<Rechnung> filterByParameterRechnung(String parameter, String value, String tabellenname) {
+		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
+		System.out.println(query);
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
+			ObservableList<Rechnung> list = getRechnung(resultSet);
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public void namen(String parameter, String value, String tabellenname, Auftrag a) {
+		String name = null;
+		int id= 0;
+		String rolle = null;
+		
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
+			ObservableList<Person> list = getPerson(resultSet);
+			Iterator<Person> it = list.iterator();
+			while ( it.hasNext()) {
+				Person p = it.next();
+				System.out.print(p.getVorname()+",");
+				id = p.getPersId();
+				rolle = p.getTyp();
+			}
+			String query = "INSERT INTO VTAuftragPersonen(aufId, persId, rolle) VALUES("
+					+ "'"+a.getAufId()+"',"
+					+"'"+id+"',"
+					+"'"+rolle+"')";
+			statement.executeUpdate(query);
+			}
+			
+		 catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	/*
 	 * ZUWEISUNGSMETHODEN ( VERBINDUNGSTABELLEN )
 	 * 

@@ -314,6 +314,8 @@ public class Controller extends Application {
 
 	@FXML
 	void personenGeklicktAuftrag(ActionEvent event) {
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		
 		try {
 			Stage st = new Stage();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_personen.fxml"));
@@ -321,6 +323,7 @@ public class Controller extends Application {
 			Parent sceneEingabe;
 			sceneEingabe = loader.load();
 
+<<<<<<< HEAD
 			ControllerAuftragBetreuer controller = loader.<ControllerAuftragBetreuer>getController();
 			// controller.setzeAuftrag(auftrag);
 
@@ -330,6 +333,17 @@ public class Controller extends Application {
 			st.show();
 			schreibeStatus("Betreuer bearbeitet");
 		} catch (Exception e) {
+=======
+		    ControllerAuftragBetreuer controller = loader.<ControllerAuftragBetreuer>getController();
+		    //controller.setzeAuftrag(auftrag);
+		    verwaltung.namen("typ", "Betreuer", "Person", auftrag);
+	        Scene scene = new Scene(sceneEingabe);
+	        st.setScene(scene);
+	        st.setTitle("Bearbeiten der Betreuer");
+	        st.show();
+	        schreibeStatus("Betreuer bearbeitet");
+		} catch (Exception e){
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 			e.printStackTrace();
 		}
 	}
@@ -346,6 +360,7 @@ public class Controller extends Application {
 			Parent sceneEingabe;
 			sceneEingabe = loader.load();
 
+<<<<<<< HEAD
 			ControllerStatusAuftrag controller = loader.<ControllerStatusAuftrag>getController();
 			// controller.setzePerson(person);
 
@@ -356,6 +371,16 @@ public class Controller extends Application {
 			schreibeStatus("Person bearbeitet");
 		} catch (Exception e) {
 			Alert abfrage = new Alert(AlertType.ERROR, "Error.", ButtonType.OK);
+=======
+	        Scene scene = new Scene(sceneEingabe);
+	        st.setScene(scene);
+	        st.setTitle("Bearbeiten einer neuen Person");
+	        st.show();
+	        schreibeStatus("Person bearbeitet");
+	       
+		} catch (Exception e){
+			Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 			e.printStackTrace();
 		}
 	}
@@ -387,7 +412,18 @@ public class Controller extends Application {
 
 	@FXML
 	void exportGeklicktAuftrag(ActionEvent event) {
+<<<<<<< HEAD
 
+=======
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		if(auftrag!=null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Auftrag wirklich exportieren?", ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if(abfrage.getResult() == ButtonType.YES) {
+				verwaltung.exportAuftrag(auftrag);
+			}
+			}
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 	}
 
 	@FXML
@@ -468,7 +504,13 @@ public class Controller extends Application {
 	private ComboBox<String> statusCombo;
 	@FXML
 	private ComboBox<String> comboRechn;
+<<<<<<< HEAD
 
+=======
+	@FXML
+	TextField eingabeRechnung;
+	
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 	@FXML
 	private Button buttonAlleRechnungen;
 
@@ -501,18 +543,35 @@ public class Controller extends Application {
 				Stage st = new Stage();
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/rechnung_eingabe.fxml"));
 
+<<<<<<< HEAD
 				Parent sceneEingabe;
 				sceneEingabe = loader.load();
 
 				ControllerRechnungEingabe controller = loader.<ControllerRechnungEingabe>getController();
 				controller.setzeRechnung(rechnung);
+=======
+		        Parent sceneEingabe;
+			    sceneEingabe = loader.load();
+			    verwaltung.deleteRechnung(rechnung.getRechId());
+			    ControllerRechnungEingabe controller = loader.<ControllerRechnungEingabe>getController();
+			    controller.setzeRechnung(rechnung);
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 
+<<<<<<< HEAD
 				Scene scene = new Scene(sceneEingabe);
 				st.setScene(scene);
 				st.setTitle("Bearbeiten einer neues Rechnung");
 				st.show();
 				schreibeStatus("Rechnung bearbeitet");
 			} catch (Exception e) {
+=======
+		        Scene scene = new Scene(sceneEingabe);
+		        st.setScene(scene);
+		        st.setTitle("Bearbeiten einer neuen Rechnung");
+		        st.show();
+		        schreibeStatus("Rechnung bearbeitet");
+			} catch (Exception e){
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 				e.printStackTrace();
 			}
 		} else {
@@ -554,14 +613,19 @@ public class Controller extends Application {
 	@FXML
 	void loeschenGeklicktRechnung(ActionEvent event) {
 		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
+<<<<<<< HEAD
 		if (rechnung != null) {
 			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie diesen Auftrag wirklich löschen?",
 					ButtonType.YES, ButtonType.NO);
+=======
+		if(rechnung!=null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diese Rechung wirklich löschen?", ButtonType.YES, ButtonType.NO);
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 			abfrage.showAndWait();
 			if (abfrage.getResult() == ButtonType.YES) {
 				verwaltung.deleteRechnung(rechnung.getRechId());
-				ladeAlleAuftraege();
-				schreibeStatus("Auftrag Gelöscht");
+				ladeAlleRechnungen();
+				schreibeStatus("Rechnung gelöscht");
 			}
 		} else {
 			Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
@@ -575,9 +639,52 @@ public class Controller extends Application {
 
 	@FXML
 	void aendernStatus(ActionEvent event) {
+<<<<<<< HEAD
 
+=======
+		Rechnung rechnung= rechnungTabelle.getSelectionModel().getSelectedItem();
+		String statusParam =statusCombo.getValue();
+		if(rechnung!=null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Status wirklich bearbeiten?", ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if(abfrage.getResult() == ButtonType.YES) {
+				switch(statusParam) {
+				case "Bearbeitung": verwaltung.statusRechnung("Bearbeitung", rechnung.getRechId());; break;
+				case "Eingereicht": verwaltung.statusRechnung("Eingereicht", rechnung.getRechId());; break;
+				case "Abgewickelt": verwaltung.statusRechnung("Abgewickel", rechnung.getRechId());; break;
+				case "Ausstehend": verwaltung.statusRechnung("Ausstehend", rechnung.getRechId());; break;
+				
+				}
+				ladeAlleRechnungen();
+			}else {
+				Alert ab = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+				ab.showAndWait();
+			}}
+		
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 	}
 
+	@FXML
+	private Button filterRechnung;
+	@FXML
+	void filterRechnung(ActionEvent event) {
+		String filterParam = comboRechn.getValue();
+		String filterWert = eingabeRechnung.getText();
+		ObservableList<Rechnung> aList = null;
+		if(!filterWert.isEmpty()) {
+			switch(filterParam) {
+				case "Name" : aList = verwaltung.filterByParameterRechnung("rechnungsName", filterWert, "Rechnung"); break;
+				case "Kasse": aList = verwaltung.filterByParameterRechnung("kassenId", filterWert, "Rechnung"); break;
+				case "Auftraggeber": aList = verwaltung.filterByParameterRechnung("auftraggeber", filterWert, "Rechnung"); break;
+				case "Status" : aList = verwaltung.filterByParameterRechnung("status", filterWert, "Rechnung"); break;
+			}
+		}
+		
+		rechnungTabelle.setItems(aList);
+		System.out.println(filterFieldPerson.getText());
+	}
+	
+	
 	@FXML
 	private Button pdfExport;
 
@@ -605,9 +712,15 @@ public class Controller extends Application {
 			abfrage.showAndWait();
 		}
 	}
+<<<<<<< HEAD
 
 	///////////////////////////////// Bauteile
 	///////////////////////////////// ///////////////////////////////////////////////
+=======
+	
+	
+	/////////////////////////////////      Bauteile        ///////////////////////////////////////////////
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 	@FXML
 	private ComboBox<String> comboBauteil;
 	@FXML
@@ -920,15 +1033,36 @@ public class Controller extends Application {
 		comboAuftragFilter.getSelectionModel().selectFirst();
 
 		// Rechnungen
+<<<<<<< HEAD
 		ObservableList<String> rechnungsFilter = FXCollections.observableArrayList("Name", "Kasse", "Topf",
 				"Ansprechpartner", "Status");
+=======
+		ObservableList<String> rechnungsFilter = 
+			    FXCollections.observableArrayList(
+			        "Name",
+			        "Kasse",
+			        "Auftraggeber",
+			        "Status"
+			    );
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 		comboRechn.setItems(rechnungsFilter);
 		comboRechn.getSelectionModel().selectFirst();
+<<<<<<< HEAD
 
 		ObservableList<String> status = FXCollections.observableArrayList("Bearbeitung", "Eingereicht", "Abgewickelt",
 				"Ausstehend");
+=======
+		
+		ObservableList<String> status = 
+			    FXCollections.observableArrayList(
+			        "Bearbeitung",
+			        "Eingereicht",
+			        "Abgewickelt",
+			        "Ausstehend");
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 		statusCombo.setItems(status);
 		statusCombo.getSelectionModel().selectFirst();
+<<<<<<< HEAD
 
 		nameRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("rechnungsName"));
 		datumRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("rechnungsDatum"));
@@ -939,8 +1073,34 @@ public class Controller extends Application {
 		betragRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("telefon"));
 		statusRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("status"));
 		stempelRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("hausnummer"));
+=======
+		
+		nameRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("rechnungsName"));
+		datumRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("dateString"));
+		auftraggeberRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("auftraggeber"));
+		kasseRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("kassenId"));
+		bezahlungRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("art"));
+		kontoRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("konto"));
+		betragRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("betrag"));
+		statusRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("status"));
+		stempelRechnung.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("dateString"));
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 		ladeAlleRechnungen();
+<<<<<<< HEAD
 
+=======
+		
+		
+>>>>>>> branch 'master' of https://github.com/knocon/us_pp_g2_doemk.git
 		// Bauteile
 		nameBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("name"));
 

@@ -22,7 +22,7 @@ public class Rechnung {
 	private LocalDate statusZeitstempel;
 	
 	public Rechnung(int id,long datum, String rechnungsName, String auftraggeber, String ansprechpartner,
-			String kassenId, String topfId, String art, String kontoId/*, double betrag, String status*/) {
+			String kassenId, String topfId, String art, String kontoId, String betrag, String status) {
 		super();
 		this.rechId= id;
 		this.datum = datum;

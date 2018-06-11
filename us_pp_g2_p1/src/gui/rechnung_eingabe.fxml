@@ -7,7 +7,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="280.0" minWidth="426.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.ControllerRechnungEingabe">
    <bottom>
-      <Button fx:id="speichernButtonRechnung" mnemonicParsing="false" onAction="#rechnungpeichern" text="Speichern" BorderPane.alignment="CENTER">
+      <Button fx:id="speichernButtonRechnung" mnemonicParsing="false" onAction="#rechnungSpeichern" text="Speichern" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="15.0" />
          </BorderPane.margin>
@@ -44,7 +44,7 @@
             </TextField>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Auftraggeber" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="20.0" />
+                  <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </Label>
             <TextField fx:id="auftraggeberFeld" GridPane.columnIndex="1" GridPane.rowIndex="1" />
