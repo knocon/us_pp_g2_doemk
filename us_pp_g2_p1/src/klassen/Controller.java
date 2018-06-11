@@ -504,7 +504,7 @@ public class Controller extends Application {
 			if(abfrage.getResult() == ButtonType.YES) {
 				verwaltung.deleteRechnung(rechnung.getRechId());
 				ladeAlleRechnungen();
-				schreibeStatus("Rechnung Gelöscht");
+				schreibeStatus("Rechnung gelöscht");
 			}
 		}
 		else {
