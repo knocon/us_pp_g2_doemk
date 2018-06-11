@@ -32,7 +32,7 @@ public class ControllerRechnungEingabe {
 	@FXML
 	private Button speichernButtonRechnung;
 	@FXML
-	void rechnungpeichern(ActionEvent event) {
+	void rechnungSpeichern(ActionEvent event) {
 		String name = nameFeld.getText();
 		String auftraggeber = auftraggeberFeld.getText();
 		String kasse = kasseFeld.getText();
@@ -63,13 +63,13 @@ public class ControllerRechnungEingabe {
 	}
 	
 	public void setzeRechnung(Rechnung p) {
-		nameFeld.setText("");
-		auftraggeberFeld.setText("");
-		kasseFeld.setText("");
-		artFeld.setText("");
-		datumFeld.setText("");
-		ansprechpartnerFeld.setText("");
-		topfFeld.setText("");
-		kontoFeld.setText("");
+		nameFeld.setText(p.getRechnungsName());
+		auftraggeberFeld.setText(p.getAuftraggeber());
+		kasseFeld.setText(p.getKassenId());
+		artFeld.setText(p.getArt());
+		datumFeld.setText(p.getDateString());
+		ansprechpartnerFeld.setText(p.getAnsprechpartner());
+		topfFeld.setText(p.getTopfId());
+		kontoFeld.setText(p.getKontoId());
 	}
 }

@@ -244,7 +244,7 @@
                                  <top>
                                     <HBox minHeight="50.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Button fx:id="buttonAlleAuftraege1" mnemonicParsing="false" onAction="#alleAuftraege" text="Alle anzeigen">
+                                          <Button fx:id="buttonAlleRechnungen" mnemonicParsing="false" onAction="#alleRechnungen" text="Alle anzeigen">
                                              <HBox.margin>
                                                 <Insets left="15.0" right="15.0" top="15.0" />
                                              </HBox.margin>

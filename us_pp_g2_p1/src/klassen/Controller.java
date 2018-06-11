@@ -800,22 +800,23 @@ public class Controller extends Application {
 		nameRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("rechnungsName"));
 		datumRechnung.setCellValueFactory(
-                new PropertyValueFactory<Rechnung, String>("rechnungsDatum"));
+                new PropertyValueFactory<Rechnung, String>("dateString"));
 		auftraggeberRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("auftraggeber"));
 		kasseRechnung.setCellValueFactory(
-                new PropertyValueFactory<Rechnung, String>("typ"));
+                new PropertyValueFactory<Rechnung, String>("kassenId"));
 		bezahlungRechnung.setCellValueFactory(
-                new PropertyValueFactory<Rechnung, String>("stadt"));
+                new PropertyValueFactory<Rechnung, String>("art"));
 		kontoRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("dateString"));
 		betragRechnung.setCellValueFactory(
-                new PropertyValueFactory<Rechnung, String>("telefon"));
+                new PropertyValueFactory<Rechnung, String>("betrag"));
 		statusRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("status"));
 		stempelRechnung.setCellValueFactory(
-                new PropertyValueFactory<Rechnung, String>("hausnummer"));
+                new PropertyValueFactory<Rechnung, String>("dateString"));
 		ladeAlleRechnungen();
+		
 		
 		// Bauteile
 		nameBauteil.setCellValueFactory(
