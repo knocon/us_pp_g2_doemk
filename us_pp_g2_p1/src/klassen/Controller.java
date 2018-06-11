@@ -449,13 +449,13 @@ public class Controller extends Application {
 
 		        Parent sceneEingabe;
 			    sceneEingabe = loader.load();
-
+			    verwaltung.deleteRechnung(rechnung.getRechId());
 			    ControllerRechnungEingabe controller = loader.<ControllerRechnungEingabe>getController();
 			    controller.setzeRechnung(rechnung);
 
 		        Scene scene = new Scene(sceneEingabe);
 		        st.setScene(scene);
-		        st.setTitle("Bearbeiten einer neues Rechnung");
+		        st.setTitle("Bearbeiten einer neuen Rechnung");
 		        st.show();
 		        schreibeStatus("Rechnung bearbeitet");
 			} catch (Exception e){
