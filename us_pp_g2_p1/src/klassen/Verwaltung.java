@@ -152,7 +152,7 @@ public class Verwaltung {
 				Rechnung r = new Rechnung(rs.getInt("rechId"), rs.getLong("rechnungsDatum"),
 						rs.getString("rechnungsName"), rs.getString("auftraggeber"), rs.getString("ansprechpartner"),
 						rs.getString("kassenId"), rs.getString("topfId"), rs.getString("art"),
-						rs.getString("kontoId")/* , rs.getDouble("betrag"), rs.getString("status") */);
+						rs.getString("kontoId") , rs.getString("betrag"), rs.getString("status") );
 				listRechnung.add(r);
 			}
 			return listRechnung;
@@ -175,6 +175,14 @@ public class Verwaltung {
 	}
 
 	// Fertigung
+	
+	public void exportAuftrag(Auftrag a) {
+		long time = System.currentTimeMillis();
+		Rechnung r = new Rechnung(1,time,a.getTitel(), " ", " ",
+				" ", " ", " ", "",a.getRkosten()," ");
+		addRechnung(r);
+	}
+	
 	public ObservableList<Auftrag> ladeAlleAuftraege() {
 		try {
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM Auftrag");

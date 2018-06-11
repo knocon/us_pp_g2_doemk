@@ -353,7 +353,14 @@ public class Controller extends Application {
 	private Button exportButtonAuftrag;
 	@FXML
 	void exportGeklicktAuftrag(ActionEvent event) {
-		
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		if(auftrag!=null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Auftrag wirklich exportieren?", ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if(abfrage.getResult() == ButtonType.YES) {
+				verwaltung.exportAuftrag(auftrag);
+			}
+			}
 	}
 	
 	@FXML
