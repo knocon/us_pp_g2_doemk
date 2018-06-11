@@ -2,6 +2,7 @@ package klassen;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import com.itextpdf.text.DocumentException;
 
@@ -25,6 +26,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
@@ -607,26 +609,66 @@ public class Controller extends Application {
 	@FXML
 	private TableColumn<Bauteil, String> lagerortBauteil;
 	@FXML
-	private TableColumn<Bauteil, String> lagerBauteil;
+	private TableColumn<Bauteil, String> lagerndBauteil;
 	@FXML
 	private TableColumn<Bauteil, String> geplantBauteil;
 	@FXML
 	private TableColumn<Bauteil, String> bestelltBauteil;
 	@FXML
 	private TableColumn<Bauteil, String> linkBauteil;
+	@FXML
+	private TableColumn<Bauteil, String> kategorieBauteil;
 	
 	@FXML
 	private Button inkrementierenButton;
 	@FXML
-	void inkrementierenBauteil(ActionEvent event){
+	void inkrementierenBauteil(ActionEvent event) {
+
+		Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
+		if (b != null) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Bestätigungsabfrage");
+			alert.setHeaderText("Achtung!");
+			alert.setContentText(
+					"Sind Sie sicher, dass Sie das Bauteil inkrementieren möchten? Um die Inkrementierung rückgängig zu machen, müssen Sie es wieder manuell dekrementieren!");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				Verwaltung.inkrementLager(b.getTeilId());
+				ladeAlleBauteile();
+
+			} else {
+				// exit
+			}
+
+		}
 
 	}
 	
 	@FXML
 	private Button dekrementierenButton;
 	@FXML
-	void dekrementierenBauteil(ActionEvent event){
+	void dekrementierenBauteil(ActionEvent event) {
 		
+		Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
+
+		if (b != null) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Bestätigungsabfrage");
+			alert.setHeaderText("Achtung!");
+			alert.setContentText(
+					"Sind Sie sicher, dass Sie das Bauteil dekrementieren möchten? Um die Dekrementierung rückgängig zu machen, müssen Sie es wieder manuell inkrementieren!");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				Verwaltung.dekrementLager(b);
+				ladeAlleBauteile();
+
+			} else {
+				// exit
+			}
+
+		}
 	}
 	
 	@FXML
@@ -650,8 +692,11 @@ public class Controller extends Application {
 	@FXML
 	private Button minusButton;
 	@FXML
-	void minusKategorie(ActionEvent event){
-		
+	void minusKategorie(ActionEvent event) {
+		String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
+		Verwaltung.deleteZugehoerigeKategorie(k);
+		Verwaltung.deleteKategorie(k);
+
 	}
 	
 	@FXML
@@ -659,28 +704,50 @@ public class Controller extends Application {
 	@FXML
 	void filterBauteil(ActionEvent event){
 		
+		
+		String filterParam = comboBauteilKategorie.getValue();
+		ObservableList<Bauteil> pList = null;
+		pList = verwaltung.filterByParameterBauteil(filterParam);
+
+			bauteileTable.setItems(pList);
+		
 	}
 	
 	@FXML
 	private Button bearbeitenKategorie;
 	@FXML
-	void kategorieBearbeiten(ActionEvent event){
+	void kategorieBearbeiten(ActionEvent event) {
 		try {
-			Stage st = new Stage();
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/kategorien.fxml"));
+			/*Stage st = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/kategorien.fxml"));
 
-	        Parent sceneEingabe;
-		    sceneEingabe = loader.load();
+			Parent sceneEingabe;
+			sceneEingabe = loader.load();
 
-		    ControllerKategorien controller = loader.<ControllerKategorien>getController();
-		    //controller.setzeAuftrag(auftrag);
+			ControllerKategorien controller = loader.<ControllerKategorien>getController();
+			// controller.setzeAuftrag(auftrag);
 
-	        Scene scene = new Scene(sceneEingabe);
-	        st.setScene(scene);
-	        st.setTitle("Bearbeiten der Kategorie");
-	        st.show();
-	        schreibeStatus("Kategorie bearbeitet");
-		} catch (Exception e){
+			Scene scene = new Scene(sceneEingabe);
+			st.setScene(scene);
+			st.setTitle("Bearbeiten der Kategorie");
+			st.show();
+			schreibeStatus("Kategorie bearbeitet");*/
+			
+			String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
+
+			TextInputDialog d = new TextInputDialog();
+			d.setTitle("Test");
+			d.setHeaderText("Testad");
+			d.setContentText("Lol");
+			
+			Optional<String> result = d.showAndWait();
+			if(result.isPresent()) {
+				Verwaltung.renameKategorie(result.get(),k);
+			}
+
+	       
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -723,8 +790,24 @@ public class Controller extends Application {
 	@FXML
 	private Button loeschenButtonBauteil;
 	@FXML
-	void bauteilLoeschen(ActionEvent event){
+	void bauteilLoeschen(ActionEvent event) {
 		
+		Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
+		if (b != null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie die Person wirklich löschen?", ButtonType.YES,
+					ButtonType.NO);
+			abfrage.showAndWait();
+			if (abfrage.getResult() == ButtonType.YES) {
+				verwaltung.deleteBauteil(b.getTeilId());
+				ladeAlleBauteile();
+				schreibeStatus("Bauteil Gelöscht");
+			}
+		} else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
+					ButtonType.OK);
+			abfrage.showAndWait();
+		}
+
 	}
 	
 	
@@ -870,28 +953,29 @@ public class Controller extends Application {
 		
 		
 		// Bauteile
-		nameBauteil.setCellValueFactory(
-                new PropertyValueFactory<Bauteil, String>("name"));
-		
-		preisBauteil.setCellValueFactory(
-                new PropertyValueFactory<Bauteil, String>("epreis"));
-		
-		lagerortBauteil.setCellValueFactory(
-                new PropertyValueFactory<Bauteil, String>("auftraggeber"));
-		
-		lagerortBauteil.setCellValueFactory(
-                new PropertyValueFactory<Bauteil, String>("bestandLager"));
-		
-		geplantBauteil.setCellValueFactory(
-                new PropertyValueFactory<Bauteil, String>("bestandGeplant"));
-		
-		bestelltBauteil.setCellValueFactory(
-                new PropertyValueFactory<Bauteil, String>("bestandBestellt"));
-		
-		linkBauteil.setCellValueFactory(
-                new PropertyValueFactory<Bauteil, String>("link"));
-		
+		nameBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("name"));
+
+		preisBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("epreis"));
+
+		lagerortBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("lagerort"));
+
+		lagerndBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("bestandLager"));
+
+		geplantBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("bestandGeplant"));
+
+		bestelltBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("bestandBestellt"));
+
+		linkBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("link"));
+
+		kategorieBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("kate"));
+
 		ladeAlleBauteile();
+		comboBauteilKategorie.setItems(Verwaltung.fillComboBoxKategorie());
+		comboBauteilKategorie.getSelectionModel().selectFirst();
+		
+		ObservableList<String> optionsBaut = FXCollections.observableArrayList("Name", "Kategorie", "Lagerort");
+		comboBauteil.setItems(optionsBaut);
+		comboBauteil.getSelectionModel().selectFirst();
 	}
 	
 	public void ladeAllePersonen() {
@@ -934,6 +1018,17 @@ public class Controller extends Application {
 		toolText.setText(nStatus);
 	}
 	
+	public ComboBox<String> getComboBauteilKategorie() {
+		return comboBauteilKategorie;
+	}
+
+	public void setComboBauteilKategorie(ComboBox<String> comboBauteilKategorie) {
+		this.comboBauteilKategorie = comboBauteilKategorie;
+	}
 	
+	public ComboBox<String> transportData() {
+		ComboBox<String> output = comboBauteilKategorie;
+		return output;
+	}
 	
 }
