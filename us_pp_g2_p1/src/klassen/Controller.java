@@ -323,6 +323,7 @@ public class Controller extends Application {
 	        st.setTitle("Bearbeiten einer neuen Person");
 	        st.show();
 	        schreibeStatus("Person bearbeitet");
+	       
 		} catch (Exception e){
 			Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
 			e.printStackTrace();
@@ -417,6 +418,8 @@ public class Controller extends Application {
 	private ComboBox<String> statusCombo;
 	@FXML
 	private ComboBox<String> comboRechn;
+	@FXML
+	TextField eingabeRechnung;
 	
 	@FXML
 	private Button buttonAlleRechnungen;
@@ -519,6 +522,27 @@ public class Controller extends Application {
 	void aendernStatus(ActionEvent event) {
 		
 	}
+	
+	@FXML
+	private Button filterRechnung;
+	@FXML
+	void filterRechnung(ActionEvent event) {
+		String filterParam = comboRechn.getValue();
+		String filterWert = eingabeRechnung.getText();
+		ObservableList<Rechnung> aList = null;
+		if(!filterWert.isEmpty()) {
+			switch(filterParam) {
+				case "Name" : aList = verwaltung.filterByParameterRechnung("rechnungsName", filterWert, "Rechnung"); break;
+				case "Kasse": aList = verwaltung.filterByParameterRechnung("kassenId", filterWert, "Rechnung"); break;
+				case "Auftraggeber": aList = verwaltung.filterByParameterRechnung("auftraggeber", filterWert, "Rechnung"); break;
+				case "Status" : aList = verwaltung.filterByParameterRechnung("status", filterWert, "Rechnung"); break;
+			}
+		}
+		
+		rechnungTabelle.setItems(aList);
+		System.out.println(filterFieldPerson.getText());
+	}
+	
 	
 	@FXML
 	private Button pdfExport;
@@ -787,8 +811,7 @@ public class Controller extends Application {
 			    FXCollections.observableArrayList(
 			        "Name",
 			        "Kasse",
-			        "Topf",
-			        "Ansprechpartner",
+			        "Auftraggeber",
 			        "Status"
 			    );
 		comboRechn.setItems(rechnungsFilter);

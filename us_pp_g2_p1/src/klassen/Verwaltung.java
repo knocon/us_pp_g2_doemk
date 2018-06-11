@@ -113,8 +113,7 @@ public class Verwaltung {
 
 	// Finanzen
 	public void addRechnung(Rechnung r) {
-		String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpar"
-				+ "tner, kassenId, topfId, art, betrag, status) VALUES(" + "'" + r.getDateLong() + "'," + "'"
+		String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpartner, kassenId, topfId, art, betrag, status) VALUES(" + "'" + r.getDateLong() + "'," + "'"
 				+ r.getRechnungsName() + "'," + "'" + r.getAuftraggeber() + "'," + "'" + r.getAnsprechpartner() + "',"
 				+ "'" + r.getKassenId() + "'," + "'" + r.getTopfId() + "'," + "'" + r.getArt() + "'," + "'"
 				+ r.getBetrag() + "'," + "'" + r.getStatus() + "')";
@@ -304,6 +303,19 @@ public class Verwaltung {
 		return null;
 	}
 
+	public ObservableList<Rechnung> filterByParameterRechnung(String parameter, String value, String tabellenname) {
+		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
+		System.out.println(query);
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
+			ObservableList<Rechnung> list = getRechnung(resultSet);
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	/*
 	 * ZUWEISUNGSMETHODEN ( VERBINDUNGSTABELLEN )
 	 * 

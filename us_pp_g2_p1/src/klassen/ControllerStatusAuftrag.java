@@ -28,7 +28,7 @@ public class ControllerStatusAuftrag {
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
-	public void setStatus(Rechnung[] rechnung) {
+	public void setStatus(Auftrag[] auftrag) {
 		
 		//  Hier müssen die Daten an die Labels übergeben werden
 		

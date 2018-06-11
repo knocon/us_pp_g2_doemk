@@ -260,12 +260,12 @@
                                                 <Insets left="15.0" right="15.0" top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <TextField minWidth="150.0" prefWidth="200.0">
+                                          <TextField fx:id="eingabeRechnung" minWidth="150.0" prefWidth="200.0">
                                              <HBox.margin>
                                                 <Insets top="15.0" />
                                              </HBox.margin>
                                           </TextField>
-                                          <Button fx:id="buttonFilterAuftrag1" mnemonicParsing="false" onAction="#filterAuftrag" text="Filtern">
+                                          <Button fx:id="buttonFilterRechnung" mnemonicParsing="false" onAction="#filterRechnung" text="Filtern">
                                              <HBox.margin>
                                                 <Insets left="15.0" top="15.0" />
                                              </HBox.margin>
