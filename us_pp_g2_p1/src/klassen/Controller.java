@@ -566,7 +566,7 @@ public class Controller extends Application {
 	private Button inkrementierenButton;
 	@FXML
 	void inkrementierenBauteil(ActionEvent event){
-		
+
 	}
 	
 	@FXML
@@ -580,7 +580,7 @@ public class Controller extends Application {
 	private Button buttonAlleBauteile;
 	@FXML
 	void alleBauteile(ActionEvent event){
-		ladeAlleBauteil();
+		ladeAlleBauteile();
 	}
 	
 	@FXML
@@ -818,19 +818,26 @@ public class Controller extends Application {
 		// Bauteile
 		nameBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("name"));
+		
 		preisBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("epreis"));
+		
 		lagerortBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("auftraggeber"));
+		
 		lagerortBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("bestandLager"));
+		
 		geplantBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("bestandGeplant"));
+		
 		bestelltBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("bestandBestellt"));
+		
 		linkBauteil.setCellValueFactory(
                 new PropertyValueFactory<Bauteil, String>("link"));
-		ladeAlleBauteil();
+		
+		ladeAlleBauteile();
 	}
 	
 	public void ladeAllePersonen() {
@@ -848,10 +855,9 @@ public class Controller extends Application {
 		rechnungTabelle.setItems(rechnungen);
 	}
 	
-	public void ladeAlleBauteil() {
-		BauteileLogik bauteileLogik;
-		//ObservableList<Bauteil> bauteile = bauteileLogik.ladeAlleBauteile();
-		//bauteileTable.setItems(bauteile);
+	public void ladeAlleBauteile() {
+		ObservableList<Bauteil> bauteile = verwaltung.ladeAlleBauteile();
+		bauteileTable.setItems(bauteile);
 	}
 	
 	private void neuesFenster(String fxml, String fensterTitel) {
@@ -873,5 +879,7 @@ public class Controller extends Application {
 		String nStatus = "eLab Verwaltung  :  " + status;
 		toolText.setText(nStatus);
 	}
+	
+	
 	
 }

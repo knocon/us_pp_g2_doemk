@@ -52,7 +52,7 @@ public class ControllerBauteilEingabe {
 		}
 		else {
 			long time = System.currentTimeMillis();
-			Bauteil b = new Bauteil(name,link,2,2,2,2);
+			Bauteil b = new Bauteil(name,link,kategorie,2,2,2,2);
 			Verwaltung verwaltung = new Verwaltung();
 			//verwaltung.addPerson(b);
 			((Node)(event.getSource())).getScene().getWindow().hide();

@@ -11,10 +11,11 @@ public class Bauteil {
 	private int bestandGeplant;
 	private int teilId;
 	
-	public Bauteil(String name, String link, double epreis, int bestandLager, int bestandBestellt, int bestandGeplant) {
+	public Bauteil(String name,String kategorie, String link, double epreis,int bestandLager, int bestandBestellt, int bestandGeplant) {
 		super();
 		this.name = name;
 		this.link = link;
+		this.kategorie = kategorie;
 		this.epreis = epreis;
 		this.bestandLager = bestandLager;
 		this.bestandBestellt = bestandBestellt;

@@ -31,12 +31,10 @@ public class Verwaltung {
 	static LocalDate date;
 	static ObservableList<Person> listPerson;
 	static ObservableList<Rechnung> listRechnung;
+	static ObservableList<Bauteil> listBauteil;
 
 	public Verwaltung() {
 		dbconnection();
-
-		Person p1 = new Person(78, 0, null, null, null, null, null, null, null, null);
-		personZuweisen(0, p1, null);
 
 	}
 
@@ -388,6 +386,39 @@ public class Verwaltung {
 			System.out.println("geloescht");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	
+	/*
+	 * lade Content in Tabelle bauteile
+	 */
+		public ObservableList<Bauteil> getBauteil(ResultSet rs) throws SQLException {
+		try {
+			listBauteil = FXCollections.observableArrayList();
+			while (rs.next()) {
+				Bauteil b = new Bauteil(rs.getString("name"), rs.getString("kategorie"),
+						rs.getString("link"), rs.getDouble("epreis"),
+						rs.getInt("bestandLager"), rs.getInt("bestandBestellt"), rs.getInt("bestandGeplant"));
+				listBauteil.add(b);
+			}
+			return listBauteil;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	
+	public ObservableList<Bauteil> ladeAlleBauteile() {
+		try {
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Bauteil");
+			ObservableList<Bauteil> baut = getBauteil(resultSet);
+			return baut;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

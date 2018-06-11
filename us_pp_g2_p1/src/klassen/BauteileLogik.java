@@ -30,18 +30,18 @@ public class BauteileLogik {
 	static java.sql.Statement statement;
 	static java.sql.Statement statement2;
 	static LocalDate date;
-	static ObservableList<Bauteil> listBauteil ;
+	static ObservableList<Bauteil> listBauteil;
 	
 	/*
 	 * kategorie spalte muss erstellt werden
 	 * kategorie tabelle muss erstellt werden
 	 */
-
-	public static void main(String[] args) {
+	
+	public BauteileLogik(){
 		dbconnection();
 	}
 
-	public static Connection dbconnection() {
+	public Connection dbconnection() {
 
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -59,7 +59,7 @@ public class BauteileLogik {
 	 * Bauteile hinzufuegen, loeschen,bearbeiten
 	 */
 
-	public static void addBauteil(Bauteil b) {
+	public void addBauteil(Bauteil b) {
 		String query = "INSERT INTO Bauteil(name,link,epreis,bestandLager,bestandBestellt,bestandGeplant) VALUES("
 
 				+ "'" + b.getName() + "'," + "'" + b.getLink() + "'," + "'" + b.getEpreis() + "'," + "'"
@@ -99,7 +99,7 @@ public class BauteileLogik {
 	 * Kategorie anlegen,loeschen,bearbeiten
 	 */
 
-	public static void addKategorie(Kategorie k) {
+	public void addKategorie(Kategorie k) {
 		String query = "INSERT INTO Kategorie(name) VALUES" + "("+ "'" + k.getName() + "')" ;
 
 		try {
@@ -137,7 +137,7 @@ public class BauteileLogik {
 	 * Beim dekrementieren das Objekt in Warenkorb laden
 	 */
 	
-	public void inkrementLager(int id) {
+	public static void inkrementLager(int id) {
 		String query = "UPDATE Bauteil SET bestandLager = bestandLager + 1 WHERE teilId=" + id;
 		try {
 			statement.executeUpdate(query);
@@ -217,6 +217,6 @@ public class BauteileLogik {
 
 
 	}
-
+	
 	
 }
