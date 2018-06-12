@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.ControllerWarenkorb">
+   <children>
+      <TableView fx:id="warenkorbTable" prefHeight="317.0" prefWidth="499.0">
+        <columns>
+          <TableColumn fx:id="warenkorbId" prefWidth="155.0" text="Id" />
+          <TableColumn fx:id="warenkorbName" minWidth="0.0" prefWidth="186.0" text="Name" />
+            <TableColumn fx:id="warenkorbPreis" minWidth="2.0" prefWidth="157.0" text="Preis" />
+        </columns>
+      </TableView>
+      <Button fx:id="stellenButton" layoutX="365.0" layoutY="327.0" mnemonicParsing="false" onAction="#stellenAction" prefHeight="63.0" prefWidth="122.0" text="Rechnung stellen" textAlignment="CENTER" />
+      <Button fx:id="entfernenButton" layoutX="14.0" layoutY="327.0" mnemonicParsing="false" onAction="#entfernenAction" prefHeight="63.0" prefWidth="122.0" text="Bauteil entfernen" textAlignment="CENTER" />
+      <Button fx:id="leerenButton" layoutX="189.0" layoutY="327.0" mnemonicParsing="false" onAction="#leerenAction" prefHeight="63.0" prefWidth="122.0" text="Warenkorb leeren" textAlignment="CENTER" />
+   </children>
+</Pane>

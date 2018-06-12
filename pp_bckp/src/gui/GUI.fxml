@@ -423,6 +423,8 @@
                                     <Button fx:id="bauteilAnlegenButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilAnlegen" prefHeight="50.0" prefWidth="200.0" text="Anlegen" />
                                     <Button fx:id="bauteilBearbeitenButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilBearbeiten" prefHeight="50.0" prefWidth="200.0" text="Bearbeiten" />
                                     <Button fx:id="loeschenButtonBauteil" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilLoeschen" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
+                                    <Button fx:id="warenkorbButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#warenkorbAnzeigen" prefHeight="50.0" prefWidth="200.0" text="Warenkorb" />
+                                    <Button fx:id="verwaltungButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#verwaltungRechnungen" prefHeight="50.0" prefWidth="200.0" text="Verwaltung" />
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

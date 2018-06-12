@@ -37,6 +37,7 @@ public class Verwaltung {
 	static ObservableList<Person> listPerson;
 	static ObservableList<Rechnung> listRechnung;
 	static ObservableList<Bauteil> listBauteil;
+	static ObservableList<Bauteil> listBauteilWk;
 	static ObservableList options = FXCollections.observableArrayList();
 
 	public Verwaltung() {
@@ -44,7 +45,7 @@ public class Verwaltung {
 
 	}
 
-	public Connection dbconnection() {
+	public static Connection dbconnection() {
 
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -374,6 +375,14 @@ public class Verwaltung {
 		}
 	}
 
+	public static ObservableList<Bauteil> getListBauteil() {
+		return listBauteil;
+	}
+
+	public static void setListBauteil(ObservableList<Bauteil> listBauteil) {
+		Verwaltung.listBauteil = listBauteil;
+	}
+
 	public void kasseTopfZuweisen(Kasse k, int topfId) {
 		String query = "INSERT INTO VTKasseToepfe(kasId,topfId) VALUES("
 
@@ -495,15 +504,14 @@ public class Verwaltung {
 	public static void dekrementLager(Bauteil b){
 		String timeStamp = new SimpleDateFormat("dd.MM").format(new java.util.Date());
 		String query = "UPDATE Bauteil SET bestandLager = bestandLager -1 WHERE teilId =" + b.getTeilId();
-		String query2 = "INSERT INTO Warenkorb(bauteilId,preis) VALUES("
-				+b.getTeilId() + "," + "" + b.getEpreis() + ")";
-		String query3 = "INSERT INTO BauteilRechnung(datum,summe) VALUES("+timeStamp+",(SELECT sum(preis) FROM Warenkorb GROUP BY preis))";
-		String query4 = "DELETE FROM Warenkorb";
+		String query2 = "INSERT INTO Warenkorb(bauteilId, bauteilName, preis) VALUES('"+b.getTeilId() + "','" + b.getName() +"'," +b.getEpreis() + ")";
+		//String query3 = "INSERT INTO BauteilRechnung(datum,summe) VALUES("+timeStamp+",(SELECT sum(preis) FROM Warenkorb GROUP BY preis))";
+		//String query4 = "DELETE FROM Warenkorb";
 		try {
 			statement.executeUpdate(query);
 			statement.executeUpdate(query2);
-			statement.executeUpdate(query3);
-			statement.executeUpdate(query4);
+			//statement.executeUpdate(query3);
+			//statement.executeUpdate(query4);
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -661,5 +669,27 @@ public class Verwaltung {
 			e.printStackTrace();
 		}
 
+	}
+	
+	//WARENKORB 
+	
+	public ObservableList<Bauteil> ladeWarenkorb() {
+		try {
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Warenkorb");
+			ObservableList<Bauteil> ret = getBauteil(resultSet);
+			return ret;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+	public static ObservableList<Bauteil> getListBauteilWk() {
+		return listBauteilWk;
+	}
+
+	public static void setListBauteilWk(ObservableList<Bauteil> listBauteilWk) {
+		Verwaltung.listBauteilWk = listBauteilWk;
 	}
 }

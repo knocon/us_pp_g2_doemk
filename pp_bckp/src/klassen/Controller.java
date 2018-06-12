@@ -646,6 +646,24 @@ public class Controller extends Application {
 	}
 	
 	@FXML
+	private Button warenkorbButton;
+	@FXML
+	void warenkorbAnzeigen(ActionEvent event) {
+		try {
+			neuesFenster("/gui/warenkorb.fxml", "Ihr Warenkorb");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private Button verwaltungButton;
+	@FXML
+	void verwaltungRechnungen(ActionEvent event) {
+		//TODO
+	}
+	
+	@FXML
 	private Button dekrementierenButton;
 	@FXML
 	void dekrementierenBauteil(ActionEvent event) {
@@ -661,6 +679,7 @@ public class Controller extends Application {
 
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
+				System.out.println(b.getName());
 				Verwaltung.dekrementLager(b);
 				ladeAlleBauteile();
 
