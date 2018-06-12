@@ -2,6 +2,7 @@ package klassen;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -24,13 +25,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ControllerWarenkorb {
+public class ControllerWarenkorb{
 		
-	public ObservableList<BauteilWk> list;
 	static ResultSet resultSet;
 	static ResultSet rs;
 	static java.sql.Statement statement;
-	static ObservableList<BauteilWk> listBauteil;
+	static ObservableList<BauteilWk> listWarenkorb;
+	static Connection conn = null;
 	
 	@FXML
 	private TableView<BauteilWk> warenkorbTable;
@@ -49,6 +50,7 @@ public class ControllerWarenkorb {
 
 	@FXML
 	void entfernenAction(ActionEvent event) {
+		ladeAlleWarenkorb();
 	}
 
 	@FXML
@@ -61,8 +63,8 @@ public class ControllerWarenkorb {
 
 	}
 
+	
 	public void initialize() {
-			Connection con = Verwaltung.dbconnection();
 //		try {
 			
 //			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Warenkorb");
@@ -77,20 +79,36 @@ public class ControllerWarenkorb {
 //		}
 
 
-		warenkorbId.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("bauteilId"));
-		warenkorbName.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("bauteilName"));
-		warenkorbPreis.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("preis"));
-
+		
+		
+		try {
+			Connection con = Verwaltung.dbconnection();
+			listWarenkorb = FXCollections.observableArrayList();
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Warenkorb");
+			while (rs.next()) {
+				System.out.println("yop");
+				listWarenkorb.add(new BauteilWk(rs.getInt("bauteilId"),rs.getString("bauteilName"),rs.getDouble("preis")));
+			
+			}
+		}catch (SQLException ex) {
+			System.out.println("error");
+		}
+		
+		warenkorbId.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("teilId"));
+		warenkorbName.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("name"));
+		warenkorbPreis.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("epreis"));
+		System.out.println(listWarenkorb.toString());
+		warenkorbTable.setItems(listWarenkorb);
 	}
 	
 	public ObservableList<BauteilWk> getWk(ResultSet rs) throws SQLException {
 		try {
-			listBauteil = FXCollections.observableArrayList();
+			listWarenkorb = FXCollections.observableArrayList();
 			while (rs.next()) {
 				BauteilWk b = new BauteilWk(rs.getInt("bauteilId"),rs.getString("bauteilName"),rs.getDouble("preis"));
-				listBauteil.add(b);
+				listWarenkorb.add(b);
 			}
-			return listBauteil;
+			return listWarenkorb;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -113,5 +131,6 @@ public class ControllerWarenkorb {
 		ObservableList<BauteilWk> bauteile = ladeWarenkorb();
 		warenkorbTable.setItems(bauteile);
 	}
+
 
 }
