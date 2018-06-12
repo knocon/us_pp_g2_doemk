@@ -20,22 +20,15 @@ public class ControllerStatusRechnung {
 	private Label datum3;
 	@FXML
 	private Label datum4;
-	@FXML
-	private Label datum5;
-	@FXML
-	private Label datum6;
-	@FXML
-	private Label datum7;
-	
 	
 	@FXML
-	private Button schliessenButtonAuf;
+	private Button schliessenButton;
 	@FXML
-	void schliessenAuf(ActionEvent event) {
+	void schliessen(ActionEvent event) {
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
-	public void setStatus(Rechnung[] rechnung) {
+	public void setStatus(Auftrag[] auftrag) {
 		
 		//  Hier müssen die Daten an die Labels übergeben werden
 		

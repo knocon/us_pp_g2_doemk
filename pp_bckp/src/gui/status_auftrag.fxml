@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="230.0" minWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.ControllerStatusAufrag">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="230.0" minWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.ControllerStatusAuftrag">
    <bottom>
       <Button fx:id="schliessenButtonAuf" mnemonicParsing="false" onAction="#schliessenAuf" text="Schließen" BorderPane.alignment="CENTER">
          <BorderPane.margin>
