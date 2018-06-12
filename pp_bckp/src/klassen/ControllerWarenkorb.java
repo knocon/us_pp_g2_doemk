@@ -97,7 +97,6 @@ public class ControllerWarenkorb{
 		warenkorbId.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("id"));
 		warenkorbName.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("name"));
 		warenkorbPreis.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("epreis"));
-		System.out.println(listWarenkorb.toString());
 		warenkorbTable.setItems(listWarenkorb);
 	}
 
@@ -119,7 +118,6 @@ public class ControllerWarenkorb{
 		warenkorbId.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("id"));
 		warenkorbName.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("name"));
 		warenkorbPreis.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("epreis"));
-		System.out.println(listWarenkorb.toString());
 		warenkorbTable.setItems(listWarenkorb);
 	}
 

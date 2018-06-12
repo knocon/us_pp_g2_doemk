@@ -564,10 +564,10 @@ public class Verwaltung {
 	}
 	
 	public void addBauteil(Bauteil b) {
-		String query = "INSERT INTO Bauteil(name,link,epreis,bestandLager,bestandBestellt,bestandGeplant) VALUES("
+		String query = "INSERT INTO Bauteil(name,kate,link,lagerort,epreis,bestandLager,bestandBestellt,bestandGeplant) VALUES("
 
-				+ "'" + b.getName() + "'," + "'" + b.getLink() + "'," + "'" + b.getEpreis() + "'," + "'"
-				+ b.getBestandLager() + "'," + "'" + b.getBestandBestellt() + "'," + "'" + b.getBestandGeplant() + "')";
+				+ "'" + b.getName() + "'," + "'" + b.getKate() + "'," + "'" + b.getLink() + "'," + "'" + b.getLagerort() + "'," + b.getEpreis() + ","
+				+ b.getBestandLager() + "," +  b.getBestandBestellt() + "," + "" + b.getBestandGeplant() + ")";
 
 		try {
 			statement.executeUpdate(query);

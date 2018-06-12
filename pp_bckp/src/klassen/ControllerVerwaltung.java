@@ -63,7 +63,6 @@ public class ControllerVerwaltung{
 			listRech = FXCollections.observableArrayList();
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM BauteilRechnung");
 			while (rs.next()) {
-				System.out.println("yop");
 				listRech.add(new BauteileRechnung(rs.getInt("brId"),rs.getString("datum"),rs.getDouble("summe"),rs.getString("kaeuferId"),rs.getString("status")));
 			
 			}
@@ -77,7 +76,6 @@ public class ControllerVerwaltung{
 		kaeufer.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("kaeuferId"));
 		status.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("status"));
 		
-		System.out.println(listRech.toString());
 		brechTable.setItems(listRech);
 	}
 	
@@ -94,7 +92,6 @@ BauteileRechnung w = brechTable.getSelectionModel().getSelectedItem();
 			listRech = FXCollections.observableArrayList();
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM BauteilRechnung");
 			while (rs.next()) {
-				System.out.println("yop");
 				listRech.add(new BauteileRechnung(rs.getInt("brId"),rs.getString("datum"),rs.getDouble("summe"),rs.getString("kaeuferId"),rs.getString("status")));
 			
 			}
@@ -107,8 +104,6 @@ BauteileRechnung w = brechTable.getSelectionModel().getSelectedItem();
 		summe.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("summe"));
 		kaeufer.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("kaeuferId"));
 		status.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("status"));
-		
-		System.out.println(listRech.toString());
 		brechTable.setItems(listRech);
 
 	}
@@ -121,7 +116,6 @@ BauteileRechnung w = brechTable.getSelectionModel().getSelectedItem();
 			listRech = FXCollections.observableArrayList();
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM BauteilRechnung");
 			while (rs.next()) {
-				System.out.println("yop");
 				listRech.add(new BauteileRechnung(rs.getInt("brId"),rs.getString("datum"),rs.getDouble("summe"),rs.getString("kaeuferId"),rs.getString("status")));
 			
 			}
@@ -135,7 +129,6 @@ BauteileRechnung w = brechTable.getSelectionModel().getSelectedItem();
 		kaeufer.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("kaeuferId"));
 		status.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("status"));
 		
-		System.out.println(listRech.toString());
 		brechTable.setItems(listRech);
 	}
 
