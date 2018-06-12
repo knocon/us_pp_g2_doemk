@@ -794,25 +794,34 @@ public class Controller extends Application {
 	@FXML
 	private Button bauteilBearbeitenButton;
 	@FXML
-	void bauteilBearbeiten(ActionEvent event){
-		try {
-			Stage st = new Stage();
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/bauteil_eingabe.fxml"));
+	void bauteilBearbeiten(ActionEvent event) {
+		Bauteil bauteil = bauteileTable.getSelectionModel().getSelectedItem();
+		if(bauteil!=null) {
+			try {
+				Stage st = new Stage();
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/bauteil_eingabe.fxml"));
+		        
+		        Parent sceneEingabe;
+			    sceneEingabe = loader.load();
 
-	        Parent sceneEingabe;
-		    sceneEingabe = loader.load();
+			    ControllerBauteilEingabe controller = loader.<ControllerBauteilEingabe>getController();
+			    controller.setzeBauteil(bauteil);
 
-		    ControllerBauteilEingabe controller = loader.<ControllerBauteilEingabe>getController();
-		    //controller.setzeAuftrag(auftrag);
-
-	        Scene scene = new Scene(sceneEingabe);
-	        st.setScene(scene);
-	        st.setTitle("Bearbeiten des Bauteils");
-	        st.show();
-	        schreibeStatus("Bauteil bearbeitet");
-		} catch (Exception e){
-			e.printStackTrace();
+		        Scene scene = new Scene(sceneEingabe);
+		        st.setScene(scene);
+		        st.setTitle("Bearbeiten eines Bauteils");
+		        st.show();
+		        schreibeStatus("Bauteil bearbeitet");
+			} catch (Exception e){
+				Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
+				e.printStackTrace();
+			}
 		}
+		else {
+			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+			abfrage.showAndWait();
+		}
+		schreibeStatus("Bauteil bearbeitet");
 	}
 	
 	@FXML

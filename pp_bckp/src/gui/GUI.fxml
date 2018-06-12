@@ -44,7 +44,7 @@
                                        <children>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <center>
-                                                <TableView fx:id="tableView" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+                                                <TableView fx:id="tableView" editable="true" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                                                   <columns>
                                                     <TableColumn fx:id="vornameCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Vorname" />
                                                     <TableColumn fx:id="nachnameCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Nachname" />

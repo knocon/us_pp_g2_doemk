@@ -107,12 +107,11 @@ public class ControllerBauteilEingabe{
 	public void setzeBauteil(Bauteil b) {
 		nameFeld.setText(b.getName());
 		linkFeld.setText(b.getLink());
-		//preisFeld.setText(b.getEpreis());
+		preisFeld.setText(b.getEpreisString());
 		lagerortFeld.setText(b.getLagerort());
-		//lagerndFeld.setText(b.getBestandLager());
-		//bestelltFeld.setText(b.getTelefon());
-		//geplantFeld.setText(b.getEmail());
-		//comboKategorie.setText(b.getHausnummer());
+		lagerndFeld.setText(b.getLagerString());
+		bestelltFeld.setText(b.getBestelltString());
+		geplantFeld.setText(b.getGeplantString());
 
 	}
 

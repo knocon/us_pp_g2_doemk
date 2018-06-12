@@ -97,6 +97,25 @@ public class Bauteil {
 		this.lagerort = lagerort;
 	}
 	
+	public String getEpreisString() {
+		String output = String.valueOf(epreis);
+		return output;
+	}
+	
+	public String getLagerString() {
+		String output =Integer.toString(this.bestandLager);
+		return output;
+	}
+	
+	public String getBestelltString() {
+		String output = Integer.toString(this.bestandBestellt);
+		return output;
+	}
+	
+	public String getGeplantString() {
+		String output = Integer.toString(this.bestandGeplant);
+		return output;
+	}
 	//// METHODEN ////
 	
 	
