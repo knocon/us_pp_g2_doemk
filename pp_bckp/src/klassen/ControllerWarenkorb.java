@@ -60,7 +60,6 @@ public class ControllerWarenkorb{
 				listWarenkorb = FXCollections.observableArrayList();
 				ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Warenkorb");
 				while (rs.next()) {
-					System.out.println("yop");
 					listWarenkorb.add(new BauteilWk(rs.getInt("id"),rs.getInt("bauteilId"),rs.getString("bauteilName"),rs.getDouble("preis")));
 				
 				}
@@ -88,7 +87,6 @@ public class ControllerWarenkorb{
 			listWarenkorb = FXCollections.observableArrayList();
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Warenkorb");
 			while (rs.next()) {
-				System.out.println("yop");
 				listWarenkorb.add(new BauteilWk(rs.getInt("id"),rs.getInt("bauteilId"),rs.getString("bauteilName"),rs.getDouble("preis")));
 			
 			}
@@ -111,7 +109,6 @@ public class ControllerWarenkorb{
 			listWarenkorb = FXCollections.observableArrayList();
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Warenkorb");
 			while (rs.next()) {
-				System.out.println("yop");
 				listWarenkorb.add(new BauteilWk(rs.getInt("id"),rs.getInt("bauteilId"),rs.getString("bauteilName"),rs.getDouble("preis")));
 			
 			}
