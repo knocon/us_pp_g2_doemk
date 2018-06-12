@@ -25,30 +25,34 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ControllerWarenkorb{
+public class ControllerVerwaltung{
 		
 	static ResultSet resultSet;
 	static ResultSet rs;
 	static java.sql.Statement statement;
-	static ObservableList<BauteilWk> listWarenkorb;
+	static ObservableList<BauteileRechnung> listRech;
 	static Connection conn = null;
 	
 	@FXML
-	private TableView<BauteilWk> warenkorbTable;
+	private TableView<BauteileRechnung> brechTable;
 	@FXML
-	private TableColumn<BauteilWk, String> warenkorbId;
+	private TableColumn<BauteileRechnung, String> rechId;
 	@FXML
-	private TableColumn<BauteilWk, String> warenkorbName;
+	private TableColumn<BauteileRechnung, String> datum;
 	@FXML
-	private TableColumn<BauteilWk, String> warenkorbPreis;
+	private TableColumn<BauteileRechnung, String> summe;
 	@FXML
-	private Button entfernenButton;
+	private TableColumn<BauteileRechnung, String> kaeufer;
+	@FXML
+	private TableColumn<BauteileRechnung, String> status;
+	@FXML
+	private Button bezahltButton;
 
 	@FXML
-	private Button stellenButton;
+	private Button ausstehendButton;
 
 	@FXML
-	void entfernenAction(ActionEvent event) {
+	void bezahltAction(ActionEvent event) {
 		
 		BauteilWk w = warenkorbTable.getSelectionModel().getSelectedItem();
 		
@@ -79,7 +83,7 @@ public class ControllerWarenkorb{
 	}
 
 	@FXML
-	void stellenAction(ActionEvent event) {
+	void ausstehendAction(ActionEvent event) {
 
 	}
 
@@ -88,22 +92,25 @@ public class ControllerWarenkorb{
 
 		try {
 			Connection con = Verwaltung.dbconnection();
-			listWarenkorb = FXCollections.observableArrayList();
+			listRech = FXCollections.observableArrayList();
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Warenkorb");
 			while (rs.next()) {
 				System.out.println("yop");
-				listWarenkorb.add(new BauteilWk(rs.getInt("id"),rs.getInt("bauteilId"),rs.getString("bauteilName"),rs.getDouble("preis")));
+				listRech.add(new BauteileRechnung(rs.getInt("brId"),rs.getDate("datum"),rs.getDouble("summe"),rs.getString("kaeuferId"),rs.getString("status")));
 			
 			}
 		}catch (SQLException ex) {
 			System.out.println("error");
 		}
 		
-		warenkorbId.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("id"));
-		warenkorbName.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("name"));
-		warenkorbPreis.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("epreis"));
-		System.out.println(listWarenkorb.toString());
-		warenkorbTable.setItems(listWarenkorb);
+		rechId.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("id"));
+		datum.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("name"));
+		summe.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("epreis"));
+		kaeufer.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("epreis"));
+		status.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("epreis"));
+		
+		System.out.println(listRech.toString());
+		brechTable.setItems(listRech);
 	}
 
 

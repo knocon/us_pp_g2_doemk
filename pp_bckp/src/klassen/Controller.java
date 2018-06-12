@@ -660,7 +660,11 @@ public class Controller extends Application {
 	private Button verwaltungButton;
 	@FXML
 	void verwaltungRechnungen(ActionEvent event) {
-		//TODO
+		try {
+			neuesFenster("/gui/verwaltung.fxml", "Admin-Tool Rechnungen");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML

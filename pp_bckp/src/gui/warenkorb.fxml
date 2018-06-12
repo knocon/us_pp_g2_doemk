@@ -18,6 +18,5 @@
       </TableView>
       <Button fx:id="stellenButton" layoutX="365.0" layoutY="327.0" mnemonicParsing="false" onAction="#stellenAction" prefHeight="63.0" prefWidth="122.0" text="Rechnung stellen" textAlignment="CENTER" />
       <Button fx:id="entfernenButton" layoutX="14.0" layoutY="327.0" mnemonicParsing="false" onAction="#entfernenAction" prefHeight="63.0" prefWidth="122.0" text="Bauteil entfernen" textAlignment="CENTER" />
-      <Button fx:id="leerenButton" layoutX="189.0" layoutY="327.0" mnemonicParsing="false" onAction="#leerenAction" prefHeight="63.0" prefWidth="122.0" text="Warenkorb leeren" textAlignment="CENTER" />
    </children>
 </Pane>

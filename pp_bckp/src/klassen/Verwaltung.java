@@ -540,6 +540,16 @@ public class Verwaltung {
 		}
 	}
 	
+	public static void deleteWarenkorb(int id) {
+		String query = "DELETE FROM Warenkorb WHERE id =" + id;
+		try {
+			statement.executeUpdate(query);
+			System.out.println("geloescht");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void addBauteil(Bauteil b) {
 		String query = "INSERT INTO Bauteil(name,link,epreis,bestandLager,bestandBestellt,bestandGeplant) VALUES("
 

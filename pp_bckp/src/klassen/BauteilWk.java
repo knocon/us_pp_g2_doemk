@@ -5,12 +5,21 @@ public class BauteilWk {
 	private String name;
 	private double epreis;
 	private int teilId;
+	private int id;
 	
-	public BauteilWk(int teilId,String name, double epreis) {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public BauteilWk(int id,int teilId,String name, double epreis) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.epreis = epreis;
-
 		this.teilId = teilId;
 	}
 
