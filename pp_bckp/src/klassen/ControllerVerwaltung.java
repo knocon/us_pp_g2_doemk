@@ -54,36 +54,62 @@ public class ControllerVerwaltung{
 	@FXML
 	void bezahltAction(ActionEvent event) {
 		
-		BauteilWk w = warenkorbTable.getSelectionModel().getSelectedItem();
+		BauteileRechnung w = brechTable.getSelectionModel().getSelectedItem();
 		
-		if(	w!=null) {
-			Verwaltung.deleteWarenkorb(w.getId());
-			// UNWICHTIG - AKTUALISIERUNG
-			try {
-				Connection con = Verwaltung.dbconnection();
-				listWarenkorb = FXCollections.observableArrayList();
-				ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Warenkorb");
-				while (rs.next()) {
-					System.out.println("yop");
-					listWarenkorb.add(new BauteilWk(rs.getInt("id"),rs.getInt("bauteilId"),rs.getString("bauteilName"),rs.getDouble("preis")));
-				
-				}
-			}catch (SQLException ex) {
-				System.out.println("error");
+		Verwaltung.setzeBezahlt(w);
+		
+		try {
+			Connection con = Verwaltung.dbconnection();
+			listRech = FXCollections.observableArrayList();
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM BauteilRechnung");
+			while (rs.next()) {
+				System.out.println("yop");
+				listRech.add(new BauteileRechnung(rs.getInt("brId"),rs.getString("datum"),rs.getDouble("summe"),rs.getString("kaeuferId"),rs.getString("status")));
+			
 			}
-			
-			warenkorbId.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("id"));
-			warenkorbName.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("name"));
-			warenkorbPreis.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("epreis"));
-			System.out.println(listWarenkorb.toString());
-			warenkorbTable.setItems(listWarenkorb);	
-			
-			Verwaltung.inkrementLager(w.getTeilId());			
+		}catch (SQLException ex) {
+			System.out.println("error");
 		}
+		
+		rechId.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("brId"));
+		datum.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("datum"));
+		summe.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("summe"));
+		kaeufer.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("kaeuferId"));
+		status.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("status"));
+		
+		System.out.println(listRech.toString());
+		brechTable.setItems(listRech);
 	}
+	
 
 	@FXML
 	void ausstehendAction(ActionEvent event) {
+		
+BauteileRechnung w = brechTable.getSelectionModel().getSelectedItem();
+		
+		Verwaltung.setzeAusstehend(w);
+		
+		try {
+			Connection con = Verwaltung.dbconnection();
+			listRech = FXCollections.observableArrayList();
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM BauteilRechnung");
+			while (rs.next()) {
+				System.out.println("yop");
+				listRech.add(new BauteileRechnung(rs.getInt("brId"),rs.getString("datum"),rs.getDouble("summe"),rs.getString("kaeuferId"),rs.getString("status")));
+			
+			}
+		}catch (SQLException ex) {
+			System.out.println("error");
+		}
+		
+		rechId.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("brId"));
+		datum.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("datum"));
+		summe.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("summe"));
+		kaeufer.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("kaeuferId"));
+		status.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("status"));
+		
+		System.out.println(listRech.toString());
+		brechTable.setItems(listRech);
 
 	}
 
@@ -93,21 +119,21 @@ public class ControllerVerwaltung{
 		try {
 			Connection con = Verwaltung.dbconnection();
 			listRech = FXCollections.observableArrayList();
-			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Warenkorb");
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM BauteilRechnung");
 			while (rs.next()) {
 				System.out.println("yop");
-				listRech.add(new BauteileRechnung(rs.getInt("brId"),rs.getDate("datum"),rs.getDouble("summe"),rs.getString("kaeuferId"),rs.getString("status")));
+				listRech.add(new BauteileRechnung(rs.getInt("brId"),rs.getString("datum"),rs.getDouble("summe"),rs.getString("kaeuferId"),rs.getString("status")));
 			
 			}
 		}catch (SQLException ex) {
 			System.out.println("error");
 		}
 		
-		rechId.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("id"));
-		datum.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("name"));
-		summe.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("epreis"));
-		kaeufer.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("epreis"));
-		status.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("epreis"));
+		rechId.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("brId"));
+		datum.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("datum"));
+		summe.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("summe"));
+		kaeufer.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("kaeuferId"));
+		status.setCellValueFactory(new PropertyValueFactory<BauteileRechnung, String>("status"));
 		
 		System.out.println(listRech.toString());
 		brechTable.setItems(listRech);

@@ -80,7 +80,27 @@ public class ControllerWarenkorb{
 
 	@FXML
 	void stellenAction(ActionEvent event) {
-
+		Verwaltung.confirmRechnung();
+		
+		//AKTUALISIERUNG
+		try {
+			Connection con = Verwaltung.dbconnection();
+			listWarenkorb = FXCollections.observableArrayList();
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Warenkorb");
+			while (rs.next()) {
+				System.out.println("yop");
+				listWarenkorb.add(new BauteilWk(rs.getInt("id"),rs.getInt("bauteilId"),rs.getString("bauteilName"),rs.getDouble("preis")));
+			
+			}
+		}catch (SQLException ex) {
+			System.out.println("error");
+		}
+		
+		warenkorbId.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("id"));
+		warenkorbName.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("name"));
+		warenkorbPreis.setCellValueFactory(new PropertyValueFactory<BauteilWk, String>("epreis"));
+		System.out.println(listWarenkorb.toString());
+		warenkorbTable.setItems(listWarenkorb);
 	}
 
 	

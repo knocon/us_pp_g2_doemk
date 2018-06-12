@@ -5,12 +5,12 @@ import java.util.Date;
 public class BauteileRechnung {
 
 	private int brId;
-	private Date datum;
+	private String datum;
 	private double summe;
 	private String kaeuferId;
 	private String status;
 	
-	public BauteileRechnung(int brId, Date datum, double summe, String kaeuferId, String status) {
+	public BauteileRechnung(int brId, String datum, double summe, String kaeuferId, String status) {
 		super();
 		this.brId = brId;
 		this.datum = datum;
@@ -27,11 +27,11 @@ public class BauteileRechnung {
 		this.brId = brId;
 	}
 
-	public Date getDatum() {
+	public String getDatum() {
 		return datum;
 	}
 
-	public void setDatum(Date datum) {
+	public void setDatum(String datum) {
 		this.datum = datum;
 	}
 

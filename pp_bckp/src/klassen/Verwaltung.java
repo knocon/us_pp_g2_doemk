@@ -502,7 +502,6 @@ public class Verwaltung {
 	}
 
 	public static void dekrementLager(Bauteil b){
-		String timeStamp = new SimpleDateFormat("dd.MM").format(new java.util.Date());
 		String query = "UPDATE Bauteil SET bestandLager = bestandLager -1 WHERE teilId =" + b.getTeilId();
 		String query2 = "INSERT INTO Warenkorb(bauteilId, bauteilName, preis) VALUES('"+b.getTeilId() + "','" + b.getName() +"'," +b.getEpreis() + ")";
 		//String query3 = "INSERT INTO BauteilRechnung(datum,summe) VALUES("+timeStamp+",(SELECT sum(preis) FROM Warenkorb GROUP BY preis))";
@@ -515,9 +514,23 @@ public class Verwaltung {
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-
 	}
+	public static void confirmRechnung() {
+		String timeStamp = new SimpleDateFormat("dd.MM").format(new java.util.Date());
+		String query = "INSERT INTO BauteilRechnung(datum,summe,kaeuferId,status) VALUES("+timeStamp+",(SELECT sum(preis) FROM Warenkorb GROUP BY preis),'"+ Controller.getEingeloggterAccountName()+"','AUSSTEHEND')";
+		String query2 = "DELETE FROM Warenkorb";
+		
+		try {
+			statement.executeUpdate(query);
+			statement.executeUpdate(query2);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	
+	}
+		
+	
 	
 	public void updateBauteil(String parameter, String value, int id) {
 		String query = "UPDATE  Bauteil SET " + parameter + " = '" + value + "' WHERE teilId=" + id;
@@ -701,5 +714,28 @@ public class Verwaltung {
 
 	public static void setListBauteilWk(ObservableList<Bauteil> listBauteilWk) {
 		Verwaltung.listBauteilWk = listBauteilWk;
+	}
+	
+	
+	//VERWALTUNG
+	
+	public static void setzeBezahlt(BauteileRechnung br) {
+		String query = "UPDATE BauteilRechnung SET status = 'BEZAHLT' WHERE brId = "+br.getBrId()+"";
+		try {
+			statement.executeUpdate(query);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setzeAusstehend(BauteileRechnung br) {
+		String query = "UPDATE BauteilRechnung SET status = 'AUSSTEHEND' WHERE brId = "+br.getBrId()+"";
+		try {
+			statement.executeUpdate(query);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

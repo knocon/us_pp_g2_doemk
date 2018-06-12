@@ -34,6 +34,11 @@ public class Controller extends Application {
 	private Verwaltung verwaltung;
 	Stage dialog;
 	int init = 0;
+	/*
+	 * eingeloggterAccount soll dafür da sein, um zu wissen, welcher account gerade eingeloggt ist... notwendig für bauteileverwaltung
+	 */
+	private static int eingeloggterAccount = 0;
+	private static String eingeloggterAccountName = "knocon";
 	
 	public static void main(String[] args){
 		Application.launch(Controller.class, args);
@@ -1053,5 +1058,26 @@ public class Controller extends Application {
 		ComboBox<String> output = comboBauteilKategorie;
 		return output;
 	}
+
+
+	public static int getEingeloggterAccount() {
+		return eingeloggterAccount;
+	}
+
+
+	public static void setEingeloggterAccount(int eingeloggterAccount) {
+		Controller.eingeloggterAccount = eingeloggterAccount;
+	}
+
+
+	public static String getEingeloggterAccountName() {
+		return eingeloggterAccountName;
+	}
+
+
+	public static void setEingeloggterAccountName(String eingeloggterAccountName) {
+		Controller.eingeloggterAccountName = eingeloggterAccountName;
+	}
+
 	
 }
