@@ -366,23 +366,10 @@ public class Controller extends Application {
 
 	@FXML
 	void personenGeklicktAuftrag(ActionEvent event) {
-		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		
 
 		try {
-			Stage st = new Stage();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_personen.fxml"));
-
-			Parent sceneEingabe;
-			sceneEingabe = loader.load();
-
-			ControllerAuftragBetreuer controller = loader.<ControllerAuftragBetreuer>getController();
-			// controller.setzeAuftrag(auftrag);
-			verwaltung.namen("typ", "Betreuer", "Person", auftrag);
-			Scene scene = new Scene(sceneEingabe);
-			st.setScene(scene);
-			st.setTitle("Bearbeiten der Betreuer");
-			st.show();
-			schreibeStatus("Betreuer bearbeitet");
+			neuesFenster("/gui/auftrag_pers.fxml", "Person");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

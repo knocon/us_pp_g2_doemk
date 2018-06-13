@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="472.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.ControllerAuftragPerson">
+   <children>
+      <TableView fx:id="perTabelle" layoutX="15.0" layoutY="5.0" prefHeight="224.0" prefWidth="442.0">
+        <columns>
+          <TableColumn fx:id="aufID" minWidth="4.0" prefWidth="110.0" text="aufId" />
+          <TableColumn fx:id="aufName" minWidth="4.0" prefWidth="110.0" text="aufName" />
+            <TableColumn fx:id="person" minWidth="4.0" prefWidth="110.0" text="Person" />
+            <TableColumn fx:id="id" minWidth="4.0" prefWidth="110.0" text="ID" />
+        </columns>
+      </TableView>
+      <Button fx:id="hinzufuegenButton" layoutX="177.0" layoutY="235.0" mnemonicParsing="false" onAction="#hinzuAction" prefHeight="58.0" prefWidth="123.0" text="Hinzufügen" textFill="#1fbf1c">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
