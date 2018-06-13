@@ -456,7 +456,7 @@
       </TabPane>
    </center>
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menu" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Login">
             <items>

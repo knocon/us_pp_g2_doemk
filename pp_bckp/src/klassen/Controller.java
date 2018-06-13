@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -48,6 +49,9 @@ public class Controller extends Application {
 	
 	//////////////////////////////          Menu          ////////////////////////////////
 	@FXML
+	private Menu topMenu;
+	
+	@FXML
 	private MenuItem loginMenu;
 	@FXML
 	void loginGeklickt(ActionEvent event) {
@@ -67,6 +71,7 @@ public class Controller extends Application {
 	        st.show();
 		} catch (Exception e){
 			Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
+			abfrage.show();
 			e.printStackTrace();
 		}
 	}
@@ -1150,6 +1155,23 @@ public class Controller extends Application {
 
 	public static void setEingeloggterAccountName(String eingeloggterAccountName) {
 		Controller.eingeloggterAccountName = eingeloggterAccountName;
+	}
+	
+	public static void login(Account acc) {
+		setEingeloggterAccountName(acc.getName());
+		String rolle = acc.getRolle();
+		switch(rolle) {
+			case "Benutzer" : setEingeloggterAccount(1); break;
+			case "Verwalter" : setEingeloggterAccount(2); break;
+		}
+		Alert abfrage = new Alert(AlertType.INFORMATION,"Benutzer eingeloggt.", ButtonType.OK);
+		abfrage.show();
+		System.out.println((eingeloggterAccountName));
+	}
+	
+	public static void logout() {
+		setEingeloggterAccountName(null);
+		setEingeloggterAccount(0);
 	}
 	
 

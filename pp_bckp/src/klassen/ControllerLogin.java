@@ -19,7 +19,7 @@ public class ControllerLogin {
 	@FXML
 	private Button loginButton;
 	@FXML
-	Account loginGeklickt(ActionEvent event) {
+	void loginGeklickt(ActionEvent event) {
 		String name = nameFeld.getText();
 		String pw = pwFeld.getText();
 		
@@ -28,12 +28,17 @@ public class ControllerLogin {
 			alert.showAndWait();
 		}
 		else {
-			
-			// PW Abfrage
-			
-			((Node)(event.getSource())).getScene().getWindow().hide();
+			AccountLogik accLogik = new AccountLogik();
+			Account acc = accLogik.login(name, pw);
+			if(acc!=null) {
+				Controller.login(acc);
+				((Node)(event.getSource())).getScene().getWindow().hide();
+			}
+			else {
+				Alert abfrage = new Alert(AlertType.ERROR,"Falsche Daten", ButtonType.OK);
+				abfrage.show();
+			}
 		}
-		return new Account(0,"","","");
 	}
 	
 	public void initialize() {

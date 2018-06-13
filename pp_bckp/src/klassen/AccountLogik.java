@@ -33,10 +33,10 @@ public class AccountLogik {
 	static LocalDate date;
 
 
-	public static void main(String[] args) {
+	public AccountLogik() {
 		dbconnection();
 		//addAccount("test","pwpw","rolle");
-		login("test","pwpw");
+		login("knocon","admin");
 	}
 
 	public static Connection dbconnection() {
@@ -71,21 +71,28 @@ public class AccountLogik {
 		}
 	}
 	
-	public static void login(String name,String pw) {
-		
+	public Account login(String name,String pw) {
+		Account acc = null;
 		PreparedStatement ps;
 		
 		try {
-			ps = conn.prepareStatement("SELECT name,pw FROM Account WHERE name = '"+name+"' AND pw = '"+ pw +"'" );
+			ps = conn.prepareStatement("SELECT * FROM Account "
+					+ "WHERE username = '"+name+"' AND pw = '"+ pw +"'" );
 			ResultSet result = ps.executeQuery();
 			if(result.next()) {
 				System.out.println("Logged in");
+				acc = new Account(result.getInt("accId"),
+						result.getString("username"),
+						result.getString("pw"),
+						result.getString("rolle"));
 			}
 			else {
 				System.out.println("error");
 			}
+			return acc;
 		} catch(SQLException ex) {
 			ex.printStackTrace();
+			return acc;
 		}
 		
 	}
