@@ -7,7 +7,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="300.0" prefHeight="230.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.ControllerRegistrierung">
    <bottom>
-      <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginGeklickt" text="Login" BorderPane.alignment="CENTER">
+      <Button fx:id="regButton" mnemonicParsing="false" onAction="#regGeklickt" text="Registrieren" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="15.0" />
          </BorderPane.margin>

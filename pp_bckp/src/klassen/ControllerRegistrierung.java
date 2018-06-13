@@ -1,5 +1,7 @@
 package klassen;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -20,9 +22,9 @@ public class ControllerRegistrierung {
 	private ComboBox<String> comboRolle;
 	
 	@FXML
-	private Button loginButton;
+	private Button regButton;
 	@FXML
-	void loginGeklickt(ActionEvent event) {
+	void regGeklickt(ActionEvent event) {
 		String name = nameFeld.getText();
 		String pw = pwFeld.getText();
 		String rolle = comboRolle.getValue();
@@ -32,13 +34,16 @@ public class ControllerRegistrierung {
 			alert.showAndWait();
 		}
 		else {
-			
-			// Account anlegen
+			AccountLogik accLogik = new AccountLogik();
+			accLogik.addAccount(name, pw, rolle);
 			
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		}
 	}
 	
 	public void initialize() {
+		ObservableList<String> rollen = FXCollections.observableArrayList("Benutzer", "Verwalter");
+		comboRolle.setItems(rollen);
+		comboRolle.getSelectionModel().selectFirst();
 	}
 }

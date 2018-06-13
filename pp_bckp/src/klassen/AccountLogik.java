@@ -23,6 +23,10 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+
 import java.sql.DriverManager;
 
 public class AccountLogik {
@@ -57,16 +61,21 @@ public class AccountLogik {
 	 * Registration
 	 */
 	
-	public static void addAccount(String name, String pw, String rolle) {
-		String query = "INSERT INTO Account(name,pw,rolle) VALUES("
+	public void addAccount(String name, String pw, String rolle) {
+		String query = "INSERT INTO Account(accId,username,pw,rolle) VALUES("
+				+ "'"+1+"'," 
 				+ "'"+name+"',"
 				+ "'"+pw+"',"
 				+ "'"+rolle+"')";
 
 		try {
 			statement.executeUpdate(query);
+			Alert abfrage = new Alert(AlertType.INFORMATION,"Account wurde angelegt.", ButtonType.OK);
+			abfrage.show();
 			System.out.println("Query ausgefuehrt.");
 		} catch (SQLException e) {
+			Alert abfrage = new Alert(AlertType.ERROR,"Account konnte nicht angelegt werden.", ButtonType.OK);
+			abfrage.show();
 			e.printStackTrace();
 		}
 	}
