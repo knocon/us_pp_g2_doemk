@@ -23,7 +23,7 @@ public class PDFexport {
 	
 	public PDFexport() throws FileNotFoundException, SQLException, DocumentException{
 		dbconnection();
-		exportPDF(1, "Dateiname");
+
 	}
 	
 	static java.sql.Statement statement;
@@ -112,10 +112,10 @@ public class PDFexport {
     		 status.add(new Paragraph("Status:"+"                   "+resultSet.getString("status")));
     		 name.add(status);
     		 
-    		 Paragraph statusZeitstempel = new Paragraph();
-    		 addEmptyLine( statusZeitstempel,1);
-    		 statusZeitstempel.add(new Paragraph("Zeitstempel:"+"           "+resultSet.getString("statusZeitstempel")));
-    		 name.add(statusZeitstempel);
+    		 /*Paragraph dateString = new Paragraph();
+    		 addEmptyLine( dateString,1);
+    		 dateString.add(new Paragraph("Zeitstempel:"+"           "+resultSet.getString("dateString")));
+    		 name.add(dateString);*/
     		 
     		 
     		 

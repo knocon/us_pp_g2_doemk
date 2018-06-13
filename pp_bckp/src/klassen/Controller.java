@@ -564,6 +564,26 @@ public class Controller extends Application {
 			}}
 		
 	}
+	@FXML
+	private Button minusButtonTopf;
+	@FXML
+	void minusTopf(ActionEvent event){
+		try {
+			neuesFenster("/gui/topf.fxml", "Anlegen eines Topfes");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@FXML
+	private Button plusButtonTopf;
+	@FXML
+	void plusTopf(ActionEvent event){
+		try {
+			neuesFenster("/gui/topf.fxml", "Anlegen eines Topfes");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@FXML
 	private Button filterRechnung;
@@ -596,11 +616,14 @@ public class Controller extends Application {
 			abfrage.showAndWait();
 			if(abfrage.getResult() == ButtonType.YES) {
 				int id = rechnung.getRechId();
+				System.out.println(id);
 				try {
 					PDFexport export = new PDFexport();
-					String name = rechnung.getRechnungsName();
-					export.exportPDF(id, name);
+					String pdfName = rechnung.getRechnungsName();
+				export.exportPDF(id, pdfName);
+				System.out.println("111");
 					schreibeStatus("Rechnung exportiert");
+					System.out.println("222");	
 				} catch (FileNotFoundException | SQLException | DocumentException e) {
 					e.printStackTrace();
 				}

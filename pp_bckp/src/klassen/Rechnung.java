@@ -19,7 +19,7 @@ public class Rechnung {
 	private String kontoId; 
 	private String betrag;
 	private String status;
-	private LocalDate statusZeitstempel;
+	private String statusZeitstempel;
 	
 	public Rechnung(int id,long datum, String rechnungsName, String auftraggeber, String ansprechpartner,
 			String kassenId, String topfId, String art, String kontoId, String betrag, String status) {
@@ -40,12 +40,13 @@ public class Rechnung {
 		this.kontoId = kontoId;
 		this.betrag = betrag;
 		this.status = status;
-		this.statusZeitstempel = LocalDate.now();
+		
 	}
 
 	public String getDateString() {
 		return dateString;
 	}
+
 	
 	public long getDateLong() {
 		return datum;

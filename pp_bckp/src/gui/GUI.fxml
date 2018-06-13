@@ -305,6 +305,16 @@
                                                 <Insets left="10.0" top="15.0" />
                                              </HBox.margin>
                                           </ComboBox>
+                                          <Button fx:id="plusButtonTopf" mnemonicParsing="false" onAction="#plusTopf" text="+">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="minusButtonTopf" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#minusTopf" text="-">
+                                             <HBox.margin>
+                                                <Insets left="5.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
                                        </children>
                                     </HBox>
                                  </top>
