@@ -821,27 +821,34 @@ public class Controller extends Application {
 	@FXML
 	void inkrementierenBauteil(ActionEvent event) {
 
-		Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
-		if (b != null) {
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Bestätigungsabfrage");
-			alert.setHeaderText("Achtung!");
-			alert.setContentText(
-					"Sind Sie sicher, dass Sie das Bauteil inkrementieren möchten? Um die Inkrementierung rückgängig zu machen, müssen Sie es wieder manuell dekrementieren!");
+		if (checkBerechtigungUser() == true || checkBerechtigungAdmin() == true) {
 
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
-				Verwaltung.inkrementLager(b.getTeilId());
-				ladeAlleBauteile();
+			Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
+			if (b != null) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Bestätigungsabfrage");
+				alert.setHeaderText("Achtung!");
+				alert.setContentText(
+						"Sind Sie sicher, dass Sie das Bauteil inkrementieren möchten? Um die Inkrementierung rückgängig zu machen, müssen Sie es wieder manuell dekrementieren!");
+
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK) {
+					Verwaltung.inkrementLager(b.getTeilId());
+					ladeAlleBauteile();
+
+				} else {
+
+				}
 
 			} else {
-				
-			}
-
-		}else {
 				Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
 						ButtonType.OK);
-				abfrage.showAndWait();}
+				abfrage.showAndWait();
+			}
+		} else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
+			abfrage.showAndWait();
+		}
 
 	}
 
@@ -863,10 +870,10 @@ public class Controller extends Application {
 	@FXML
 	void verwaltungRechnungen(ActionEvent event) {
 		try {
-			if(checkBerechtigungAdmin()==true) {neuesFenster("/gui/verwaltung.fxml", "Admin-Tool Rechnungen");}
-			else {
-				Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!",
-						ButtonType.OK);
+			if (checkBerechtigungAdmin() == true) {
+				neuesFenster("/gui/verwaltung.fxml", "Admin-Tool Rechnungen");
+			} else {
+				Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
 				abfrage.showAndWait();
 			}
 		} catch (Exception e) {
@@ -880,39 +887,45 @@ public class Controller extends Application {
 	@FXML
 	void dekrementierenBauteil(ActionEvent event) {
 
-		Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
+		if (checkBerechtigungUser() == true || checkBerechtigungAdmin() == true) {
 
-		if (b != null) {
+			Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
 
-			if (b.getBestandLager() == 0) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Kritischer Fehler");
-				alert.setHeaderText("Bestand = 0");
-				alert.setContentText("Der Bestand kann nicht weiter dekrementiert werden.");
+			if (b != null) {
 
-				alert.showAndWait();
-			} else {
-				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setTitle("Bestätigungsabfrage");
-				alert.setHeaderText("Achtung!");
-				alert.setContentText(
-						"Sind Sie sicher, dass Sie das Bauteil dekrementieren möchten? Um die Dekrementierung rückgängig zu machen, müssen Sie es wieder manuell inkrementieren!");
+				if (b.getBestandLager() == 0) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Kritischer Fehler");
+					alert.setHeaderText("Bestand = 0");
+					alert.setContentText("Der Bestand kann nicht weiter dekrementiert werden.");
 
-				Optional<ButtonType> result = alert.showAndWait();
-				if (result.get() == ButtonType.OK) {
-					System.out.println(b.getName());
-					Verwaltung.dekrementLager(b);
-					ladeAlleBauteile();
+					alert.showAndWait();
+				} else {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Bestätigungsabfrage");
+					alert.setHeaderText("Achtung!");
+					alert.setContentText(
+							"Sind Sie sicher, dass Sie das Bauteil dekrementieren möchten? Um die Dekrementierung rückgängig zu machen, müssen Sie es wieder manuell inkrementieren!");
+
+					Optional<ButtonType> result = alert.showAndWait();
+					if (result.get() == ButtonType.OK) {
+						System.out.println(b.getName());
+						Verwaltung.dekrementLager(b);
+						ladeAlleBauteile();
+
+					}
 
 				}
+			} else {
+
+				Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
+						ButtonType.OK);
+				abfrage.showAndWait();
 
 			}
 		} else {
-
-			Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
-					ButtonType.OK);
+			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
 			abfrage.showAndWait();
-
 		}
 
 	}
@@ -931,11 +944,10 @@ public class Controller extends Application {
 	@FXML
 	void plusKategorie(ActionEvent event) {
 		try {
-			if(checkBerechtigungAdmin()==true) {
+			if (checkBerechtigungAdmin() == true) {
 				neuesFenster("/gui/kategorien.fxml", "Anlegen einer neuen Kategorie");
-			}else {
-				Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!",
-						ButtonType.OK);
+			} else {
+				Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
 				abfrage.showAndWait();
 			}
 		} catch (Exception e) {
@@ -948,18 +960,16 @@ public class Controller extends Application {
 
 	@FXML
 	void minusKategorie(ActionEvent event) {
-		
-		if(checkBerechtigungAdmin()==true) {
+
+		if (checkBerechtigungAdmin() == true) {
 			String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
 			Verwaltung.deleteZugehoerigeKategorie(k);
-		Verwaltung.deleteKategorie(k);
-		ladeAlleBauteile();
-		}else {
-			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!",
-					ButtonType.OK);
+			Verwaltung.deleteKategorie(k);
+			ladeAlleBauteile();
+		} else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
 			abfrage.showAndWait();
 		}
-		
 
 	}
 
@@ -982,31 +992,30 @@ public class Controller extends Application {
 
 	@FXML
 	void kategorieBearbeiten(ActionEvent event) {
-		
-		if(checkBerechtigungAdmin()==true) {
-		try {
 
-			String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
-			String oldk = k;
+		if (checkBerechtigungAdmin() == true) {
+			try {
 
-			TextInputDialog d = new TextInputDialog();
-			d.setTitle("Kategorie bearbeiten");
-			d.setHeaderText("Umbennenung");
-			d.setContentText("Kategoriename:");
+				String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
+				String oldk = k;
 
-			Optional<String> result = d.showAndWait();
-			if (result.isPresent()) {
-				Verwaltung.renameKategorie(result.get(), k);
-				Verwaltung.updateKategorienBauteile(result.get(), oldk);
-				ladeAlleBauteile();
+				TextInputDialog d = new TextInputDialog();
+				d.setTitle("Kategorie bearbeiten");
+				d.setHeaderText("Umbennenung");
+				d.setContentText("Kategoriename:");
+
+				Optional<String> result = d.showAndWait();
+				if (result.isPresent()) {
+					Verwaltung.renameKategorie(result.get(), k);
+					Verwaltung.updateKategorienBauteile(result.get(), oldk);
+					ladeAlleBauteile();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}}
-		else {
-			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!",
-					ButtonType.OK);
+		} else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
 			abfrage.showAndWait();
 		}
 	}
@@ -1338,16 +1347,35 @@ public class Controller extends Application {
 		}
 		comboBauteilKategorie.setItems(options);
 	}
-	
+
 	public boolean checkBerechtigungAdmin() {
-		
-		switch(eingeloggterAccount) {
-		case 0: return false;
-		case 1: return false;
-		case 2: return true;
-		default : return false;
+
+		switch (eingeloggterAccount) {
+		case 0:
+			return false;
+		case 1:
+			return false;
+		case 2:
+			return true;
+		default:
+			return false;
 		}
-		
+
+	}
+
+	public boolean checkBerechtigungUser() {
+
+		switch (eingeloggterAccount) {
+		case 0:
+			return false;
+		case 1:
+			return true;
+		case 2:
+			return false;
+		default:
+			return false;
+		}
+
 	}
 
 }
