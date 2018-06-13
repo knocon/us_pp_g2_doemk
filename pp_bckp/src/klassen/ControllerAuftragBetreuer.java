@@ -14,35 +14,15 @@ public class ControllerAuftragBetreuer {
 	//
 	
 	@FXML
-	private TextField feld1;
+	private TextField nameText;
 	@FXML
-	private TextField feld2;
-	@FXML
-	private TextField feld3;
-	@FXML
-	private TextField feld4;
-	@FXML
-	private ComboBox<String> combo1;
-	@FXML
-	private ComboBox<String> combo2;
-	@FXML
-	private ComboBox<String> combo3;
-	@FXML
-	private ComboBox<String> combo4;
+	private TextField IDText;
 	
 	@FXML
-	private Button speichernButtonBetreuer;
+	private Button speichern;
 	@FXML
-	void betreuerSpeichern(ActionEvent event) {
+	void speicherngedrueckt(ActionEvent event) {
 		
-	}
 	
-	public void initialize() {
-	}
-	
-	public void setzePerson(Person p) {
-		
-		// Hier wäre wahrscheinlich direkte Anfrage an Verwaltung das beste oder ArrayList Personen Übergabe
-		
 	}
 }
