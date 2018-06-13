@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.itextpdf.text.DocumentException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,7 +36,7 @@ public class Controller extends Application {
 	Stage dialog;
 	int init = 0;
 	/*
-	 * eingeloggterAccount soll dafür da sein, um zu wissen, welcher account gerade eingeloggt ist... notwendig für bauteileverwaltung
+	 * eingeloggterAccount soll dafï¿½r da sein, um zu wissen, welcher account gerade eingeloggt ist... notwendig fï¿½r bauteileverwaltung
 	 */
 	private static int eingeloggterAccount = 0;
 	private static String eingeloggterAccountName = "knocon";
@@ -51,8 +52,21 @@ public class Controller extends Application {
 	@FXML
 	void loginGeklickt(ActionEvent event) {
 		try {
-			neuesFenster("/gui/login.fxml", "Login");
-		} catch (Exception e) {
+			Stage st = new Stage();
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login.fxml"));
+	        
+	        Parent sceneEingabe;
+		    sceneEingabe = loader.load();
+
+		    ControllerLogin controller = loader.<ControllerLogin>getController();
+		    //controller.setzePerson(person);
+
+	        Scene scene = new Scene(sceneEingabe);
+	        st.setScene(scene);
+	        st.setTitle("Login");
+	        st.show();
+		} catch (Exception e){
+			Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
 			e.printStackTrace();
 		}
 	}
@@ -853,22 +867,23 @@ public class Controller extends Application {
 	public Controller(){
 		System.out.println("asd");
 		verwaltung = new Verwaltung();
-		
-		//ladeAllePersonen();
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage hauptFenster) throws Exception {
 		try {
-			FXMLLoader loader = new FXMLLoader();
 			Parent root = FXMLLoader.load(getClass().getResource("/gui/GUI.fxml"));
 			System.out.println("?");
 			Scene scene = new Scene(root);
-			primaryStage = new Stage();
-			primaryStage.setTitle("Bestes Verwaltungsprogramm aller Zeiten!");
-			primaryStage.setScene(scene);
+			hauptFenster = new Stage();
+			hauptFenster.setTitle("Bestes Verwaltungsprogramm aller Zeiten!");
+			hauptFenster.setScene(scene);
+			hauptFenster.setOnCloseRequest(e -> {
+				e.consume();
+				beenden();
+			});
 			//primaryStage.setMaximized(true);
-			primaryStage.show();
+			hauptFenster.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -876,6 +891,14 @@ public class Controller extends Application {
 		
 	}
 	
+	private void beenden() {
+		Alert alert = new Alert(AlertType.CONFIRMATION,"Wollen sie das Programm wirklich beenden?", ButtonType.YES, ButtonType.NO);
+		alert.showAndWait();
+		if(alert.getResult() == ButtonType.YES) {
+			Platform.exit();
+		}
+	}
+
 	@FXML
 	public void initialize() {
 		// Personen

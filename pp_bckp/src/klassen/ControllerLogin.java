@@ -19,7 +19,7 @@ public class ControllerLogin {
 	@FXML
 	private Button loginButton;
 	@FXML
-	void loginGeklickt(ActionEvent event) {
+	Account loginGeklickt(ActionEvent event) {
 		String name = nameFeld.getText();
 		String pw = pwFeld.getText();
 		
@@ -33,6 +33,7 @@ public class ControllerLogin {
 			
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		}
+		return new Account(0,"","","");
 	}
 	
 	public void initialize() {
