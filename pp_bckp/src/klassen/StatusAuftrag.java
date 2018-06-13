@@ -11,7 +11,7 @@ public class StatusAuftrag {
 	private String fertigungU;
 	private int id;
 	
-	public StatusAuftrag(String angenommen,String gefertigt, String kostenK, String abgeholt, String abgerechnet, String warten, String fertigungU,  int id) {
+	public StatusAuftrag(String angenommen,String gefertig, String kostenK, String abgeholt, String abgerechnet, String warten, String fertigungU,  int id) {
 		this.angenommen = angenommen;
 		this.gefertigt = gefertigt;
 		this.kostenK = kostenK;
