@@ -20,8 +20,7 @@ public class ControllerRechnungEingabe {
 	private TextField kasseFeld;
 	@FXML
 	private TextField artFeld;
-	@FXML
-	private TextField datumFeld;
+	
 	@FXML
 	private TextField ansprechpartnerFeld;
 	@FXML
@@ -37,7 +36,6 @@ public class ControllerRechnungEingabe {
 		String auftraggeber = auftraggeberFeld.getText();
 		String kasse = kasseFeld.getText();
 		String art = artFeld.getText();
-		String datum = datumFeld.getText();
 		String ansprechpartner = ansprechpartnerFeld.getText();
 		String topf = topfFeld.getText();
 		String konto = kontoFeld.getText();
@@ -67,7 +65,6 @@ public class ControllerRechnungEingabe {
 		auftraggeberFeld.setText(p.getAuftraggeber());
 		kasseFeld.setText(p.getKassenId());
 		artFeld.setText(p.getArt());
-		datumFeld.setText(p.getDateString());
 		ansprechpartnerFeld.setText(p.getAnsprechpartner());
 		topfFeld.setText(p.getTopf());
 		kontoFeld.setText(p.getKontoId());
