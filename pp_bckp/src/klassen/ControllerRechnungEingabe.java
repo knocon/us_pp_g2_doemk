@@ -29,6 +29,9 @@ public class ControllerRechnungEingabe {
 	private TextField kontoFeld;
 	
 	@FXML
+	private TextField betragFeld;
+	
+	@FXML
 	private Button speichernButtonRechnung;
 	@FXML
 	void rechnungSpeichern(ActionEvent event) {
@@ -39,17 +42,18 @@ public class ControllerRechnungEingabe {
 		String ansprechpartner = ansprechpartnerFeld.getText();
 		String topf = topfFeld.getText();
 		String kontoId = kontoFeld.getText();
+		String betrag = betragFeld.getText();
 		
 		if(name.isEmpty() || auftraggeber.isEmpty()
 				|| kasse.isEmpty() || art.isEmpty()
 				 || ansprechpartner.isEmpty() 
-				|| topf.isEmpty() || kontoId.isEmpty()){
+				|| topf.isEmpty() || kontoId.isEmpty() || betrag.isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
 			alert.showAndWait();
 		}
 		else {
 			long time = System.currentTimeMillis();
-			Rechnung r = new Rechnung(1, name, auftraggeber, ansprechpartner, kasse, topf, art, kontoId, null, null);
+			Rechnung r = new Rechnung(1, name, auftraggeber, ansprechpartner, kasse, topf, art, kontoId, betrag, null);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addRechnung(r);
 			((Node)(event.getSource())).getScene().getWindow().hide();
@@ -68,5 +72,6 @@ public class ControllerRechnungEingabe {
 		ansprechpartnerFeld.setText(p.getAnsprechpartner());
 		topfFeld.setText(p.getTopf());
 		kontoFeld.setText(p.getKontoId());
+		betragFeld.setText(p.getBetrag());
 	}
 }

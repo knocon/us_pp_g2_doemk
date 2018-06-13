@@ -70,6 +70,8 @@
             <TextField fx:id="topfFeld" GridPane.columnIndex="4" GridPane.rowIndex="1" />
             <TextField fx:id="kontoFeld" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <Label text="Konto" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label text="Betrag" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <TextField fx:id="betragFeld" GridPane.columnIndex="4" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </center>
