@@ -46,8 +46,19 @@ public class ControllerAccountVerwaltung{
 	private Button loeschenButton;
 	@FXML
 	void loeschen(ActionEvent event) {
-		
-		Account acc = accountTable.getSelectionModel().getSelectedItem();
+		int accountLevel = Controller.getEingeloggterAccount();
+		if(accountLevel!=2) {
+			Alert alert = new Alert(AlertType.ERROR,"Sie müssen als Verwalter eingeloggt sein.", ButtonType.OK);
+			alert.show();
+		}
+		else
+		{
+			Account acc = accountTable.getSelectionModel().getSelectedItem();
+			if(acc==null) {
+				Alert alert = new Alert(AlertType.ERROR,"Sie müssen einen Account auswählen.", ButtonType.OK);
+				alert.show();
+			}
+		}
 		
 	}
 	
@@ -65,7 +76,7 @@ public class ControllerAccountVerwaltung{
 			listAcc = FXCollections.observableArrayList();
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Account");
 			while (rs.next()) {
-				listAcc.add(new Account(rs.getInt("accId"),
+				listAcc.add(new Account(0,
 						rs.getString("username"),
 						rs.getString("pw"),
 						rs.getString("rolle")));
@@ -74,6 +85,7 @@ public class ControllerAccountVerwaltung{
 			accountTable.setItems(listAcc);
 			
 		}catch (SQLException ex) {
+			ex.printStackTrace();
 			System.out.println("error");
 		}
 		

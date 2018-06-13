@@ -93,10 +93,16 @@ public class Controller extends Application {
 	private MenuItem verwaltungMenu;
 	@FXML
 	void verwaltung(ActionEvent event) {
-		try {
-			neuesFenster("/gui/account_verwaltung.fxml", "Account Verwaltung");
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(eingeloggterAccount!=2) {
+			Alert alert = new Alert(AlertType.ERROR,"Sie müssen als Verwalter eingeloggt sein, um die Verwaltung zu starten.", ButtonType.OK);
+			alert.show();
+		}
+		else {
+			try {
+				neuesFenster("/gui/account_verwaltung.fxml", "Account Verwaltung");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
