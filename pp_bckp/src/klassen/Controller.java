@@ -468,228 +468,228 @@ public class Controller extends Application {
 	
 	
 	
-	/////////////////////////////////       Rechnungen     //////////////////////////////////////////////
-	@FXML
+/////////////////////////////////       Rechnungen     //////////////////////////////////////////////
+@FXML
 	private TableView<Rechnung> rechnungTabelle;
-	@FXML
-	private TableColumn<Rechnung, String> nameRechnung;
-	@FXML
-	private TableColumn<Rechnung, String> topfName;
-	@FXML
-	private TableColumn<Rechnung, String> auftraggeberRechnung;
-	@FXML
-	private TableColumn<Rechnung, String> kasseRechnung;
-	@FXML
-	private TableColumn<Rechnung, String> bezahlungRechnung;
-	@FXML
-	private TableColumn<Rechnung, String> kontoRechnung;
-	@FXML
-	private TableColumn<Rechnung, String> betragRechnung;
-	@FXML
-	private TableColumn<Rechnung, String> statusRechnung;
-	@FXML
-	private TableColumn<Rechnung, String> stempelRechnung;
-	
-	@FXML
-	private ComboBox<String> comboRechnungTopf;
-	
-	@FXML
-	private ComboBox<String> statusCombo;
-	@FXML
-	private ComboBox<String> comboRechn;
-	@FXML
-	TextField eingabeRechnung;
-	
-	@FXML
-	private Button buttonAlleRechnungen;
-	@FXML
-	void alleRechnungen(ActionEvent event) {
-		ladeAlleRechnungen();
-		schreibeStatus("Alle Rechnungen werden angezeigt");
-	}
-	
-	@FXML
-	private Button anlegenButtonRechnung;
-	@FXML
-	void anlegenGeklicktRechnung(ActionEvent event) {
-		try {
-			neuesFenster("/gui/rechnung_eingabe.fxml", "Anlegen einer neuen Rechnung");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@FXML
-	private Button bearbeitenButtonRechnung;
-	@FXML
-	void bearbeitenGeklicktRechnung(ActionEvent event) {
-		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
-		if(rechnung!=null) {
-			try {
-				Stage st = new Stage();
-		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/rechnung_eingabe.fxml"));
+@FXML
+private TableColumn<Rechnung, String> nameRechnung;
+@FXML
+private TableColumn<Rechnung, String> topfName;
+@FXML
+private TableColumn<Rechnung, String> auftraggeberRechnung;
+@FXML
+private TableColumn<Rechnung, String> kasseRechnung;
+@FXML
+private TableColumn<Rechnung, String> bezahlungRechnung;
+@FXML
+private TableColumn<Rechnung, String> kontoRechnung;
+@FXML
+private TableColumn<Rechnung, String> betragRechnung;
+@FXML
+private TableColumn<Rechnung, String> statusRechnung;
+@FXML
+private TableColumn<Rechnung, String> stempelRechnung;
 
-		        Parent sceneEingabe;
-			    sceneEingabe = loader.load();
-			    verwaltung.deleteRechnung(rechnung.getRechId());
-			    ControllerRechnungEingabe controller = loader.<ControllerRechnungEingabe>getController();
-			    controller.setzeRechnung(rechnung);
+@FXML
+private ComboBox<String> comboRechnungTopf;
 
-		        Scene scene = new Scene(sceneEingabe);
-		        st.setScene(scene);
-		        st.setTitle("Bearbeiten einer neuen Rechnung");
-		        st.show();
-		        schreibeStatus("Rechnung bearbeitet");
-			} catch (Exception e){
-				e.printStackTrace();
-			}
-		}
-		else {
-			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
-			abfrage.showAndWait();
-		}
-	}
-	
-	@FXML
-	private Button statusButtonFin;
-	@FXML
-	void statusRechnungen(ActionEvent event) {
-		try {
-			Stage st = new Stage();
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/status_rechnung.fxml"));
-	        
-	        Parent sceneEingabe;
-		    sceneEingabe = loader.load();
+@FXML
+private ComboBox<String> statusCombo;
+@FXML
+private ComboBox<String> comboRechn;
+@FXML
+TextField eingabeRechnung;
 
-		    ControllerStatusRechnung controller = loader.<ControllerStatusRechnung>getController();
-		    //controller.setzePerson(person);
+@FXML
+private Button buttonAlleRechnungen;
+@FXML
+void alleRechnungen(ActionEvent event) {
+ladeAlleRechnungen();
+schreibeStatus("Alle Rechnungen werden angezeigt");
+}
 
-	        Scene scene = new Scene(sceneEingabe);
-	        st.setScene(scene);
-	        st.setTitle("Bearbeiten einer neuen Person");
-	        st.show();
-	        schreibeStatus("Person bearbeitet");
-		} catch (Exception e){
-			Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
-			e.printStackTrace();
-		}
-	}
-	
-	@FXML
-	private Button loeschenButtonRechnung;
-	@FXML
-	void loeschenGeklicktRechnung(ActionEvent event) {
-		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
-		if(rechnung!=null) {
-			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diese Rechung wirklich löschen?", ButtonType.YES, ButtonType.NO);
-			abfrage.showAndWait();
-			if(abfrage.getResult() == ButtonType.YES) {
-				verwaltung.deleteRechnung(rechnung.getRechId());
-				ladeAlleRechnungen();
-				schreibeStatus("Rechnung gelöscht");
-			}
-		}
-		else {
-			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
-			abfrage.showAndWait();
-		}
-	}
-	
-	@FXML
-	private Button statusAButton;
-	@FXML
-	void aendernStatus(ActionEvent event) {
-		Rechnung rechnung= rechnungTabelle.getSelectionModel().getSelectedItem();
-		String statusParam =statusCombo.getValue();
-		if(rechnung!=null) {
-			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Status wirklich bearbeiten?", ButtonType.YES, ButtonType.NO);
-			abfrage.showAndWait();
-			if(abfrage.getResult() == ButtonType.YES) {
-				switch(statusParam) {
-				case "Bearbeitung": verwaltung.statusRechnung("Bearbeitung", rechnung.getRechId());; break;
-				case "Eingereicht": verwaltung.statusRechnung("Eingereicht", rechnung.getRechId());; break;
-				case "Abgewickelt": verwaltung.statusRechnung("Abgewickel", rechnung.getRechId());; break;
-				case "Ausstehend": verwaltung.statusRechnung("Ausstehend", rechnung.getRechId());; break;
-				
-				}
-				ladeAlleRechnungen();
-			}else {
-				Alert ab = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
-				ab.showAndWait();
-			}}
-		
-	}
-	@FXML
-	private Button minusButtonTopf;
-	@FXML
-	void minusTopf(ActionEvent event){
-		try {
-			neuesFenster("/gui/minustopf.fxml", "Anlegen eines Topfes");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	@FXML
-	private Button plusButtonTopf;
-	@FXML
-	void plusTopf(ActionEvent event){
-		try {
-			neuesFenster("/gui/plustopf.fxml", "Anlegen eines Topfes");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@FXML
-	private Button filterRechnung;
-	@FXML
-	void filterRechnung(ActionEvent event) {
-		String filterParam = comboRechn.getValue();
-		String filterWert = eingabeRechnung.getText();
-		ObservableList<Rechnung> aList = null;
-		if(!filterWert.isEmpty()) {
-			switch(filterParam) {
-				case "Name" : aList = verwaltung.filterByParameterRechnung("rechnungsName", filterWert, "Rechnung"); break;
-				case "Kasse": aList = verwaltung.filterByParameterRechnung("kassenId", filterWert, "Rechnung"); break;
-				case "Auftraggeber": aList = verwaltung.filterByParameterRechnung("auftraggeber", filterWert, "Rechnung"); break;
-				case "Status" : aList = verwaltung.filterByParameterRechnung("status", filterWert, "Rechnung"); break;
-				case "Topf" : aList = verwaltung.filterByParameterRechnung("topf", filterWert, "Rechnung");
-			}
-		}
-		
-		rechnungTabelle.setItems(aList);
-		System.out.println(filterFieldPerson.getText());
-	}
-	
-	
-	@FXML
-	private Button pdfExport;
-	@FXML
-	void pdfExportGeklickt(ActionEvent event) {
-		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
-		if(rechnung!=null) {
-			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie die Rechnung wirklich exportieren", ButtonType.YES, ButtonType.NO);
-			abfrage.showAndWait();
-			if(abfrage.getResult() == ButtonType.YES) {
-				int id = rechnung.getRechId();
-				System.out.println(id);
-				try {
-					PDFexport export = new PDFexport();
-					String pdfName = rechnung.getRechnungsName();
-				export.exportPDF(id, pdfName);
-				System.out.println("111");
-					schreibeStatus("Rechnung exportiert");
-					System.out.println("222");	
-				} catch (FileNotFoundException | SQLException | DocumentException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		else {
-			Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Rechnung in der Tabelle auswählen.", ButtonType.OK);
-			abfrage.showAndWait();
-		}
-	}
+@FXML
+private Button anlegenButtonRechnung;
+@FXML
+void anlegenGeklicktRechnung(ActionEvent event) {
+try {
+neuesFenster("/gui/rechnung_eingabe.fxml", "Anlegen einer neuen Rechnung");
+} catch (Exception e) {
+e.printStackTrace();
+}
+}
+
+@FXML
+private Button bearbeitenButtonRechnung;
+@FXML
+void bearbeitenGeklicktRechnung(ActionEvent event) {
+Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
+if(rechnung!=null) {
+try {
+Stage st = new Stage();
+FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/rechnung_eingabe.fxml"));
+
+Parent sceneEingabe;
+sceneEingabe = loader.load();
+verwaltung.deleteRechnung(rechnung.getRechId());
+ControllerRechnungEingabe controller = loader.<ControllerRechnungEingabe>getController();
+controller.setzeRechnung(rechnung);
+
+Scene scene = new Scene(sceneEingabe);
+st.setScene(scene);
+st.setTitle("Bearbeiten einer neuen Rechnung");
+st.show();
+schreibeStatus("Rechnung bearbeitet");
+} catch (Exception e){
+e.printStackTrace();
+}
+}
+else {
+Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+abfrage.showAndWait();
+}
+}
+
+@FXML
+private Button statusButtonFin;
+@FXML
+void statusRechnungen(ActionEvent event) {
+try {
+Stage st = new Stage();
+FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/status_rechnung.fxml"));
+
+Parent sceneEingabe;
+sceneEingabe = loader.load();
+
+ControllerStatusRechnung controller = loader.<ControllerStatusRechnung>getController();
+//controller.setzePerson(person);
+
+Scene scene = new Scene(sceneEingabe);
+st.setScene(scene);
+st.setTitle("Bearbeiten einer neuen Person");
+st.show();
+schreibeStatus("Person bearbeitet");
+} catch (Exception e){
+Alert abfrage = new Alert(AlertType.ERROR,"Error.", ButtonType.OK);
+e.printStackTrace();
+}
+}
+
+@FXML
+private Button loeschenButtonRechnung;
+@FXML
+void loeschenGeklicktRechnung(ActionEvent event) {
+Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
+if(rechnung!=null) {
+Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diese Rechung wirklich löschen?", ButtonType.YES, ButtonType.NO);
+abfrage.showAndWait();
+if(abfrage.getResult() == ButtonType.YES) {
+verwaltung.deleteRechnung(rechnung.getRechId());
+ladeAlleRechnungen();
+schreibeStatus("Rechnung gelöscht");
+}
+}
+else {
+Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+abfrage.showAndWait();
+}
+}
+
+@FXML
+private Button statusAButton;
+@FXML
+void aendernStatus(ActionEvent event) {
+Rechnung rechnung= rechnungTabelle.getSelectionModel().getSelectedItem();
+String statusParam =statusCombo.getValue();
+if(rechnung!=null) {
+Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Status wirklich bearbeiten?", ButtonType.YES, ButtonType.NO);
+abfrage.showAndWait();
+if(abfrage.getResult() == ButtonType.YES) {
+switch(statusParam) {
+case "Bearbeitung": verwaltung.statusRechnung("Bearbeitung", rechnung.getRechId());; break;
+case "Eingereicht": verwaltung.statusRechnung("Eingereicht", rechnung.getRechId());; break;
+case "Abgewickelt": verwaltung.statusRechnung("Abgewickel", rechnung.getRechId());; break;
+case "Ausstehend": verwaltung.statusRechnung("Ausstehend", rechnung.getRechId());; break;
+
+}
+ladeAlleRechnungen();
+}else {
+Alert ab = new Alert(AlertType.ERROR,"Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+ab.showAndWait();
+}}
+
+}
+@FXML
+private Button minusButtonTopf;
+@FXML
+void minusTopf(ActionEvent event){
+try {
+neuesFenster("/gui/minustopf.fxml", "Anlegen eines Topfes");
+} catch (Exception e) {
+e.printStackTrace();
+}
+}
+@FXML
+private Button plusButtonTopf;
+@FXML
+void plusTopf(ActionEvent event){
+try {
+neuesFenster("/gui/plustopf.fxml", "Anlegen eines Topfes");
+} catch (Exception e) {
+e.printStackTrace();
+}
+}
+
+@FXML
+private Button filterRechnung;
+@FXML
+void filterRechnung(ActionEvent event) {
+String filterParam = comboRechn.getValue();
+String filterWert = eingabeRechnung.getText();
+ObservableList<Rechnung> aList = null;
+if(!filterWert.isEmpty()) {
+switch(filterParam) {
+case "Name" : aList = verwaltung.filterByParameterRechnung("rechnungsName", filterWert, "Rechnung"); break;
+case "Kasse": aList = verwaltung.filterByParameterRechnung("kassenId", filterWert, "Rechnung"); break;
+case "Auftraggeber": aList = verwaltung.filterByParameterRechnung("auftraggeber", filterWert, "Rechnung"); break;
+case "Status" : aList = verwaltung.filterByParameterRechnung("status", filterWert, "Rechnung"); break;
+case "Topf" : aList = verwaltung.filterByParameterRechnung("topf", filterWert, "Rechnung");
+}
+}
+
+rechnungTabelle.setItems(aList);
+System.out.println(filterFieldPerson.getText());
+}
+
+
+@FXML
+private Button pdfExport;
+@FXML
+void pdfExportGeklickt(ActionEvent event) {
+Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
+if(rechnung!=null) {
+Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie die Rechnung wirklich exportieren", ButtonType.YES, ButtonType.NO);
+abfrage.showAndWait();
+if(abfrage.getResult() == ButtonType.YES) {
+int id = rechnung.getRechId();
+System.out.println(id);
+try {
+PDFexport export = new PDFexport();
+String pdfName = rechnung.getRechnungsName();
+export.exportPDF(id, pdfName);
+System.out.println("111");
+schreibeStatus("Rechnung exportiert");
+System.out.println("222");	
+} catch (FileNotFoundException | SQLException | DocumentException e) {
+e.printStackTrace();
+}
+}
+}
+else {
+Alert abfrage = new Alert(AlertType.ERROR,"Sie müssen eine Rechnung in der Tabelle auswählen.", ButtonType.OK);
+abfrage.showAndWait();
+}
+}
 	
 	
 	/////////////////////////////////      Bauteile        ///////////////////////////////////////////////
@@ -1082,7 +1082,7 @@ public class Controller extends Application {
 		bezahlungRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("art"));
 		kontoRechnung.setCellValueFactory(
-                new PropertyValueFactory<Rechnung, String>("konto"));
+                new PropertyValueFactory<Rechnung, String>("kontoId"));
 		betragRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("betrag"));
 		statusRechnung.setCellValueFactory(

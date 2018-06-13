@@ -121,10 +121,10 @@ public class Verwaltung {
 
 	// Finanzen
 	public void addRechnung(Rechnung r) {
-		String query = "INSERT INTO Rechnung(  rechnungsName, auftraggeber, ansprechpartner, kassenId, topf, art, betrag, status) VALUES(" +  "'"
+		String query = "INSERT INTO Rechnung(  rechnungsName, auftraggeber, ansprechpartner, kassenId, topf, art, kontoId, betrag, status) VALUES(" +  "'"
 				+ r.getRechnungsName() + "'," + "'" + r.getAuftraggeber() + "'," + "'" + r.getAnsprechpartner() + "',"
 				+ "'" + r.getKassenId() + "'," + "'" + r.getTopf() + "'," + "'" + r.getArt() + "'," + "'"
-				+ r.getBetrag() + "'," + "'" + r.getStatus() + "')";
+				+ r.getKontoId() + "'," + "'" + r.getBetrag()+ "'," + "'" + r.getStatus() + "')";
 		System.out.println(query);
 		try {
 			statement.executeUpdate(query);
@@ -159,7 +159,7 @@ public class Verwaltung {
 				Rechnung r = new Rechnung(rs.getInt("rechId"),
 						rs.getString("rechnungsName"), rs.getString("auftraggeber"), rs.getString("ansprechpartner"),
 						rs.getString("kassenId"), rs.getString("topf"), rs.getString("art"),
-						rs.getString("kontoId") , rs.getString("betrag"), rs.getString("status") );
+						rs.getString("kontoId"),rs.getString("betrag"), rs.getString("status") );
 				listRechnung.add(r);
 			}
 			return listRechnung;
@@ -187,6 +187,7 @@ public class Verwaltung {
 			e.printStackTrace();
 		}
 	}
+
 
 
 	// Fertigung

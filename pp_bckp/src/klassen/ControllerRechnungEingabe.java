@@ -38,18 +38,18 @@ public class ControllerRechnungEingabe {
 		String art = artFeld.getText();
 		String ansprechpartner = ansprechpartnerFeld.getText();
 		String topf = topfFeld.getText();
-		String konto = kontoFeld.getText();
+		String kontoId = kontoFeld.getText();
 		
 		if(name.isEmpty() || auftraggeber.isEmpty()
 				|| kasse.isEmpty() || art.isEmpty()
 				 || ansprechpartner.isEmpty() 
-				|| topf.isEmpty() || konto.isEmpty()){
+				|| topf.isEmpty() || kontoId.isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
 			alert.showAndWait();
 		}
 		else {
 			long time = System.currentTimeMillis();
-			Rechnung r = new Rechnung(1, name, auftraggeber, ansprechpartner, kasse, topf, art, konto, null, null);
+			Rechnung r = new Rechnung(1, name, auftraggeber, ansprechpartner, kasse, topf, art, kontoId, null, null);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addRechnung(r);
 			((Node)(event.getSource())).getScene().getWindow().hide();
