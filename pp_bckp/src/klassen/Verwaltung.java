@@ -801,4 +801,14 @@ public class Verwaltung {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void updateKategorienBauteile(String newname,String oldname) {
+		String query = "UPDATE Bauteil SET kate = '"+newname+"' WHERE kate='"+oldname+"'";
+		try {
+			statement.executeUpdate(query);
+			System.out.println("umbenannt");
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

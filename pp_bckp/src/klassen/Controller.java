@@ -961,31 +961,20 @@ public class Controller extends Application {
 	@FXML
 	void kategorieBearbeiten(ActionEvent event) {
 		try {
-			/*
-			 * Stage st = new Stage(); FXMLLoader loader = new
-			 * FXMLLoader(getClass().getResource("/gui/kategorien.fxml"));
-			 * 
-			 * Parent sceneEingabe; sceneEingabe = loader.load();
-			 * 
-			 * ControllerKategorien controller =
-			 * loader.<ControllerKategorien>getController(); //
-			 * controller.setzeAuftrag(auftrag);
-			 * 
-			 * Scene scene = new Scene(sceneEingabe); st.setScene(scene);
-			 * st.setTitle("Bearbeiten der Kategorie"); st.show();
-			 * schreibeStatus("Kategorie bearbeitet");
-			 */
 
 			String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
+			String oldk = k;
 
 			TextInputDialog d = new TextInputDialog();
-			d.setTitle("Test");
-			d.setHeaderText("Testad");
-			d.setContentText("Lol");
+			d.setTitle("Kategorie bearbeiten");
+			d.setHeaderText("Umbennenung");
+			d.setContentText("Kategoriename:");
 
 			Optional<String> result = d.showAndWait();
 			if (result.isPresent()) {
 				Verwaltung.renameKategorie(result.get(), k);
+				Verwaltung.updateKategorienBauteile(result.get(), oldk);
+				ladeAlleBauteile();
 			}
 
 		} catch (Exception e) {
