@@ -51,7 +51,7 @@ public class Controller extends Application {
 	 * eingeloggt ist... notwendig f�r bauteileverwaltung
 	 */
 	private static int eingeloggterAccount = 0;
-	private static String eingeloggterAccountName = "knocon";
+	private static String eingeloggterAccountName = "";
 
 	public static void main(String[] args) {
 		Application.launch(Controller.class, args);
@@ -1027,7 +1027,12 @@ public class Controller extends Application {
 	@FXML
 	void bauteilAnlegen(ActionEvent event) {
 		try {
-			neuesFenster("/gui/bauteil_eingabe.fxml", "Anlegen eines neuen Bauteils");
+			if(checkBerechtigungAdmin()==true) {
+				neuesFenster("/gui/bauteil_eingabe.fxml", "Anlegen eines neuen Bauteils");
+			}else {
+				Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
+				abfrage.showAndWait();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1038,6 +1043,7 @@ public class Controller extends Application {
 
 	@FXML
 	void bauteilBearbeiten(ActionEvent event) {
+		if(checkBerechtigungAdmin()==true){
 		Bauteil bauteil = bauteileTable.getSelectionModel().getSelectedItem();
 		if (bauteil != null) {
 			try {
@@ -1058,11 +1064,14 @@ public class Controller extends Application {
 			} catch (Exception e) {
 				Alert abfrage = new Alert(AlertType.ERROR, "Error.", ButtonType.OK);
 				e.printStackTrace();
-			}
-		} else {
-			Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
+			}}else {Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
 					ButtonType.OK);
 			abfrage.showAndWait();
+				
+			}
+		} else {Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
+				abfrage.showAndWait();
+			
 		}
 		schreibeStatus("Bauteil bearbeitet");
 	}
@@ -1072,9 +1081,10 @@ public class Controller extends Application {
 
 	@FXML
 	void bauteilLoeschen(ActionEvent event) {
-
+		if(checkBerechtigungAdmin()==true) {
 		Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
 		if (b != null) {
+			
 			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Bauteil wirklich löschen?", ButtonType.YES,
 					ButtonType.NO);
 			abfrage.showAndWait();
@@ -1086,6 +1096,10 @@ public class Controller extends Application {
 		} else {
 			Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
 					ButtonType.OK);
+			abfrage.showAndWait();
+		}}
+		else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
 			abfrage.showAndWait();
 		}
 
