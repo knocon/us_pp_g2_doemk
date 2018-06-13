@@ -1,7 +1,9 @@
 package klassen;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 import com.itextpdf.text.DocumentException;
@@ -404,24 +406,49 @@ public class Controller extends Application {
 			}
 	}
 	
+	 @FXML
+		private Button datumButton;
+		@FXML
+		void datumAnlegenAuftrag(ActionEvent event) {
+			Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+			verwaltung.addDatum(auftrag);
+		}
+		
 	@FXML
 	private Button aendernButton;
 	@FXML
-	void aendernStatusAuftrag(ActionEvent event) {
+	void aendernStatusAuftrag(ActionEvent event) throws SQLException {
+		long time =System.currentTimeMillis();
+		Date date = new Date(time);
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy HH:mm");
+		String dateString = format.format(date);
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
 		String statusParam =comboAuftragFilter.getValue();
 		if(auftrag!=null) {
 			Alert abfrage = new Alert(AlertType.CONFIRMATION,"Wollen Sie diesen Status wirklich bearbeiten?", ButtonType.YES, ButtonType.NO);
 			abfrage.showAndWait();
 			if(abfrage.getResult() == ButtonType.YES) {
+			
+
+				System.out.println("SatusDatum:"+dateString);
+				System.out.println(auftrag.getAufId());
+				int id = auftrag.getAufId();
 				switch(statusParam) {
-				case "Angenommen": verwaltung.statusAuftrag("Angenommen", auftrag.getAufId());; break;
-				case "Abgeholt": verwaltung.statusAuftrag("Abgeholt", auftrag.getAufId());; break;
-				case "Gefertigt": verwaltung.statusAuftrag("Gefertigt", auftrag.getAufId());; break;
-				case "Abgerechnet": verwaltung.statusAuftrag("Abgerechnet", auftrag.getAufId());; break;
-				case "Kosten kalkuliert": verwaltung.statusAuftrag("Kosten kalkuliert", auftrag.getAufId());; break;
-				case "Warten auf Material": verwaltung.statusAuftrag("Warten auf Material", auftrag.getAufId());; break;
-				case "Fertigung": verwaltung.statusAuftrag("Fertigung", auftrag.getAufId());; break;
+				case "Angenommen": verwaltung.statusAuftrag("Angenommen", auftrag.getAufId());
+									verwaltung.datumEingabe(dateString, auftrag, "angenommen", id);; break;
+				case "Abgeholt": verwaltung.statusAuftrag("Abgeholt", auftrag.getAufId());
+									verwaltung.datumEingabe(dateString, auftrag, "abgeholt", id);; break;
+				case "Gefertigt": verwaltung.statusAuftrag("Gefertigt", auftrag.getAufId());
+									verwaltung.datumEingabe(dateString, auftrag, "gefertigt", id);; break;
+				case "Abgerechnet": verwaltung.statusAuftrag("Abgerechnet", auftrag.getAufId());
+									verwaltung.datumEingabe(dateString, auftrag, "abgerechnet", id);; break;
+				case "Kosten kalkuliert": verwaltung.statusAuftrag("Kosten kalkuliert", auftrag.getAufId());
+											verwaltung.datumEingabe(dateString, auftrag, "kostenK", id);; break;
+				case "Warten auf Material": verwaltung.statusAuftrag("Warten auf Material", auftrag.getAufId());
+											verwaltung.datumEingabe(dateString, auftrag, "warten", id);; break;
+				case "Fertigung": verwaltung.statusAuftrag("Fertigung", auftrag.getAufId());
+								verwaltung.datumEingabe(dateString, auftrag, "fertigungU", id);; break;
 				}
 				ladeAlleAuftraege();
 			}else {
@@ -431,6 +458,9 @@ public class Controller extends Application {
 		}
 		
 	}
+	
+	
+	
 	
 	/////////////////////////////////       Rechnungen     //////////////////////////////////////////////
 	@FXML

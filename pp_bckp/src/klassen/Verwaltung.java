@@ -191,6 +191,48 @@ public class Verwaltung {
 
 	// Fertigung
 	
+	public void datumEingabe(String time, Auftrag a, String status, int aufId) throws SQLException {
+		statement.executeUpdate("UPDATE  DatumAuftrag SET " + status + " = '" + time + "' WHERE aufId=" + aufId);
+	}
+	
+	public void addDatum(Auftrag a) {
+		String query1= "INSERT INTO DatumAuftrag (angenommen, gefertigt, kostenK, abgeholt, abgerechnet, warten, fertigungU, aufId) VALUES("
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+"'"+ a.getAufId()+"')";
+		System.out.println(query1);
+		try {
+			
+			statement.executeUpdate(query1);
+			System.out.println("AufID" + a.getAufId() ); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public ObservableList filterDatum(String parameter, int value, String tabellenname) {
+		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
+		System.out.println(query);
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
+			ObservableList list = getAuftraege(resultSet);
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
+	
 	public void exportAuftrag(Auftrag a) {
 		long time = System.currentTimeMillis();
 		Rechnung r = new Rechnung(1,a.getTitel(), " ", " ",

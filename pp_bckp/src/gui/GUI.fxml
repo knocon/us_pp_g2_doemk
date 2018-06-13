@@ -210,6 +210,16 @@
                                                 <Insets left="15.0" />
                                              </HBox.margin>
                                           </Separator>
+                                          <Button fx:id="datumButton" mnemonicParsing="false" onAction="#datumAnlegenAuftrag" text="Datum anlegen">
+									    <HBox.margin>
+									       <Insets left="15.0" top="15.0" />
+									    </HBox.margin>
+									 </Button>
+									 <Separator orientation="VERTICAL" prefHeight="30.0">
+									    <HBox.margin>
+									       <Insets left="15.0" />
+									    </HBox.margin>
+									 </Separator>
                                        </children>
                                     </HBox>
                                  </top>
