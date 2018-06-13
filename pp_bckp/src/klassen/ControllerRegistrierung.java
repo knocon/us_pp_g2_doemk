@@ -28,10 +28,14 @@ public class ControllerRegistrierung {
 		String name = nameFeld.getText();
 		String pw = pwFeld.getText();
 		String rolle = comboRolle.getValue();
-		
+		int accountLevel = Controller.getEingeloggterAccount();
 		if(name.isEmpty() || pw.isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
 			alert.showAndWait();
+		}
+		else if(accountLevel!=2 && rolle.equals("Verwalter")) {
+			Alert alert = new Alert(AlertType.ERROR,"Sie müssen als Verwalter eingeloggt sein.", ButtonType.OK);
+			alert.show();
 		}
 		else {
 			AccountLogik accLogik = new AccountLogik();

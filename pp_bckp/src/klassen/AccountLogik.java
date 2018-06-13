@@ -62,8 +62,7 @@ public class AccountLogik {
 	 */
 	
 	public void addAccount(String name, String pw, String rolle) {
-		String query = "INSERT INTO Account(accId,username,pw,rolle) VALUES("
-				+ "'"+1+"'," 
+		String query = "INSERT INTO Account(username,pw,rolle) VALUES("
 				+ "'"+name+"',"
 				+ "'"+pw+"',"
 				+ "'"+rolle+"')";
@@ -90,7 +89,7 @@ public class AccountLogik {
 			ResultSet result = ps.executeQuery();
 			if(result.next()) {
 				System.out.println("Logged in");
-				acc = new Account(result.getInt("accId"),
+				acc = new Account(0,
 						result.getString("username"),
 						result.getString("pw"),
 						result.getString("rolle"));
