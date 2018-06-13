@@ -1176,9 +1176,6 @@ public class Controller extends Application {
 		comboBauteilKategorie.setItems(Verwaltung.fillComboBoxKategorie());
 		comboBauteilKategorie.getSelectionModel().selectFirst();
 
-		ObservableList<String> optionsBaut = FXCollections.observableArrayList("Name", "Kategorie", "Lagerort");
-		comboBauteil.setItems(optionsBaut);
-		comboBauteil.getSelectionModel().selectFirst();
 	}
 
 	public void ladeAllePersonen() {
