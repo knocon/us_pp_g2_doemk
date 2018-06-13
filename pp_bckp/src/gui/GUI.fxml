@@ -230,7 +230,7 @@
                                     <TableView fx:id="rechnungTabelle" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <columns>
                                           <TableColumn fx:id="nameRechnung" prefWidth="200.0" text="Name" />
-                                          <TableColumn fx:id="datumRechnung" prefWidth="150.0" text="Datum" />
+                                          <TableColumn fx:id="topfName" prefWidth="150.0" text="Topf" />
                                           <TableColumn fx:id="auftraggeberRechnung" prefWidth="150.0" text="Auftraggeber" />
                                           <TableColumn fx:id="kasseRechnung" prefWidth="150.0" text="Kasse" />
                                           <TableColumn fx:id="bezahlungRechnung" prefWidth="100.0" text="Bezahlungsart" />

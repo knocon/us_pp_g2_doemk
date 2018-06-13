@@ -14,7 +14,7 @@ public class Rechnung {
 	private String auftraggeber;
 	private String ansprechpartner;
 	private String kassenId;
-	private String topfId;
+	private String topf;
 	private String art;
 	private String kontoId; 
 	private String betrag;
@@ -22,7 +22,7 @@ public class Rechnung {
 	private String statusZeitstempel;
 	
 	public Rechnung(int id,long datum, String rechnungsName, String auftraggeber, String ansprechpartner,
-			String kassenId, String topfId, String art, String kontoId, String betrag, String status) {
+			String kassenId, String topf, String art, String kontoId, String betrag, String status) {
 		super();
 		this.rechId= id;
 		this.datum = datum;
@@ -35,7 +35,7 @@ public class Rechnung {
 		this.auftraggeber = auftraggeber;
 		this.ansprechpartner = ansprechpartner;
 		this.kassenId = kassenId;
-		this.topfId = topfId;
+		this.topf = topf;
 		this.art = art;
 		this.kontoId = kontoId;
 		this.betrag = betrag;
@@ -85,11 +85,11 @@ public class Rechnung {
 	}
 
 	public String getTopfId() {
-		return topfId;
+		return topf;
 	}
 
 	public void setTopfId(String topfId) {
-		this.topfId = topfId;
+		this.topf = topf;
 	}
 
 	public String getArt() {

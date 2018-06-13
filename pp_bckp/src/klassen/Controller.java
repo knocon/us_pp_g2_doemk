@@ -422,7 +422,7 @@ public class Controller extends Application {
 	@FXML
 	private TableColumn<Rechnung, String> nameRechnung;
 	@FXML
-	private TableColumn<Rechnung, String> datumRechnung;
+	private TableColumn<Rechnung, String> topfName;
 	@FXML
 	private TableColumn<Rechnung, String> auftraggeberRechnung;
 	@FXML
@@ -1019,8 +1019,8 @@ public class Controller extends Application {
 		
 		nameRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("rechnungsName"));
-		datumRechnung.setCellValueFactory(
-                new PropertyValueFactory<Rechnung, String>("dateString"));
+		topfName.setCellValueFactory(
+                new PropertyValueFactory<Rechnung, String>("topf"));
 		auftraggeberRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("auftraggeber"));
 		kasseRechnung.setCellValueFactory(
