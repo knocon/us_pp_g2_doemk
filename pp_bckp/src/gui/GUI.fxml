@@ -388,17 +388,17 @@
                                                 <Insets left="15.0" right="15.0" top="15.0" />
                                              </HBox.margin>
                                           </ComboBox>
-                                          <Button fx:id="plusButton" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#plusKategorie" text="+">
+                                          <Button fx:id="plusButton" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#plusKategorie" text="+" textFill="RED">
                                              <HBox.margin>
                                                 <Insets right="5.0" top="15.0" />
                                              </HBox.margin>
                                           </Button>
-                                          <Button fx:id="bearbeitenKategorie" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#kategorieBearbeiten" text="e">
+                                          <Button fx:id="bearbeitenKategorie" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#kategorieBearbeiten" text="e" textFill="RED">
                                              <HBox.margin>
                                                 <Insets right="5.0" top="15.0" />
                                              </HBox.margin>
                                           </Button>
-                                          <Button fx:id="minusButton" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#minusKategorie" text="-">
+                                          <Button fx:id="minusButton" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#minusKategorie" text="-" textFill="RED">
                                              <HBox.margin>
                                                 <Insets right="15.0" top="15.0" />
                                              </HBox.margin>
@@ -429,7 +429,7 @@
                                     <Button fx:id="loeschenButtonBauteil" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#bauteilLoeschen" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
                                     <Button fx:id="warenkorbButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#warenkorbAnzeigen" prefHeight="50.0" prefWidth="200.0" text="Warenkorb" />
                                     <Button fx:id="rechnungenButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#meineRechnungen" prefHeight="50.0" prefWidth="200.0" text="Rechnungen" />
-                                    <Button fx:id="verwaltungButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#verwaltungRechnungen" prefHeight="50.0" prefWidth="200.0" text="Verwaltung" />
+                                    <Button fx:id="verwaltungButton" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#verwaltungRechnungen" prefHeight="50.0" prefWidth="200.0" text="Verwaltung" textFill="RED" />
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

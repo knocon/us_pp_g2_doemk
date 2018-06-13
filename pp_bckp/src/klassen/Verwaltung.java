@@ -811,4 +811,13 @@ public class Verwaltung {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void deleteBauteileRechnung(int brId) {
+		String query = "DELETE FROM BauteilRechnung WHERE brId =" + brId;
+		try {
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -863,7 +863,12 @@ public class Controller extends Application {
 	@FXML
 	void verwaltungRechnungen(ActionEvent event) {
 		try {
-			neuesFenster("/gui/verwaltung.fxml", "Admin-Tool Rechnungen");
+			if(checkBerechtigungAdmin()==true) {neuesFenster("/gui/verwaltung.fxml", "Admin-Tool Rechnungen");}
+			else {
+				Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!",
+						ButtonType.OK);
+				abfrage.showAndWait();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -926,7 +931,13 @@ public class Controller extends Application {
 	@FXML
 	void plusKategorie(ActionEvent event) {
 		try {
-			neuesFenster("/gui/kategorien.fxml", "Anlegen einer neuen Kategorie");
+			if(checkBerechtigungAdmin()==true) {
+				neuesFenster("/gui/kategorien.fxml", "Anlegen einer neuen Kategorie");
+			}else {
+				Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!",
+						ButtonType.OK);
+				abfrage.showAndWait();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -937,10 +948,18 @@ public class Controller extends Application {
 
 	@FXML
 	void minusKategorie(ActionEvent event) {
-		String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
-		Verwaltung.deleteZugehoerigeKategorie(k);
+		
+		if(checkBerechtigungAdmin()==true) {
+			String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
+			Verwaltung.deleteZugehoerigeKategorie(k);
 		Verwaltung.deleteKategorie(k);
 		ladeAlleBauteile();
+		}else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!",
+					ButtonType.OK);
+			abfrage.showAndWait();
+		}
+		
 
 	}
 
@@ -963,6 +982,8 @@ public class Controller extends Application {
 
 	@FXML
 	void kategorieBearbeiten(ActionEvent event) {
+		
+		if(checkBerechtigungAdmin()==true) {
 		try {
 
 			String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
@@ -982,6 +1003,11 @@ public class Controller extends Application {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}}
+		else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!",
+					ButtonType.OK);
+			abfrage.showAndWait();
 		}
 	}
 
@@ -1311,6 +1337,17 @@ public class Controller extends Application {
 			System.out.println("LOL");
 		}
 		comboBauteilKategorie.setItems(options);
+	}
+	
+	public boolean checkBerechtigungAdmin() {
+		
+		switch(eingeloggterAccount) {
+		case 0: return false;
+		case 1: return false;
+		case 2: return true;
+		default : return false;
+		}
+		
 	}
 
 }
