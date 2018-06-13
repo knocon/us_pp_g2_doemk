@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -217,21 +218,34 @@ public class Verwaltung {
 		
 	}
 	
+	public ArrayList<StatusAuftrag> getDatumAuftrag(ResultSet rs) throws SQLException {
+		try {
+			ArrayList<StatusAuftrag> listDatumAuftrag = new ArrayList<StatusAuftrag>();
+			while (rs.next()) {
+				// System.out.println(rs.getLong("date"));
+				StatusAuftrag sa = new StatusAuftrag(rs.getString("angenommen"), rs.getString("gefertigt"), rs.getString("kostenK"), rs.getString("abgeholt"), rs.getString("abgerechnet"), rs.getString("warten"), rs.getString("fertigungU"), rs.getInt("aufId"));
+				listDatumAuftrag.add(sa);
+			}
+			return listDatumAuftrag;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
-	public ObservableList filterDatum(String parameter, int value, String tabellenname) {
+	public ArrayList<StatusAuftrag> filterDatum(String parameter, int value, String tabellenname) {
 		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
 		System.out.println(query);
 		try {
 			resultSet = statement
 					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
-			ObservableList list = getAuftraege(resultSet);
+			ArrayList<StatusAuftrag> list = (ArrayList<StatusAuftrag>) getDatumAuftrag(resultSet);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-
 	
 	
 	public void exportAuftrag(Auftrag a) {
