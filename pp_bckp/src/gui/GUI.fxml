@@ -403,22 +403,6 @@
                                                 <Insets right="15.0" top="15.0" />
                                              </HBox.margin>
                                           </Button>
-                                          <Separator orientation="VERTICAL" />
-                                          <ComboBox fx:id="comboBauteil" disable="true" prefWidth="150.0">
-                                             <HBox.margin>
-                                                <Insets left="15.0" top="15.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                          <Label disable="true" text="nach">
-                                             <HBox.margin>
-                                                <Insets left="15.0" right="15.0" top="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField disable="true" minWidth="150.0" prefWidth="200.0">
-                                             <HBox.margin>
-                                                <Insets top="15.0" />
-                                             </HBox.margin>
-                                          </TextField>
                                           <Button fx:id="buttonFilterBauteil" mnemonicParsing="false" onAction="#filterBauteil" text="Filtern">
                                              <HBox.margin>
                                                 <Insets left="15.0" top="15.0" />
