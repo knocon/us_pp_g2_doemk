@@ -39,6 +39,7 @@ public class Verwaltung {
 	static ObservableList<Bauteil> listBauteil;
 	static ObservableList<Bauteil> listBauteilWk;
 	static ObservableList options = FXCollections.observableArrayList();
+	static ObservableList topf = FXCollections.observableArrayList();
 
 	public Verwaltung() {
 		dbconnection();
@@ -431,7 +432,7 @@ public class Verwaltung {
 			pst = conn.prepareStatement(query);
 			resultSet = pst.executeQuery();
 			while(resultSet.next()) {
-				options.add(resultSet.getString("name"));
+				topf.add(resultSet.getString("name"));
 				System.out.println(resultSet.getString("name"));
 				
 			}
@@ -440,7 +441,7 @@ public class Verwaltung {
 		}catch(SQLException ex) {
 			System.out.println("LOL");
 		}
-		return options;
+		return topf;
 	}
 
 
