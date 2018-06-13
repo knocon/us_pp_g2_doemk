@@ -413,7 +413,7 @@ public class Verwaltung {
 	 */
 
 	public static void addTopf(Topf t) {
-		String query = "INSERT INTO Bauteil(name,sollBestand,istBestand) VALUES("
+		String query = "INSERT INTO Topf(name,sollBestand,istBestand) VALUES("
 
 				+ "'" + t.getName() + "'," + "'" + t.getSollBestand() + "'," + "'" + t.getIstBestand() + "')";
 		try {
@@ -433,10 +433,7 @@ public class Verwaltung {
 			while(resultSet.next()) {
 				options.add(resultSet.getString("name"));
 				System.out.println(resultSet.getString("name"));
-				options.add(resultSet.getString("sollBestand"));
-				System.out.println(resultSet.getString("sollBestand"));
-				options.add(resultSet.getString("istBestand"));
-				System.out.println(resultSet.getString("istBestand"));
+				
 			}
 			pst.close();
 			resultSet.close();
