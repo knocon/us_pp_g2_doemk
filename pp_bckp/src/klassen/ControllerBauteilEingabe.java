@@ -22,6 +22,7 @@ public class ControllerBauteilEingabe{
 		
 	static Connection conn = null;
 	static ResultSet resultSet;
+	static ResultSet resultSetLeer;
 	static ResultSet rs;
 	static java.sql.Statement statement;
 	static PreparedStatement pst = null;
@@ -31,7 +32,7 @@ public class ControllerBauteilEingabe{
 	static ObservableList<Bauteil> listBauteil;
 	static ObservableList<Bauteil> listBauteilWk;
 	static ObservableList options = FXCollections.observableArrayList();
-	static int refresh = 1;
+	static ObservableList leer = FXCollections.observableArrayList();
 	
 	@FXML
 	private TextField nameFeld;
@@ -87,6 +88,7 @@ public class ControllerBauteilEingabe{
 			Bauteil b = new Bauteil(name, kategorie, link, epreis, lagerort, bestandLager, bestandBestellt, bestandGeplant, 0);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addBauteil(b);
+			System.out.println(b.getTeilId());
 			((Node)(event.getSource())).getScene().getWindow().hide();
 			System.out.println("Bauteil angelegt");
 		}
@@ -95,11 +97,8 @@ public class ControllerBauteilEingabe{
 	
 	public void initialize() {
 
-			if(refresh==1) {
+				options.setAll(leer);
 				load();
-			}else {
-				comboKategorie.setItems(options);
-			}
 			
 		
 	}
@@ -128,20 +127,17 @@ public class ControllerBauteilEingabe{
 	public void load() {
 		try {
 			Connection con = Verwaltung.dbconnection();
-			String query = "SELECT name FROM Kategorie";
+			String query = "SELECT DISTINCT name FROM Kategorie";
 			pst = con.prepareStatement(query);
 			resultSet = pst.executeQuery();
 			while(resultSet.next()) {
 				options.add(resultSet.getString("name"));
 			}
-			pst.close();
-			resultSet.close();
+			resultSet = resultSetLeer;
 		}catch(SQLException ex) {
 			System.out.println("LOL");
 		}
-		
 		comboKategorie.setItems(options);
-		refresh = 0;
 	}
 	
 

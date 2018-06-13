@@ -383,7 +383,7 @@
                                                 <Insets left="15.0" top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <ComboBox fx:id="comboBauteilKategorie" prefWidth="150.0">
+                                          <ComboBox fx:id="comboBauteilKategorie" onMouseClicked="#comboBauteilLaden" prefWidth="150.0">
                                              <HBox.margin>
                                                 <Insets left="15.0" right="15.0" top="15.0" />
                                              </HBox.margin>
