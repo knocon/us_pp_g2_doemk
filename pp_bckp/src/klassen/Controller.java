@@ -393,6 +393,7 @@ public class Controller extends Application {
 
 	@FXML
 	void statusAuftrag(ActionEvent event) {
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
 		try {
 			Stage st = new Stage();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/status_auftrag.fxml"));
@@ -401,7 +402,7 @@ public class Controller extends Application {
 			sceneEingabe = loader.load();
 
 			ControllerStatusAuftrag controller = loader.<ControllerStatusAuftrag>getController();
-			// controller.setzePerson(person);
+			controller.setStatus(auftrag);
 
 			Scene scene = new Scene(sceneEingabe);
 			st.setScene(scene);
@@ -496,7 +497,7 @@ public class Controller extends Application {
 					break;
 				case "Gefertigt":
 					verwaltung.statusAuftrag("Gefertigt", auftrag.getAufId());
-					verwaltung.datumEingabe(dateString, auftrag, "gefertigt", id);
+					verwaltung.datumEingabe(dateString, auftrag, "gefertig", id);
 					;
 					break;
 				case "Abgerechnet":

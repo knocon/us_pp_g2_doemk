@@ -41,7 +41,6 @@ public class ControllerStatusAuftrag {
 	public void setStatus(Auftrag a) {
 		Verwaltung verwaltung = new Verwaltung();
 		ArrayList<StatusAuftrag> sa=  verwaltung.filterDatum("aufId", a.getAufId(), "DatumAuftrag");
-		//  Hier müssen die Daten an die Labels übergeben werden
 		Iterator<StatusAuftrag> it = sa.iterator();
 		
 		while ( it.hasNext()) {

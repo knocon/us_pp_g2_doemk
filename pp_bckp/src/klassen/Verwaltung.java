@@ -198,7 +198,7 @@ public class Verwaltung {
 	}
 	
 	public void addDatum(Auftrag a) {
-		String query1= "INSERT INTO DatumAuftrag (angenommen, gefertigt, kostenK, abgeholt, abgerechnet, warten, fertigungU, aufId) VALUES("
+		String query1= "INSERT INTO DatumAuftrag (angenommen, gefertig, kostenK, abgeholt, abgerechnet, warten, fertigungU, aufId) VALUES("
 				+ "'"+null+"',"
 				+ "'"+null+"',"
 				+ "'"+null+"',"
@@ -223,7 +223,7 @@ public class Verwaltung {
 			ArrayList<StatusAuftrag> listDatumAuftrag = new ArrayList<StatusAuftrag>();
 			while (rs.next()) {
 				// System.out.println(rs.getLong("date"));
-				StatusAuftrag sa = new StatusAuftrag(rs.getString("angenommen"), rs.getString("gefertigt"), rs.getString("kostenK"), rs.getString("abgeholt"), rs.getString("abgerechnet"), rs.getString("warten"), rs.getString("fertigungU"), rs.getInt("aufId"));
+				StatusAuftrag sa = new StatusAuftrag(rs.getString("angenommen"), rs.getString("gefertig"), rs.getString("kostenK"), rs.getString("abgeholt"), rs.getString("abgerechnet"), rs.getString("warten"), rs.getString("fertigungU"), rs.getInt("aufId"));
 				listDatumAuftrag.add(sa);
 			}
 			return listDatumAuftrag;
