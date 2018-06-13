@@ -937,6 +937,7 @@ public class Controller extends Application {
 		String k = comboBauteilKategorie.getSelectionModel().getSelectedItem();
 		Verwaltung.deleteZugehoerigeKategorie(k);
 		Verwaltung.deleteKategorie(k);
+		ladeAlleBauteile();
 
 	}
 
