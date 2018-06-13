@@ -87,10 +87,6 @@ public class PDFexport {
     		 kassenId.add(new Paragraph("Kasse:"+"                    "+resultSet.getString("kassenId")));
     		 name.add(kassenId);
     		 
-    		 Paragraph topfId = new Paragraph();
-    		 addEmptyLine( topfId,1);
-    		 topfId.add(new Paragraph("Topf:"+"                       "+resultSet.getString("topfId")));
-    		 name.add(topfId);
     		 
     		 Paragraph art = new Paragraph();
     		 addEmptyLine( art,1);
