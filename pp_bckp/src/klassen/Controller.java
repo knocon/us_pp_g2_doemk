@@ -875,23 +875,38 @@ public class Controller extends Application {
 		Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
 
 		if (b != null) {
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Bestätigungsabfrage");
-			alert.setHeaderText("Achtung!");
-			alert.setContentText(
-					"Sind Sie sicher, dass Sie das Bauteil dekrementieren möchten? Um die Dekrementierung rückgängig zu machen, müssen Sie es wieder manuell inkrementieren!");
 
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
-				System.out.println(b.getName());
-				Verwaltung.dekrementLager(b);
-				ladeAlleBauteile();
+			if (b.getBestandLager() == 0) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Kritischer Fehler");
+				alert.setHeaderText("Bestand = 0");
+				alert.setContentText("Der Bestand kann nicht weiter dekrementiert werden.");
 
+				alert.showAndWait();
 			} else {
-				// exit
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Bestätigungsabfrage");
+				alert.setHeaderText("Achtung!");
+				alert.setContentText(
+						"Sind Sie sicher, dass Sie das Bauteil dekrementieren möchten? Um die Dekrementierung rückgängig zu machen, müssen Sie es wieder manuell inkrementieren!");
+
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK) {
+					System.out.println(b.getName());
+					Verwaltung.dekrementLager(b);
+					ladeAlleBauteile();
+
+				}
+
 			}
+		} else {
+
+			Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
+					ButtonType.OK);
+			abfrage.showAndWait();
 
 		}
+
 	}
 
 	@FXML
