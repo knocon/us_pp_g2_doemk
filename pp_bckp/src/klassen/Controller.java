@@ -83,6 +83,17 @@ public class Controller extends Application {
 	}
 	
 	@FXML
+	private MenuItem verwaltungMenu;
+	@FXML
+	void verwaltung(ActionEvent event) {
+		try {
+			neuesFenster("/gui/account_verwaltung.fxml", "Account Verwaltung");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
 	private Label toolText;
 	///////////////////////////////   Tabelle Personen   ////////////////////////////////
 	@FXML
