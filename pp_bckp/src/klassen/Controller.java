@@ -439,6 +439,9 @@ public class Controller extends Application {
 	private TableColumn<Rechnung, String> stempelRechnung;
 	
 	@FXML
+	private ComboBox<String> comboRechnungTopf;
+	
+	@FXML
 	private ComboBox<String> statusCombo;
 	@FXML
 	private ComboBox<String> comboRechn;
@@ -1033,6 +1036,8 @@ public class Controller extends Application {
 		stempelRechnung.setCellValueFactory(
                 new PropertyValueFactory<Rechnung, String>("dateString"));
 		ladeAlleRechnungen();
+		comboRechnungTopf.setItems(Verwaltung.fillComboBoxTopf());
+		comboRechnungTopf.getSelectionModel().selectFirst();
 		
 		
 		// Bauteile

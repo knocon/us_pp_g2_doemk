@@ -4,10 +4,10 @@ public class Topf {
 	
 	private int topfId;
 	private String name;
-	private double sollBestand;
-	private double istBestand;
+	private String sollBestand;
+	private String  istBestand;
 	
-	public Topf(int id, String name, double sollBestand, double istBestand) {
+	public Topf(int id, String name, String sollBestand, String istBestand) {
 		super();
 		this.topfId = id;
 		this.name = name;
@@ -23,19 +23,19 @@ public class Topf {
 		this.name = name;
 	}
 
-	public double getSollBestand() {
+	public String getSollBestand() {
 		return sollBestand;
 	}
 
-	public void setSollBestand(double sollBestand) {
+	public void setSollBestand(String sollBestand) {
 		this.sollBestand = sollBestand;
 	}
 
-	public double getIstBestand() {
+	public String getIstBestand() {
 		return istBestand;
 	}
 
-	public void setIstBestand(double istBestand) {
+	public void setIstBestand(String istBestand) {
 		this.istBestand = istBestand;
 	}
 

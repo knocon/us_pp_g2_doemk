@@ -424,6 +424,28 @@ public class Verwaltung {
 		}
 
 	}
+	
+	public static ObservableList fillComboBoxTopf() {
+		try {
+			String query = "SELECT name FROM Topf";
+			pst = conn.prepareStatement(query);
+			resultSet = pst.executeQuery();
+			while(resultSet.next()) {
+				options.add(resultSet.getString("name"));
+				System.out.println(resultSet.getString("name"));
+				options.add(resultSet.getString("sollBestand"));
+				System.out.println(resultSet.getString("sollBestand"));
+				options.add(resultSet.getString("istBestand"));
+				System.out.println(resultSet.getString("istBestand"));
+			}
+			pst.close();
+			resultSet.close();
+		}catch(SQLException ex) {
+			System.out.println("LOL");
+		}
+		return options;
+	}
+
 
 	public void deleteTopf(int id) {
 		String query = "DELETE FROM Topf WHERE topfId =" + id;
