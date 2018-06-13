@@ -1061,6 +1061,7 @@ public class Controller extends Application {
 				st.setTitle("Bearbeiten eines Bauteils");
 				st.show();
 				schreibeStatus("Bauteil bearbeitet");
+				Verwaltung.deleteBauteil(bauteil.getTeilId());
 			} catch (Exception e) {
 				Alert abfrage = new Alert(AlertType.ERROR, "Error.", ButtonType.OK);
 				e.printStackTrace();

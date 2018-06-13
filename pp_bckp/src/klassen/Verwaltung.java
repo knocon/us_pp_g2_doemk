@@ -620,7 +620,7 @@ public class Verwaltung {
 		}
 	}
 	
-	public void deleteBauteil(int id) {
+	public static void deleteBauteil(int id) {
 		String query = "DELETE FROM Bauteil WHERE teilId =" + id;
 		try {
 			statement.executeUpdate(query);
