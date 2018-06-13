@@ -52,7 +52,7 @@ public class PDFexport {
 		Font f = new Font(Font.FontFamily.HELVETICA, 30, Font.BOLD);
 		ResultSet resultSet = ((java.sql.Statement) statement).executeQuery("SELECT * FROM Rechnung"); 
 		Document name = new Document();
-		PdfWriter.getInstance((com.itextpdf.text.Document) name, new FileOutputStream(pdfName));
+		PdfWriter.getInstance((com.itextpdf.text.Document) name, new FileOutputStream(pdfName+".pdf"));
 		name.open();
 		while (resultSet.next()) {
 			if(resultSet.getInt("rechId")==id) {
