@@ -5,19 +5,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.ControllerAccountVerwaltung">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="klassen.ControllerAccountVerwaltung">
    <children>
-      <TableView fx:id="accountTable" layoutX="14.0" layoutY="14.0" prefHeight="298.0" prefWidth="472.0">
+      <TableView fx:id="accountTable" layoutX="14.0" layoutY="14.0" prefHeight="298.0" prefWidth="574.0">
         <columns>
-          <TableColumn fx:id="nameFeld" prefWidth="155.0" text="Name" />
+          <TableColumn fx:id="nameFeld" prefWidth="155.0" text="Benutzername" />
           <TableColumn fx:id="vornameFeld" minWidth="0.0" prefWidth="197.0" text="Vorname" />
+            <TableColumn fx:id="nachnameFeld" minWidth="0.0" prefWidth="197.0" text="Nachname" />
             <TableColumn fx:id="rolleFeld" minWidth="2.0" prefWidth="146.0" text="Rolle" />
+            <TableColumn fx:id="emailFeld" minWidth="2.0" prefWidth="146.0" text="Email" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="loeschenButton" layoutX="363.0" layoutY="327.0" mnemonicParsing="false" onAction="#loeschen" prefHeight="63.0" prefWidth="122.0" text="Löschen" textAlignment="CENTER" textFill="#a10000">
+      <Button fx:id="loeschenButton" layoutX="464.0" layoutY="323.0" mnemonicParsing="false" onAction="#loeschen" prefHeight="63.0" prefWidth="122.0" text="Löschen" textAlignment="CENTER" textFill="#a10000">
          <font>
             <Font size="18.0" />
          </font>

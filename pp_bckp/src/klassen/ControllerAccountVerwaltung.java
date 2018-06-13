@@ -40,7 +40,11 @@ public class ControllerAccountVerwaltung{
 	@FXML
 	private TableColumn<Account, String> vornameFeld;
 	@FXML
+	private TableColumn<Account, String> nachnameFeld;
+	@FXML
 	private TableColumn<Account, String> nameFeld;
+	@FXML
+	private TableColumn<Account, String> emailFeld;
 	
 	@FXML
 	private Button loeschenButton;
@@ -66,20 +70,28 @@ public class ControllerAccountVerwaltung{
 		rolleFeld.setCellValueFactory(
                 new PropertyValueFactory<Account, String>("rolle"));
 		vornameFeld.setCellValueFactory(
-                new PropertyValueFactory<Account, String>("name"));
+                new PropertyValueFactory<Account, String>("vorname"));
+		nachnameFeld.setCellValueFactory(
+                new PropertyValueFactory<Account, String>("nachname"));
 		nameFeld.setCellValueFactory(
-                new PropertyValueFactory<Account, String>("titel"));
+                new PropertyValueFactory<Account, String>("name"));
+		emailFeld.setCellValueFactory(
+                new PropertyValueFactory<Account, String>("email"));
 		
 		
 		try {
 			Connection con = Verwaltung.dbconnection();
 			listAcc = FXCollections.observableArrayList();
-			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Account");
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Account"
+					+ " INNER JOIN Person ON Account.persId = Person.persId");
 			while (rs.next()) {
-				listAcc.add(new Account(0,
+				listAcc.add(new Account(
 						rs.getString("username"),
 						rs.getString("pw"),
-						rs.getString("rolle")));
+						rs.getString("rolle"),
+						rs.getString("vorname"),
+						rs.getString("nachname"),
+						rs.getString("email")));
 			}
 			
 			accountTable.setItems(listAcc);

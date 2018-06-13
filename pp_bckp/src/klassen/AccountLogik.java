@@ -89,10 +89,13 @@ public class AccountLogik {
 			ResultSet result = ps.executeQuery();
 			if(result.next()) {
 				System.out.println("Logged in");
-				acc = new Account(0,
+				acc = new Account(
 						result.getString("username"),
 						result.getString("pw"),
-						result.getString("rolle"));
+						result.getString("rolle"),
+						"",
+						"",
+						"");
 			}
 			else {
 				System.out.println("error");
