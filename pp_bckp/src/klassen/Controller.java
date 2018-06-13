@@ -572,7 +572,7 @@ public class Controller extends Application {
 	@FXML
 	void minusTopf(ActionEvent event){
 		try {
-			neuesFenster("/gui/topf.fxml", "Anlegen eines Topfes");
+			neuesFenster("/gui/minustopf.fxml", "Anlegen eines Topfes");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
