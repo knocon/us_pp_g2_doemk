@@ -121,9 +121,9 @@ public class Verwaltung {
 
 	// Finanzen
 	public void addRechnung(Rechnung r) {
-		String query = "INSERT INTO Rechnung( rechnungsDatum, rechnungsName, auftraggeber, ansprechpartner, kassenId, topfId, art, betrag, status) VALUES(" + "'" + r.getDateLong() + "'," + "'"
+		String query = "INSERT INTO Rechnung(  rechnungsName, auftraggeber, ansprechpartner, kassenId, topf, art, betrag, status) VALUES(" +  "'"
 				+ r.getRechnungsName() + "'," + "'" + r.getAuftraggeber() + "'," + "'" + r.getAnsprechpartner() + "',"
-				+ "'" + r.getKassenId() + "'," + "'" + r.getTopfId() + "'," + "'" + r.getArt() + "'," + "'"
+				+ "'" + r.getKassenId() + "'," + "'" + r.getTopf() + "'," + "'" + r.getArt() + "'," + "'"
 				+ r.getBetrag() + "'," + "'" + r.getStatus() + "')";
 		System.out.println(query);
 		try {
@@ -156,9 +156,9 @@ public class Verwaltung {
 		try {
 			listRechnung = FXCollections.observableArrayList();
 			while (rs.next()) {
-				Rechnung r = new Rechnung(rs.getInt("rechId"), rs.getLong("rechnungsDatum"),
+				Rechnung r = new Rechnung(rs.getInt("rechId"),
 						rs.getString("rechnungsName"), rs.getString("auftraggeber"), rs.getString("ansprechpartner"),
-						rs.getString("kassenId"), rs.getString("topfId"), rs.getString("art"),
+						rs.getString("kassenId"), rs.getString("topf"), rs.getString("art"),
 						rs.getString("kontoId") , rs.getString("betrag"), rs.getString("status") );
 				listRechnung.add(r);
 			}
@@ -193,7 +193,7 @@ public class Verwaltung {
 	
 	public void exportAuftrag(Auftrag a) {
 		long time = System.currentTimeMillis();
-		Rechnung r = new Rechnung(1,time,a.getTitel(), " ", " ",
+		Rechnung r = new Rechnung(1,a.getTitel(), " ", " ",
 				" ", " ", " ", "",a.getRkosten()," ");
 		addRechnung(r);
 	}

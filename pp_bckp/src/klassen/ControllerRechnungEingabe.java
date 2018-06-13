@@ -44,14 +44,14 @@ public class ControllerRechnungEingabe {
 		
 		if(name.isEmpty() || auftraggeber.isEmpty()
 				|| kasse.isEmpty() || art.isEmpty()
-				|| datum.isEmpty() || ansprechpartner.isEmpty() 
+				 || ansprechpartner.isEmpty() 
 				|| topf.isEmpty() || konto.isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
 			alert.showAndWait();
 		}
 		else {
 			long time = System.currentTimeMillis();
-			Rechnung r = new Rechnung(1,time, name, auftraggeber, ansprechpartner, kasse, topf, art, konto, null, null);
+			Rechnung r = new Rechnung(1, name, auftraggeber, ansprechpartner, kasse, topf, art, konto, null, null);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addRechnung(r);
 			((Node)(event.getSource())).getScene().getWindow().hide();
@@ -69,7 +69,7 @@ public class ControllerRechnungEingabe {
 		artFeld.setText(p.getArt());
 		datumFeld.setText(p.getDateString());
 		ansprechpartnerFeld.setText(p.getAnsprechpartner());
-		topfFeld.setText(p.getTopfId());
+		topfFeld.setText(p.getTopf());
 		kontoFeld.setText(p.getKontoId());
 	}
 }

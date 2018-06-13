@@ -601,6 +601,7 @@ public class Controller extends Application {
 				case "Kasse": aList = verwaltung.filterByParameterRechnung("kassenId", filterWert, "Rechnung"); break;
 				case "Auftraggeber": aList = verwaltung.filterByParameterRechnung("auftraggeber", filterWert, "Rechnung"); break;
 				case "Status" : aList = verwaltung.filterByParameterRechnung("status", filterWert, "Rechnung"); break;
+				case "Topf" : aList = verwaltung.filterByParameterRechnung("topf", filterWert, "Rechnung");
 			}
 		}
 		
@@ -1003,7 +1004,8 @@ public class Controller extends Application {
 			        "Name",
 			        "Kasse",
 			        "Auftraggeber",
-			        "Status"
+			        "Status",
+			        "Topf"
 			    );
 		comboRechn.setItems(rechnungsFilter);
 		comboRechn.getSelectionModel().selectFirst();
