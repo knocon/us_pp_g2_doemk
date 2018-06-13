@@ -42,7 +42,7 @@ public class ControllerAuftragPerson {
 	void hinzuAction(ActionEvent event) {
 		
 		try {
-			neuesFenster("/gui/betreuer.fxml", "Ihr Warenkorb");
+			neuesFenster("/gui/betreuer.fxml", "Betreuer");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
