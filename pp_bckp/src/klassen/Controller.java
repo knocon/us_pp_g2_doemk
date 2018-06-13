@@ -1047,7 +1047,7 @@ public class Controller extends Application {
 
 		Bauteil b = bauteileTable.getSelectionModel().getSelectedItem();
 		if (b != null) {
-			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie die Person wirklich löschen?", ButtonType.YES,
+			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Bauteil wirklich löschen?", ButtonType.YES,
 					ButtonType.NO);
 			abfrage.showAndWait();
 			if (abfrage.getResult() == ButtonType.YES) {
