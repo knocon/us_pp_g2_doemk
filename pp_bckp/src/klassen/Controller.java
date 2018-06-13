@@ -835,7 +835,9 @@ public class Controller extends Application {
 				ladeAlleBauteile();
 
 			} else {
-				// exit
+				Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
+						ButtonType.OK);
+				abfrage.showAndWait();
 			}
 
 		}
