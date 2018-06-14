@@ -31,6 +31,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -59,6 +60,9 @@ public class Controller extends Application {
 
 	////////////////////////////// Menu ////////////////////////////////
 	@FXML
+	private Tab bauteilTab;
+	
+	@FXML
 	private Menu topMenu;
 
 	@FXML
@@ -74,7 +78,7 @@ public class Controller extends Application {
 			sceneEingabe = loader.load();
 
 			ControllerLogin controller = loader.<ControllerLogin>getController();
-			// controller.setzePerson(person);
+			controller.setzeController(this);
 
 			Scene scene = new Scene(sceneEingabe);
 			st.setScene(scene);
@@ -1254,7 +1258,8 @@ public class Controller extends Application {
 		ladeAlleBauteile();
 		comboBauteilKategorie.setItems(Verwaltung.fillComboBoxKategorie());
 		comboBauteilKategorie.getSelectionModel().selectFirst();
-
+		
+		veraenderBerechtigung(0);
 	}
 
 	public void ladeAllePersonen() {
@@ -1326,15 +1331,17 @@ public class Controller extends Application {
 		Controller.eingeloggterAccountName = eingeloggterAccountName;
 	}
 
-	public static void login(Account acc) {
+	public void login(Account acc) {
 		setEingeloggterAccountName(acc.getName());
 		String rolle = acc.getRolle();
 		switch (rolle) {
 		case "Benutzer":
 			setEingeloggterAccount(1);
+			veraenderBerechtigung(1);
 			break;
 		case "Verwalter":
 			setEingeloggterAccount(2);
+			veraenderBerechtigung(2);
 			break;
 		}
 		Alert abfrage = new Alert(AlertType.INFORMATION, "Benutzer eingeloggt.", ButtonType.OK);
@@ -1342,9 +1349,17 @@ public class Controller extends Application {
 		System.out.println((eingeloggterAccountName));
 	}
 
-	public static void logout() {
+	public void logout() {
 		setEingeloggterAccountName(null);
 		setEingeloggterAccount(0);
+		veraenderBerechtigung(0);	}
+	
+	public void veraenderBerechtigung(int level) {
+		switch(level) {
+		case 0 : bauteilTab.setDisable(true); break;
+		case 1 : bauteilTab.setDisable(false); break;
+		case 2 : bauteilTab.setDisable(false); break;
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

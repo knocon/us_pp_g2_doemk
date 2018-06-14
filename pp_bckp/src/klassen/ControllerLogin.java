@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
 public class ControllerLogin {
+	Controller controller;
 	
 	@FXML
 	private TextField nameFeld;
@@ -31,7 +32,7 @@ public class ControllerLogin {
 			AccountLogik accLogik = new AccountLogik();
 			Account acc = accLogik.login(name, pw);
 			if(acc!=null) {
-				Controller.login(acc);
+				controller.login(acc);
 				((Node)(event.getSource())).getScene().getWindow().hide();
 			}
 			else {
@@ -39,6 +40,10 @@ public class ControllerLogin {
 				abfrage.show();
 			}
 		}
+	}
+	
+	public void setzeController(Controller controller) {
+		this.controller = controller;
 	}
 	
 	public void initialize() {
