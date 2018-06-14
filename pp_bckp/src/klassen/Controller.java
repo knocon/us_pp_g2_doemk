@@ -665,6 +665,7 @@ public class Controller extends Application {
 	@FXML
 	void statusRechnungen(ActionEvent event) {
 		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
+		if (rechnung != null) {
 		try {
 			Stage st = new Stage();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/status_rechnung.fxml"));
@@ -681,11 +682,14 @@ public class Controller extends Application {
 			st.show();
 			schreibeStatus("Person bearbeitet");
 		} catch (Exception e) {
-			Alert abfrage = new Alert(AlertType.ERROR, "Error.", ButtonType.OK);
 			e.printStackTrace();
 		}
+	} else {
+		Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
+				ButtonType.OK);
+		abfrage.showAndWait();
 	}
-
+}
 	@FXML
 	private Button loeschenButtonRechnung;
 
