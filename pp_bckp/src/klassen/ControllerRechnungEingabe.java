@@ -47,15 +47,17 @@ public class ControllerRechnungEingabe {
 	private TextField auftraggeberFeld;
 	@FXML
 	private TextField kasseFeld;
-	@FXML
-	private TextField artFeld;
+	
 	
 	@FXML
 	private TextField ansprechpartnerFeld;
 	@FXML
 	private ComboBox <String> topfComboBox;
 	@FXML
-	private TextField kontoFeld;
+	private ComboBox <String> artComboBox;
+	@FXML
+	private ComboBox <String> kontoComboBox;
+	
 	
 	@FXML
 	private TextField betragFeld;
@@ -65,19 +67,21 @@ public class ControllerRechnungEingabe {
 	@FXML
 	void rechnungSpeichern(ActionEvent event) {
 		String topf = topfComboBox.getValue();
+		String art = artComboBox.getValue();
+		String kontoId = kontoComboBox.getValue();
 		String name = nameFeld.getText();
 		String auftraggeber = auftraggeberFeld.getText();
 		String kasse = kasseFeld.getText();
-		String art = artFeld.getText();
+		
 		String ansprechpartner = ansprechpartnerFeld.getText();
 	
-		String kontoId = kontoFeld.getText();
+		
 		String betrag = betragFeld.getText();
 		
 		if(name.isEmpty() || auftraggeber.isEmpty()
-				|| kasse.isEmpty() || art.isEmpty()
+				|| kasse.isEmpty() 
 				 || ansprechpartner.isEmpty() 
-				 || kontoId.isEmpty() || betrag.isEmpty()){
+				  || betrag.isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
 			alert.showAndWait();
 		}
@@ -94,16 +98,17 @@ public class ControllerRechnungEingabe {
 	public void initialize() {
 		options.setAll(leer);
 		load();
+		comboload();
 	}
 	
 	public void setzeRechnung(Rechnung p) {
 		nameFeld.setText(p.getRechnungsName());
 		auftraggeberFeld.setText(p.getAuftraggeber());
 		kasseFeld.setText(p.getKassenId());
-		artFeld.setText(p.getArt());
+		
 		ansprechpartnerFeld.setText(p.getAnsprechpartner());
 		
-		kontoFeld.setText(p.getKontoId());
+	
 		betragFeld.setText(p.getBetrag());
 	}
 	public void setzeRechnungAufrag(Auftrag a) {
@@ -112,6 +117,9 @@ public class ControllerRechnungEingabe {
 		//String kostennue = String.valueOf(kosten);
 		betragFeld.setText(a.getRkosten());
 	}
+	
+		
+	
 	public void load() {
 		try {
 			Connection con = Verwaltung.dbconnection();
@@ -128,6 +136,11 @@ public class ControllerRechnungEingabe {
 		topfComboBox.setItems(options);
 	}
 	
+	public void comboload() {
+		artComboBox.getItems().addAll("Bar","Überweisung","Kostenstelle");
+		kontoComboBox.getItems().addAll("Kasse","Konto","Kostenstelle");
+	}
+	
 public boolean validate(){
 		
 		
@@ -139,13 +152,7 @@ public boolean validate(){
 			return false;
 		}
 		
-		try{
-			konto = Integer.parseInt(kontoFeld.getText());
-		}catch(Exception e){
-			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Konto!", ButtonType.OK);
-			alert.showAndWait();
-			return false;
-		}
+		
 		
 		try{
 			kasse = Integer.parseInt(kasseFeld.getText());
