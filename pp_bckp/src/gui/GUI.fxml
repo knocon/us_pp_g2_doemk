@@ -112,15 +112,6 @@
                      </opaqueInsets>
                   </AnchorPane>
             </content>
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                     <image>
-                        <Image url="@../../images/person%20icon.PNG" />
-                     </image></ImageView>
-               </graphic>
           </Tab>
           <Tab text="Aufträge">
             <content>
