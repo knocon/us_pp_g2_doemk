@@ -62,8 +62,46 @@ public class ControllerAccountVerwaltung{
 				Alert alert = new Alert(AlertType.ERROR,"Sie müssen einen Account auswählen.", ButtonType.OK);
 				alert.show();
 			}
+			else {
+				Alert alert = new Alert(AlertType.CONFIRMATION,"Wollen Sie den Account wirklich löschen?", ButtonType.YES, ButtonType.NO);
+				alert.showAndWait();
+				if(alert.getResult()== ButtonType.YES) {
+					AccountLogik accLogik = new AccountLogik();
+					accLogik.loescheAccount(acc);
+				}
+			}
 		}
-		
+		ladeTabelle();
+	}
+	
+	@FXML
+	private Button aendernButton;
+	@FXML
+	void aendern(ActionEvent event) {
+		Account account = accountTable.getSelectionModel().getSelectedItem();
+		if(account!=null) {
+			System.out.println(account.getRolle());
+			if(account.getRolle().equals("Benutzer")) {
+				Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie den Account wirklich aufstufen?",ButtonType.YES, ButtonType.NO);
+				abfrage.showAndWait();
+				if(abfrage.getResult()==ButtonType.YES) {
+					AccountLogik accLogik = new AccountLogik();
+					accLogik.aendereRolle(account);
+				}
+				else {
+					
+				}
+			}
+			else {
+				Alert abfrage = new Alert(AlertType.ERROR, "Account ist bereits Verwalter",ButtonType.OK);
+				abfrage.showAndWait();
+			}
+		}
+		else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Wählen Sie eine Zeile in der Tabelle aus", ButtonType.OK);
+			abfrage.show();
+		}
+		ladeTabelle();
 	}
 	
 	public void initialize() {
@@ -78,7 +116,10 @@ public class ControllerAccountVerwaltung{
 		emailFeld.setCellValueFactory(
                 new PropertyValueFactory<Account, String>("email"));
 		
-		
+		ladeTabelle();
+	}
+
+	public void ladeTabelle() {
 		try {
 			Connection con = Verwaltung.dbconnection();
 			listAcc = FXCollections.observableArrayList();
@@ -98,11 +139,9 @@ public class ControllerAccountVerwaltung{
 			
 		}catch (SQLException ex) {
 			ex.printStackTrace();
-			System.out.println("error");
+			Alert abfrage = new Alert(AlertType.ERROR, "SQL ERROR: Tabelle konnte nicht geladen werden.",ButtonType.OK);
+			abfrage.showAndWait();
 		}
-		
 	}
-
-
 
 }

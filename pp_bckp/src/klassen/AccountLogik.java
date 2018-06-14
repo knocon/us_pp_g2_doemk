@@ -80,6 +80,36 @@ public class AccountLogik {
 		}
 	}
 	
+	public void aendereRolle(Account a) {
+		String query = "UPDATE Account SET rolle = 'Verwalter' WHERE username = '"
+				+ a.getName() + "'";
+		try {
+			statement.executeUpdate(query);
+			Alert abfrage = new Alert(AlertType.INFORMATION,"Account wurde aufgestuft.", ButtonType.OK);
+			abfrage.show();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			Alert abfrage = new Alert(AlertType.ERROR,"SQL ERROR: Account konnte nicht aufgestuft werden.", ButtonType.OK);
+			abfrage.show();
+		}
+	}
+	
+	public void loescheAccount(Account a) {
+		String query = "DELETE FROM Account WHERE username = '"
+				+ a.getName() +"'";
+		try {
+			statement.executeUpdate(query);
+			Alert abfrage = new Alert(AlertType.INFORMATION,"Account wurde gelöscht.", ButtonType.OK);
+			abfrage.show();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			Alert abfrage = new Alert(AlertType.ERROR,"SQL ERROR: Account konnte nicht gelöscht werden.", ButtonType.OK);
+			abfrage.show();
+		}
+	}
+	
 	public Account login(String name,String pw) {
 		Account acc = null;
 		PreparedStatement ps;
