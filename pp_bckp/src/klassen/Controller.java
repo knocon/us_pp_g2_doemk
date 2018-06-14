@@ -50,7 +50,7 @@ public class Controller extends Application {
 	static ObservableList leer = FXCollections.observableArrayList();
 	/*
 	 * eingeloggterAccount soll daf�r da sein, um zu wissen, welcher account gerade
-	 * eingeloggt ist... notwendig f�r bauteileverwaltung
+	 * eingeloggt ist... notwendig f�r bauteileverwaltung lg
 	 */
 	private static int eingeloggterAccount = 0;
 	private static String eingeloggterAccountName = null;
