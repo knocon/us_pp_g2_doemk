@@ -642,7 +642,7 @@ public class Verwaltung {
 	
 	public static void deleteZugehoerigenTopf(String name) {
 		 
-		String query = "DELETE FROM Topf WHERE kate ='"+name+"'";
+		String query = "DELETE FROM Rechnung WHERE topf ='"+name+"'";
 		try {
 			statement.executeUpdate(query);
 			System.out.println("zugehoerigkeitweg");
