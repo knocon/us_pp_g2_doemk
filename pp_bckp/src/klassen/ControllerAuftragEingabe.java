@@ -25,9 +25,11 @@ public class ControllerAuftragEingabe {
 	@FXML
 	private TextField reeleKFeld;
 	@FXML
-	private ComboBox<String> comboAuftragEin;
+	private TextField artFeld;
 	
-	String titel;
+	
+	double rKosten;
+	double pKosten;
 	
 	@FXML
 	private Button speichernButtonAuftrag;
@@ -39,7 +41,7 @@ public class ControllerAuftragEingabe {
 		double Pkosten = Double.parseDouble(pKosten);
 		String rKosten = reeleKFeld.getText();
 		double Rkosten = Double.parseDouble(rKosten);
-		String art = comboAuftragEin.getValue();
+		String art = artFeld.getText();
 		
 		if(titel.isEmpty() || datei.isEmpty()
 				|| pKosten.isEmpty() || rKosten.isEmpty()){
@@ -47,12 +49,14 @@ public class ControllerAuftragEingabe {
 			alert.showAndWait();
 		}
 		else {
+			if(validate()) {
 			long time = System.currentTimeMillis();
 			Auftrag a = new Auftrag(1, titel, art, datei, Rkosten, Pkosten, time,null);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addAuftrag(a);
 			((Node)(event.getSource())).getScene().getWindow().hide();
 			System.out.println("Auftrag angelegt");
+			}
 		}
 	}
 	
@@ -70,5 +74,28 @@ public class ControllerAuftragEingabe {
 		String Rkosten = String.valueOf(rKosten);
 		reeleKFeld.setText(Rkosten);
 	}
+	
+	public boolean validate(){
+		
+		
+		try{
+			pKosten = Double.parseDouble(pKostenFeld.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Betrag", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
+		try{
+			rKosten = Double.parseDouble(reeleKFeld.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Betrag", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
 	
 }
