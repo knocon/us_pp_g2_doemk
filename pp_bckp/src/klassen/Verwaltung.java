@@ -198,10 +198,88 @@ public class Verwaltung {
 
 	// Fertigung
 	
+	public int sucheAuftrag(Auftrag a) {
+		
+		return a.getAufId();
+	}
+
+	public  ObservableList<VTAuftragPerson> personenindieTabelle(Auftrag a) throws SQLException {
+		ObservableList<VTAuftragPerson> listPersonen = FXCollections.observableArrayList();
+		resultSet = statement
+				.executeQuery("SELECT * FROM VTAuftragPerson where aufId = " + "'" + a.getAufId() + "'");
+		listPersonen = getVTAPerson(resultSet);
+		return listPersonen;
+	}
+
+	public boolean peronDa(String nachname, int persId) throws SQLException {
+		boolean wert = false;
+		ObservableList<Person> per = FXCollections.observableArrayList();
+		resultSet = statement.executeQuery("SELECT * FROM Person");
+		per = (ObservableList<Person>) getPerson(resultSet);
+		Iterator<Person> it = per.iterator();
+		while(it.hasNext()) {
+			Person nue = it.next();
+			if(nue.getPersId()==persId&&nue.getTyp().equals("Betreuer")) {
+				wert = true;
+			}
+		}
+		return wert;
+	}
+
+	public ObservableList<VTAuftragPerson> getVTAPerson(ResultSet rs) throws SQLException {
+		try {
+			ObservableList<VTAuftragPerson> per =FXCollections.observableArrayList(); ;
+			while (rs.next()) {
+				// System.out.println(rs.getLong("date"));
+				VTAuftragPerson va= new VTAuftragPerson(rs.getInt("aufId"), rs.getString("aufName"), rs.getInt("perId"), rs.getString("perName"));
+				per.add(va);
+			}
+			return per;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void auftragHinzufügen(int aufid,String titel, int id) throws SQLException {
+		statement.executeUpdate("UPDATE  VTAuftrag SET aufId = '" + aufid + "' WHERE id = '" + id);
+		statement.executeUpdate("UPDATE  VTAuftrag SET aufName = '" + titel + "' WHERE id = '" + id);
+		
+	}
+	public void betreuerHinzufügen(String nachname, int perid, String titel, int aufid) {
+		String query = "INSERT INTO VTAuftragPerson (aufId, aufName, perId, perName) VALUES("
+				+"'"+aufid+"',"
+				+"'"+titel+"',"
+				+"'"+perid+"',"
+				+"'"+nachname+"')";
+		try {
+			statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		
+	}
+
+	public ObservableList<VTAuftragPerson> filterVTAPerson(String parameter, int value, String tabellenname) {
+		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
+		System.out.println(query);
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
+			ObservableList<VTAuftragPerson> list = getVTAPerson(resultSet);
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
 	public void datumEingabe(String time, Auftrag a, String status, int aufId) throws SQLException {
 		statement.executeUpdate("UPDATE  DatumAuftrag SET " + status + " = '" + time + "' WHERE aufId=" + aufId);
 	}
-	
+
 	public void addDatum(Auftrag a) {
 		String query1= "INSERT INTO DatumAuftrag (angenommen, gefertig, kostenK, abgeholt, abgerechnet, warten, fertigungU, aufId) VALUES("
 				+ "'"+null+"',"
@@ -222,7 +300,7 @@ public class Verwaltung {
 		}
 		
 	}
-	
+
 	public ArrayList<StatusAuftrag> getDatumAuftrag(ResultSet rs) throws SQLException {
 		try {
 			ArrayList<StatusAuftrag> listDatumAuftrag = new ArrayList<StatusAuftrag>();
@@ -237,8 +315,8 @@ public class Verwaltung {
 		}
 		return null;
 	}
-	
-	
+
+
 	public ArrayList<StatusAuftrag> filterDatum(String parameter, int value, String tabellenname) {
 		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
 		System.out.println(query);
@@ -252,15 +330,15 @@ public class Verwaltung {
 		}
 		return null;
 	}
-	
-	
-	public void exportAuftrag(Auftrag a) {
+
+
+	/*public void exportAuftrag(Auftrag a) {
 		long time = System.currentTimeMillis();
-		Rechnung r = new Rechnung(1,time, a.getTitel(), " ", " ",
+		Rechnung r = new Rechnung(1,a.getTitel(), " ", " ",
 				" ", " ", " ", "",a.getRkosten()," ");
 		addRechnung(r);
-	}
-	
+	}*/
+
 	public ObservableList<Auftrag> ladeAlleAuftraege() {
 		try {
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM Auftrag");
