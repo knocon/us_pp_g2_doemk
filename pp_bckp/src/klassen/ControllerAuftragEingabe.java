@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 
 public class ControllerAuftragEingabe {
-	
+	//ortAuftrag 
 	@FXML
 	private TextField titelFeld;
 	@FXML
@@ -26,7 +26,8 @@ public class ControllerAuftragEingabe {
 	private TextField reeleKFeld;
 	@FXML
 	private TextField artFeld;
-	
+	@FXML
+	private TextField ortFeld;
 	
 	double rKosten;
 	double pKosten;
@@ -38,10 +39,12 @@ public class ControllerAuftragEingabe {
 		String titel = titelFeld.getText();
 		String datei = dateiFeld.getText();
 		String pKosten = pKostenFeld.getText();
+		String art = artFeld.getText();
 		//double Pkosten = Double.parseDouble(pKosten);
 		String rKosten = reeleKFeld.getText();
 		//double Rkosten = Double.parseDouble(rKosten);
-		String art = artFeld.getText();
+		
+		String typ = ortFeld.getText();
 		
 		if(titel.isEmpty() || datei.isEmpty()
 				|| pKosten.isEmpty() || rKosten.isEmpty()){
@@ -51,7 +54,7 @@ public class ControllerAuftragEingabe {
 		else {
 			if(validate()) {
 			long time = System.currentTimeMillis();
-			Auftrag a = new Auftrag(1, titel, art, datei, rKosten, pKosten, time,null);
+			Auftrag a = new Auftrag(1, titel, art, datei, rKosten, pKosten, time,typ);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addAuftrag(a);
 			((Node)(event.getSource())).getScene().getWindow().hide();
@@ -73,6 +76,8 @@ public class ControllerAuftragEingabe {
 		//double rKosten = a.getRkosten();
 		String Rkosten = String.valueOf(a.getRkosten());
 		reeleKFeld.setText(Rkosten);
+		artFeld.setText(a.getArt());
+		ortFeld.setText(a.getDateiname());
 	}
 	
 	public boolean validate(){

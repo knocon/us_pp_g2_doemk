@@ -46,6 +46,7 @@ public class ControllerAuftragBetreuer {
 			verwaltung.betreuerHinzufügen(name, Id, a.getTitel(), a.getAufId());
 			//}
 		}
+		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
 	public void setzeAuftrag(Auftrag a) {
