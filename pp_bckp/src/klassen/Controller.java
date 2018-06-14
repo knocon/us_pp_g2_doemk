@@ -792,16 +792,23 @@ public class Controller extends Application {
 
 	}
 
+	
 	@FXML
+	 
 	private Button minusButtonTopf;
 
 	@FXML
 	void minusTopf(ActionEvent event) {
-		try {
-			neuesFenster("/gui/minustopf.fxml", "Anlegen eines Topfes");
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (checkBerechtigungAdmin() == true) {
+			String k = comboRechnungTopf.getSelectionModel().getSelectedItem();
+			Verwaltung.deleteZugehoerigeKategorie(k);
+			Verwaltung.deleteKategorie(k);
+			ladeAlleBauteile();
+		} else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
+			abfrage.showAndWait();
 		}
+
 	}
 
 	@FXML

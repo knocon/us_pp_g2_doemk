@@ -639,7 +639,18 @@ public class Verwaltung {
 	}
 
 
-	public void deleteTopf(int id) {
+	public static void deleteZugehoerigenTopf(String name) {
+		 
+		String query = "DELETE FROM Topf WHERE kate ='"+name+"'";
+		try {
+			statement.executeUpdate(query);
+			System.out.println("zugehoerigkeitweg");
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		}
+
+		public void deleteTopf(int id) {
 		String query = "DELETE FROM Topf WHERE topfId =" + id;
 		try {
 			statement.executeUpdate(query);
@@ -647,7 +658,7 @@ public class Verwaltung {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+		}
 
 	public static void addKasse(Kasse k) {
 		String query = "INSERT INTO Kasse(name,sollBestand,istBestand,art,zahlenfolge) VALUES("
