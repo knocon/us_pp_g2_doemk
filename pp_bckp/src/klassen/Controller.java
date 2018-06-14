@@ -50,8 +50,8 @@ public class Controller extends Application {
 	 * eingeloggterAccount soll daf�r da sein, um zu wissen, welcher account gerade
 	 * eingeloggt ist... notwendig f�r bauteileverwaltung
 	 */
-	private static int eingeloggterAccount = 0;
-	private static String eingeloggterAccountName = "";
+	private static int eingeloggterAccount = 2;
+	private static String eingeloggterAccountName = "knocon";
 
 	public static void main(String[] args) {
 		Application.launch(Controller.class, args);

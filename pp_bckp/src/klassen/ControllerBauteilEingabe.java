@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +36,12 @@ public class ControllerBauteilEingabe{
 	static ObservableList options = FXCollections.observableArrayList();
 	static ObservableList leer = FXCollections.observableArrayList();
 	
+	private double epreis;
+	int bestandLager;
+	int bestandBestellt;
+	int bestandGeplant;
+	String kategorie = "";
+	
 	@FXML
 	private TextField nameFeld;
 	@FXML
@@ -61,40 +69,42 @@ public class ControllerBauteilEingabe{
 		String link = linkFeld.getText();
 		
 		String preis = preisFeld.getText();
-		double epreis = 0;
-		if(validatePreis(preisFeld.getText())){
-			epreis = Double.parseDouble(preisFeld.getText());
-		}
+
 		
 		String lagerort = lagerortFeld.getText();
 		
 		String lagernd = lagerndFeld.getText();
-		int bestandLager = Integer.parseInt(lagernd);
+
 		
 		String bestellt = bestelltFeld.getText();
-		int bestandBestellt = Integer.parseInt(bestellt);
+
 		
 		String geplant = geplantFeld.getText();
-		int bestandGeplant = Integer.parseInt(geplant);
-		
-		String kategorie = comboKategorie.getSelectionModel().getSelectedItem().toString();
+
+		try{
+			String test = comboKategorie.getSelectionModel().getSelectedItem().toString();
+			kategorie = test;
+		}catch(Exception e){
+
+		}	
 		
 		if(name.isEmpty() || link.isEmpty()
 				|| preis.isEmpty() || lagerort.isEmpty()
 				|| lagernd.isEmpty() || bestellt.isEmpty() 
-				|| geplant.isEmpty() || kategorie.isEmpty()){
+				|| geplant.isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
 			alert.showAndWait();
-		}
-		else {
+		}else if(validate()){
+			
+
 			//long time = System.currentTimeMillis();
 			Bauteil b = new Bauteil(name, kategorie, link, epreis, lagerort, bestandLager, bestandBestellt, bestandGeplant, 0);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addBauteil(b);
 			System.out.println(b.getTeilId());
 			((Node)(event.getSource())).getScene().getWindow().hide();
-			System.out.println("Bauteil angelegt");
-		}
+			System.out.println("Bauteil angelegt");}
+		
 	}
 	
 	
@@ -142,17 +152,56 @@ public class ControllerBauteilEingabe{
 		}
 		comboKategorie.setItems(options);
 	}
-	
-	public boolean validatePreis(String input){
-		try{
-			double wert = Double.parseDouble(input);
-			return true;
-		}catch(Exception e){
-			Alert alert = new Alert(AlertType.ERROR,"Preis ist kein gültiger Wert", ButtonType.OK);
-			alert.showAndWait();
-			return false;
-		}
+
+	public boolean validate(){
+		
+		
+			try{
+				epreis = Double.parseDouble(preisFeld.getText());
+			}catch(Exception e){
+				Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Preis", ButtonType.OK);
+				alert.showAndWait();
+				return false;
+			}
+			
+			try{
+				bestandLager = Integer.parseInt(lagerndFeld.getText());
+			}catch(Exception e){
+				Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Lagerbestand!", ButtonType.OK);
+				alert.showAndWait();
+				return false;
+			}
+			
+			try{
+				bestandBestellt = Integer.parseInt(bestelltFeld.getText());
+			}catch(Exception e){
+				Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim bestellten Lagerbestand!", ButtonType.OK);
+				alert.showAndWait();
+				return false;
+			}
+			
+			try{
+				bestandGeplant = Integer.parseInt(geplantFeld.getText());
+			}catch(Exception e){
+				Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim geplanten Lagerbestand!", ButtonType.OK);
+				alert.showAndWait();
+				return false;
+			}
+			
+			
+			 Pattern p = Pattern.compile("[^A-Za-z0-9]");
+		     Matcher m = p.matcher(lagerortFeld.getText());
+		     boolean b = m.find();
+		     
+		     if(b){
+		    	 Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Lagerort", ButtonType.OK);
+					alert.showAndWait();
+		    	 return false;
+		     }	
+		return true;
+		
 	}
-	
+
+
 
 }
