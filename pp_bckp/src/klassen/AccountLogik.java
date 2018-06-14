@@ -152,7 +152,7 @@ public class AccountLogik {
 		PreparedStatement ps;
 		
 		try {
-			ps = conn.prepareStatement("SELECT * FROM Account "
+			ps = conn.prepareStatement("SELECT * FROM Account NATURAL JOIN Person "
 					+ "WHERE username = '"+name+"' AND pw = '"+ pw +"'" );
 			ResultSet result = ps.executeQuery();
 			if(result.next()) {
@@ -161,9 +161,9 @@ public class AccountLogik {
 						result.getString("username"),
 						result.getString("pw"),
 						result.getString("rolle"),
-						"",
-						"",
-						"");
+						result.getString("vorname"),
+						result.getString("nachname"),
+						result.getString("email"));
 				result.close();
 				ps.close();
 			}

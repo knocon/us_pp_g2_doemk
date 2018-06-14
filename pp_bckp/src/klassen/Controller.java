@@ -1414,7 +1414,7 @@ public class Controller extends Application {
 	}
 
 	public void login(Account acc) {
-		setEingeloggterAccountName(acc.getName());
+		setEingeloggterAccountName(acc.getVorname() + " " + acc.getNachname());
 		String rolle = acc.getRolle();
 		switch (rolle) {
 		case "Benutzer":
@@ -1440,7 +1440,7 @@ public class Controller extends Application {
 	public void veraenderBerechtigung(int level) {
 		switch(level) {
 		case 0 : bauteilTab.setDisable(true);
-		menuLogin.setText("Login: ---");
+		menuLogin.setText("Login");
 		anmeldenMenu.setText("Anmelden");
 		break;
 		case 1 : bauteilTab.setDisable(false); 
