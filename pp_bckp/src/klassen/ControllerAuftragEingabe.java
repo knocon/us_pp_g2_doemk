@@ -38,9 +38,9 @@ public class ControllerAuftragEingabe {
 		String titel = titelFeld.getText();
 		String datei = dateiFeld.getText();
 		String pKosten = pKostenFeld.getText();
-		double Pkosten = Double.parseDouble(pKosten);
+		//double Pkosten = Double.parseDouble(pKosten);
 		String rKosten = reeleKFeld.getText();
-		double Rkosten = Double.parseDouble(rKosten);
+		//double Rkosten = Double.parseDouble(rKosten);
 		String art = artFeld.getText();
 		
 		if(titel.isEmpty() || datei.isEmpty()
@@ -51,7 +51,7 @@ public class ControllerAuftragEingabe {
 		else {
 			if(validate()) {
 			long time = System.currentTimeMillis();
-			Auftrag a = new Auftrag(1, titel, art, datei, Rkosten, Pkosten, time,null);
+			Auftrag a = new Auftrag(1, titel, art, datei, rKosten, pKosten, time,null);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addAuftrag(a);
 			((Node)(event.getSource())).getScene().getWindow().hide();
@@ -67,11 +67,11 @@ public class ControllerAuftragEingabe {
 	public void setzeAuftrag(Auftrag a) {
 		titelFeld.setText(a.getTitel());
 		dateiFeld.setText(a.getDateiname());
-		double pKosten = a.getPkosten();
+		//double pKosten = a.getPkosten();
 		String Pkosten = String.valueOf(pKosten);
-		pKostenFeld.setText(Pkosten);
-		double rKosten = a.getRkosten();
-		String Rkosten = String.valueOf(rKosten);
+		pKostenFeld.setText( a.getPkosten());
+		//double rKosten = a.getRkosten();
+		String Rkosten = String.valueOf(a.getRkosten());
 		reeleKFeld.setText(Rkosten);
 	}
 	
@@ -81,14 +81,14 @@ public class ControllerAuftragEingabe {
 		try{
 			pKosten = Double.parseDouble(pKostenFeld.getText());
 		}catch(Exception e){
-			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Betrag", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim pKosten", ButtonType.OK);
 			alert.showAndWait();
 			return false;
 		}
 		try{
 			rKosten = Double.parseDouble(reeleKFeld.getText());
 		}catch(Exception e){
-			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Betrag", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim rKosten", ButtonType.OK);
 			alert.showAndWait();
 			return false;
 		}

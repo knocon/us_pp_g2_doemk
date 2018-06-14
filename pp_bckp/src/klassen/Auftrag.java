@@ -12,12 +12,12 @@ public class Auftrag {
 	private String titel;
 	private String art;
 	private String dateiname;
-	private double rkosten;
-	private double pkosten;
-	private int persId;
+	private String rkosten;
+	private String pkosten;
+	private String persId;
 	private String status;
 	
-	public Auftrag( int id,String titel, String art, String dateiname, double rkosten, double pkosten, long datum, String status) {
+	public Auftrag( int id,String titel, String art, String dateiname, String rkosten, String pkosten, long datum, String status) {
 		super();
 		this.aufId= id;
 		this.datum = datum;
@@ -32,6 +32,16 @@ public class Auftrag {
 		this.status=status;
 		this.setRkosten(rkosten);
 		this.setPkosten(pkosten);
+	}
+	
+	public String getRKostenString() {
+		String output = String.valueOf(rkosten);
+		return output;
+	}
+	
+	public String getPKostenString() {
+		String output = String.valueOf(pkosten);
+		return output;
 	}
 	
 	public String getStatus() {
@@ -54,11 +64,11 @@ public class Auftrag {
 		this.dateString = dateString;
 	}
 
-	public int getPersId() {
+	public String getPersId() {
 		return persId;
 	}
 
-	public void setPersId(int persId) {
+	public void setPersId(String persId) {
 		this.persId = persId;
 	}
 
@@ -97,28 +107,28 @@ public class Auftrag {
 	/**
 	 * @return the rkosten
 	 */
-	public double getRkosten() {
+	public String getRkosten() {
 		return rkosten;
 	}
 
 	/**
 	 * @param rkosten the rkosten to set
 	 */
-	public void setRkosten(double rkosten) {
+	public void setRkosten(String rkosten) {
 		this.rkosten = rkosten;
 	}
 
 	/**
 	 * @return the pkosten
 	 */
-	public double getPkosten() {
+	public String getPkosten() {
 		return pkosten;
 	}
 
 	/**
 	 * @param pkosten the pkosten to set
 	 */
-	public void setPkosten(double pkosten) {
+	public void setPkosten(String pkosten) {
 		this.pkosten = pkosten;
 	}
 

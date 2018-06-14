@@ -41,7 +41,7 @@ public class ControllerAuftragBetreuer {
 		while ( it.hasNext()) {
 			Auftrag auf = it.next();
 			
-				//if(verwaltung.peronDa(name, Id)==true) {
+				//if(verwaltung.peronDa(name, Id)) {
 					System.out.println("HALLO");
 			verwaltung.betreuerHinzufügen(name, Id, a.getTitel(), a.getAufId());
 			//}

@@ -108,9 +108,9 @@ public class ControllerRechnungEingabe {
 	}
 	public void setzeRechnungAufrag(Auftrag a) {
 		nameFeld.setText(a.getTitel());
-		double kosten = a.getRkosten();
-		String kostennue = String.valueOf(kosten);
-		betragFeld.setText(kostennue);
+		//double kosten = a.getRkosten();
+		//String kostennue = String.valueOf(kosten);
+		betragFeld.setText(a.getRkosten());
 	}
 	public void load() {
 		try {
