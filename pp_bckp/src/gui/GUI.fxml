@@ -452,9 +452,9 @@
    <top>
       <MenuBar fx:id="menu" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Login">
+          <Menu fx:id="menuLogin" mnemonicParsing="false" text="Login">
             <items>
-              <MenuItem fx:id="loginMenu" mnemonicParsing="false" onAction="#loginGeklickt" text="Anmelden" />
+              <MenuItem fx:id="anmeldenMenu" mnemonicParsing="false" onAction="#loginGeklickt" text="Anmelden" />
                   <MenuItem fx:id="registrierenMenu" mnemonicParsing="false" onAction="#registrierenGeklickt" text="Registrieren" />
                   <MenuItem fx:id="verwaltungMenu" mnemonicParsing="false" onAction="#verwaltung" text="Verwaltung" />
             </items>

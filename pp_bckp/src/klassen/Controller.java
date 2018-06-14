@@ -30,6 +30,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -51,8 +52,8 @@ public class Controller extends Application {
 	 * eingeloggterAccount soll daf�r da sein, um zu wissen, welcher account gerade
 	 * eingeloggt ist... notwendig f�r bauteileverwaltung
 	 */
-	private static int eingeloggterAccount = 2;
-	private static String eingeloggterAccountName = "knocon";
+	private static int eingeloggterAccount = 0;
+	private static String eingeloggterAccountName = null;
 
 	public static void main(String[] args) {
 		Application.launch(Controller.class, args);
@@ -63,31 +64,39 @@ public class Controller extends Application {
 	private Tab bauteilTab;
 	
 	@FXML
-	private Menu topMenu;
+	private MenuBar menu;
+	
+	@FXML
+	private Menu menuLogin;
 
 	@FXML
-	private MenuItem loginMenu;
+	private MenuItem anmeldenMenu;
 
 	@FXML
 	void loginGeklickt(ActionEvent event) {
-		try {
-			Stage st = new Stage();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login.fxml"));
+		if(eingeloggterAccount!=0) {
+			logout();
+		}
+		else {
+			try {
+				Stage st = new Stage();
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login.fxml"));
 
-			Parent sceneEingabe;
-			sceneEingabe = loader.load();
+				Parent sceneEingabe;
+				sceneEingabe = loader.load();
 
-			ControllerLogin controller = loader.<ControllerLogin>getController();
-			controller.setzeController(this);
+				ControllerLogin controller = loader.<ControllerLogin>getController();
+				controller.setzeController(this);
 
-			Scene scene = new Scene(sceneEingabe);
-			st.setScene(scene);
-			st.setTitle("Login");
-			st.show();
-		} catch (Exception e) {
-			Alert abfrage = new Alert(AlertType.ERROR, "Error.", ButtonType.OK);
-			abfrage.show();
-			e.printStackTrace();
+				Scene scene = new Scene(sceneEingabe);
+				st.setScene(scene);
+				st.setTitle("Login");
+				st.show();
+			} catch (Exception e) {
+				Alert abfrage = new Alert(AlertType.ERROR, "Error.", ButtonType.OK);
+				abfrage.show();
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -1352,13 +1361,23 @@ public class Controller extends Application {
 	public void logout() {
 		setEingeloggterAccountName(null);
 		setEingeloggterAccount(0);
-		veraenderBerechtigung(0);	}
+		veraenderBerechtigung(0);	
+	}
 	
 	public void veraenderBerechtigung(int level) {
 		switch(level) {
-		case 0 : bauteilTab.setDisable(true); break;
-		case 1 : bauteilTab.setDisable(false); break;
-		case 2 : bauteilTab.setDisable(false); break;
+		case 0 : bauteilTab.setDisable(true);
+		menuLogin.setText("Login: ---");
+		anmeldenMenu.setText("Anmelden");
+		break;
+		case 1 : bauteilTab.setDisable(false); 
+		menuLogin.setText("Benutzer: " + getEingeloggterAccountName());
+		anmeldenMenu.setText("Abmelden");
+		break;
+		case 2 : bauteilTab.setDisable(false); 
+		menuLogin.setText("Verwalter: " + getEingeloggterAccountName());
+		anmeldenMenu.setText("Abmelden");
+		break;
 		}
 	}
 
