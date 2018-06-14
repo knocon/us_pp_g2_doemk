@@ -23,7 +23,7 @@ public class ControllerAuftragBetreuer {
 	private TextField iDText;
 	
 	private Auftrag a;
-	
+	int id;
 	@FXML
 	private Button speichern;
 	@FXML
@@ -31,25 +31,43 @@ public class ControllerAuftragBetreuer {
 		
 		String name = nameText.getText();
 		String id = iDText.getText();
-		int Id = Integer.parseInt(id);
+		//int Id = Integer.parseInt(id);
 		Verwaltung verwaltung = new Verwaltung();
 		int id1 = a.getAufId();
 		String id2 = String.valueOf(id1);
 		//ObservableList<Auftrag> listPersonen
+		if(validate()) {
+		if(verwaltung.abfrageBetreuer(id)) {
 		ObservableList<Auftrag> listPersonen =verwaltung.filterByParameterAuftrag("aufId", id2 , "Auftrag");
 		Iterator<Auftrag> it = listPersonen.iterator();
 		while ( it.hasNext()) {
 			Auftrag auf = it.next();
 			
-				//if(verwaltung.peronDa(name, Id)) {
+				if(verwaltung.peronDa(name, id)) {
 					System.out.println("HALLO");
-			verwaltung.betreuerHinzufügen(name, Id, a.getTitel(), a.getAufId());
-			//}
+			verwaltung.betreuerHinzufügen(name, id, a.getTitel(), a.getAufId());
+			}
+		}}else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Diese Person ist kein Betruer!",
+					ButtonType.OK);
+			abfrage.showAndWait();
 		}
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
-	
+	}
 	public void setzeAuftrag(Auftrag a) {
 		this.a = a;
+	}
+public boolean validate(){
+		
+		
+		try{
+			id = Integer.parseInt(iDText.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe bei ID!", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
+		return true;
 	}
 }

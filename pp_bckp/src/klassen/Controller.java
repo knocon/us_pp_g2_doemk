@@ -431,6 +431,7 @@ public class Controller extends Application {
 	@FXML
 	void personenGeklicktAuftrag(ActionEvent event) {
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		
 		if (auftrag != null) {
 		try {
 			

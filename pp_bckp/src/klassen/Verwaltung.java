@@ -198,6 +198,20 @@ public class Verwaltung {
 
 	// Fertigung
 	
+	public boolean abfrageBetreuer(String id) {
+		int ID = Integer.parseInt(id);
+		boolean wert = false;
+		ObservableList<Person> list = ladeAllePersonen();
+		Iterator<Person> it = list.iterator();
+		while(it.hasNext()) {
+			Person per = it.next();
+			if(per.getPersId()==ID&& per.getTyp().equals("Betreuer")) {
+				wert = true;
+			}
+		}
+		return  wert;
+	}
+	
 	public boolean auftraginDatum(Auftrag a) {
 		boolean wert = false;
 		ArrayList<StatusAuftrag> list = filterDatum("aufId", a.getAufId(), "DatumAuftrag"); 
@@ -224,7 +238,8 @@ public class Verwaltung {
 		return listPersonen;
 	}
 
-	public boolean peronDa(String nachname, int persId) throws SQLException {
+	public boolean peronDa(String nachname, String Persid) throws SQLException {
+		int persId = Integer.parseInt(Persid);
 		boolean wert = false;
 		ObservableList<Person> per = FXCollections.observableArrayList();
 		resultSet = statement.executeQuery("SELECT * FROM Person");
@@ -259,11 +274,11 @@ public class Verwaltung {
 		statement.executeUpdate("UPDATE  VTAuftrag SET aufName = '" + titel + "' WHERE id = '" + id);
 		
 	}
-	public void betreuerHinzufügen(String nachname, int perid, String titel, int aufid) {
+	public void betreuerHinzufügen(String nachname, String perId, String titel, int aufid) {
 		String query = "INSERT INTO VTAuftragPerson (aufId, aufName, perId, perName) VALUES("
 				+"'"+aufid+"',"
 				+"'"+titel+"',"
-				+"'"+perid+"',"
+				+"'"+perId+"',"
 				+"'"+nachname+"')";
 		try {
 			statement.executeUpdate(query);
