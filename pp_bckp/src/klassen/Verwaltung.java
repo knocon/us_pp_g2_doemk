@@ -639,6 +639,7 @@ public class Verwaltung {
 	}
 
 
+	
 	public static void deleteZugehoerigenTopf(String name) {
 		 
 		String query = "DELETE FROM Topf WHERE kate ='"+name+"'";
@@ -650,8 +651,8 @@ public class Verwaltung {
 		}
 		}
 
-		public void deleteTopf(int id) {
-		String query = "DELETE FROM Topf WHERE topfId =" + id;
+		public static void deleteTopf(String name) {
+		String query = "DELETE FROM Topf WHERE name =" + name;
 		try {
 			statement.executeUpdate(query);
 			System.out.println("geloescht");

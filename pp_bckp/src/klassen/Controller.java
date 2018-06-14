@@ -801,8 +801,8 @@ public class Controller extends Application {
 	void minusTopf(ActionEvent event) {
 		if (checkBerechtigungAdmin() == true) {
 			String k = comboRechnungTopf.getSelectionModel().getSelectedItem();
-			Verwaltung.deleteZugehoerigeKategorie(k);
-			Verwaltung.deleteKategorie(k);
+			Verwaltung.deleteZugehoerigenTopf(k);
+			Verwaltung.deleteTopf(k);
 			ladeAlleBauteile();
 		} else {
 			Alert abfrage = new Alert(AlertType.ERROR, "Ihnen fehlen die nötigen Berechtigungen!", ButtonType.OK);
