@@ -58,17 +58,25 @@ public class ControllerAccountVerwaltung{
 		else
 		{
 			Account acc = accountTable.getSelectionModel().getSelectedItem();
+			
 			if(acc==null) {
 				Alert alert = new Alert(AlertType.ERROR,"Sie müssen einen Account auswählen.", ButtonType.OK);
 				alert.show();
 			}
 			else {
-				Alert alert = new Alert(AlertType.CONFIRMATION,"Wollen Sie den Account wirklich löschen?", ButtonType.YES, ButtonType.NO);
-				alert.showAndWait();
-				if(alert.getResult()== ButtonType.YES) {
-					AccountLogik accLogik = new AccountLogik();
-					accLogik.loescheAccount(acc);
+				if(acc.getName().equals("admin") || acc.getName().equals("user")) {
+					Alert alert = new Alert(AlertType.ERROR,"Account kann nicht gelöscht werden.", ButtonType.OK);
+					alert.showAndWait();
 				}
+				else {
+					Alert alert = new Alert(AlertType.CONFIRMATION,"Wollen Sie den Account wirklich löschen?", ButtonType.YES, ButtonType.NO);
+					alert.showAndWait();
+					if(alert.getResult()== ButtonType.YES) {
+						AccountLogik accLogik = new AccountLogik();
+						accLogik.loescheAccount(acc);
+					}
+				}
+				
 			}
 		}
 		ladeTabelle();
