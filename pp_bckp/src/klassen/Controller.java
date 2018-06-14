@@ -612,6 +612,8 @@ public class Controller extends Application {
 	@FXML
 	private TableColumn<Rechnung, String> auftraggeberRechnung;
 	@FXML
+	private TableColumn<Rechnung, String> ansprechpartnerRechnung;
+	@FXML
 	private TableColumn<Rechnung, String> kasseRechnung;
 	@FXML
 	private TableColumn<Rechnung, String> bezahlungRechnung;
@@ -1313,6 +1315,7 @@ public class Controller extends Application {
 		nameRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("rechnungsName"));
 		topfName.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("topf"));
 		auftraggeberRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("auftraggeber"));
+		ansprechpartnerRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("ansprechpartner"));
 		kasseRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("kassenId"));
 		bezahlungRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("art"));
 		kontoRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("kontoId"));

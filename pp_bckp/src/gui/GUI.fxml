@@ -155,7 +155,7 @@
                                           <TableColumn fx:id="rKostenAuftrag" prefWidth="100.0" text="reele Kosten" />
                                           <TableColumn fx:id="statusAuftrag" prefWidth="150.0" text="Status" />
                                           <TableColumn fx:id="datumAuftrag" prefWidth="75.0" text="Datum" />
-                                          <TableColumn fx:id="typAuftrag" prefWidth="75.0" text="Typ" />
+                                          <TableColumn fx:id="ortAuftrag" prefWidth="75.0" text="Dateiort" />
                                       </columns>
                                     </TableView>
                                  </center>
@@ -242,15 +242,16 @@
                                  <center>
                                     <TableView fx:id="rechnungTabelle" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <columns>
-                                          <TableColumn fx:id="nameRechnung" prefWidth="200.0" text="Name" />
-                                          <TableColumn fx:id="topfName" prefWidth="150.0" text="Topf" />
-                                          <TableColumn fx:id="auftraggeberRechnung" prefWidth="150.0" text="Auftraggeber" />
-                                          <TableColumn fx:id="kasseRechnung" prefWidth="150.0" text="Kasse" />
-                                          <TableColumn fx:id="bezahlungRechnung" prefWidth="100.0" text="Bezahlungsart" />
-                                          <TableColumn fx:id="kontoRechnung" prefWidth="150.0" text="Konto" />
-                                          <TableColumn fx:id="betragRechnung" prefWidth="75.0" text="Betrag" />
-                                          <TableColumn fx:id="statusRechnung" prefWidth="75.0" text="Status" />
-                                          <TableColumn fx:id="stempelRechnung" prefWidth="75.0" text="Stempel" />
+                                          <TableColumn fx:id="nameRechnung" prefWidth="119.0" text="Name" />
+                                          <TableColumn fx:id="topfName" prefWidth="112.0" text="Topf" />
+                                          <TableColumn fx:id="auftraggeberRechnung" prefWidth="130.0" text="Auftraggeber" />
+                                          <TableColumn fx:id="ansprechpartnerRechnung" prefWidth="150.0" text="Ansprechpartner" />
+                                          <TableColumn fx:id="kasseRechnung" prefWidth="129.0" text="Kasse" />
+                                          <TableColumn fx:id="bezahlungRechnung" prefWidth="134.0" text="Bezahlungsart" />
+                                          <TableColumn fx:id="kontoRechnung" prefWidth="121.0" text="Konto" />
+                                          <TableColumn fx:id="betragRechnung" prefWidth="136.0" text="Betrag" />
+                                          <TableColumn fx:id="statusRechnung" prefWidth="121.0" text="Status" />
+                                          <TableColumn fx:id="stempelRechnung" prefWidth="62.0" text="Stempel" />
                                        </columns>
                                     </TableView>
                                  </center>
