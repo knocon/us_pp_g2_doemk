@@ -662,6 +662,7 @@ public class Controller extends Application {
 
 	@FXML
 	void statusRechnungen(ActionEvent event) {
+		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
 		try {
 			Stage st = new Stage();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/status_rechnung.fxml"));
@@ -670,7 +671,7 @@ public class Controller extends Application {
 			sceneEingabe = loader.load();
 
 			ControllerStatusRechnung controller = loader.<ControllerStatusRechnung>getController();
-			// controller.setzePerson(person);
+			 controller.setStatus(rechnung);
 
 			Scene scene = new Scene(sceneEingabe);
 			st.setScene(scene);

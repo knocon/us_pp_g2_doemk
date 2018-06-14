@@ -32,8 +32,8 @@ public class ControllerStatusRechnung {
 	}
 	
 	public void setStatus(Rechnung r) {
-		Verwaltung verwaltung = new Verwaltung();
-		ArrayList<statusRechnung> sa=  verwaltung.filterDatumRech("aufId", r.getRechId(), "DatumAuftrag");
+		Verwaltung verwaltungRech = new Verwaltung();
+		ArrayList<statusRechnung> sa=  verwaltungRech.filterDatumRech("rechId", r.getRechId(),"DatumRechnung");
 		Iterator<statusRechnung> it = sa.iterator();
 		
 		while ( it.hasNext()) {
