@@ -1414,10 +1414,22 @@ public class Controller extends Application {
 		case 1 : bauteilTab.setDisable(false); 
 		menuLogin.setText("Benutzer: " + getEingeloggterAccountName());
 		anmeldenMenu.setText("Abmelden");
+		plusButton.setDisable(true);
+		minusButton.setDisable(true);
+		bearbeitenKategorie.setDisable(true);
+		bauteilAnlegenButton.setDisable(true);
+		bauteilBearbeitenButton.setDisable(true);
+		loeschenButtonBauteil.setDisable(true);
 		break;
 		case 2 : bauteilTab.setDisable(false); 
 		menuLogin.setText("Verwalter: " + getEingeloggterAccountName());
 		anmeldenMenu.setText("Abmelden");
+		plusButton.setDisable(false);
+		minusButton.setDisable(false);
+		bearbeitenKategorie.setDisable(false);
+		bauteilAnlegenButton.setDisable(false);
+		bauteilBearbeitenButton.setDisable(false);
+		loeschenButtonBauteil.setDisable(false);
 		break;
 		}
 	}
