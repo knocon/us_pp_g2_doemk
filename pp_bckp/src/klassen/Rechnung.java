@@ -21,7 +21,7 @@ public class Rechnung {
 	private String status;
 	private String statusZeitstempel;
 	
-	public Rechnung(int id, String rechnungsName, String auftraggeber, String ansprechpartner,
+	public Rechnung(int id,long datum, String rechnungsName, String auftraggeber, String ansprechpartner,
 			String kassenId, String topf, String art, String kontoId, String betrag, String status) {
 		super();
 		this.rechId= id;

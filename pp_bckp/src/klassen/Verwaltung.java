@@ -122,7 +122,8 @@ public class Verwaltung {
 
 	// Finanzen
 	public void addRechnung(Rechnung r) {
-		String query = "INSERT INTO Rechnung( rechnungsName, auftraggeber, ansprechpartner, kassenId, topf, art, kontoId, betrag, status) VALUES(" +  "'"
+		String query = "INSERT INTO Rechnung( date, rechnungsName, auftraggeber, ansprechpartner, kassenId, topf, art, kontoId, betrag, status) VALUES(" 
+	+ "'" + r.getDateLong() + "'," +  "'"
 				 + r.getRechnungsName() + "'," + "'" + r.getAuftraggeber() + "'," + "'" + r.getAnsprechpartner() + "',"
 				+ "'" + r.getKassenId() + "'," + "'" + r.getTopf() + "'," + "'" + r.getArt() + "'," + "'"
 				+ r.getKontoId() + "'," + "'" + r.getBetrag()+ "'," + "'" + r.getStatus() + "')";
@@ -157,7 +158,7 @@ public class Verwaltung {
 		try {
 			listRechnung = FXCollections.observableArrayList();
 			while (rs.next()) {
-				Rechnung r = new Rechnung(rs.getInt("rechId"), 
+				Rechnung r = new Rechnung(rs.getInt("rechId"), rs.getLong("date"),
 						
 						rs.getString("rechnungsName"), rs.getString("auftraggeber"), rs.getString("ansprechpartner"),
 						rs.getString("kassenId"), rs.getString("topf"), rs.getString("art"),
