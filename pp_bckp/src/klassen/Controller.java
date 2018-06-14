@@ -376,6 +376,33 @@ public class Controller extends Application {
 			abfrage.showAndWait();
 		}
 	}
+	
+	@FXML
+	private Button personenAuftrag;
+
+	@FXML
+	void personenKlickAuftrag(ActionEvent event) throws IOException {
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		try {
+		Stage st = new Stage();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_pers.fxml"));
+
+		Parent sceneEingabe;
+		sceneEingabe = loader.load();
+
+		ControllerAuftragPerson controller = loader.<ControllerAuftragPerson>getController();
+		//verwaltung.personenindieTabelle(auftrag.getAufId());
+		controller.setzteAuftrag(auftrag);
+		//verwaltung.namen("typ", "Betreuer", "Person", auftrag);
+		Scene scene = new Scene(sceneEingabe);
+		st.setScene(scene);
+		st.setTitle("Bearbeiten der Betreuer");
+		st.show();
+		schreibeStatus("Betreuer bearbeitet");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@FXML
 	private Button personenButtonAuftrag;
