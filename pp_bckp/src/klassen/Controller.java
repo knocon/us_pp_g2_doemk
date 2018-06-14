@@ -1391,6 +1391,9 @@ public class Controller extends Application {
 		}
 		comboBauteilKategorie.setItems(options);
 	}
+	
+	
+
 
 	public boolean checkBerechtigungAdmin() {
 

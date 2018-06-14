@@ -1,15 +1,37 @@
 package klassen;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
 public class ControllerRechnungEingabe {
+	static Connection conn = null;
+	static ResultSet resultSet;
+	static ResultSet resultSetLeer;
+	static ResultSet rs;
+	static java.sql.Statement statement;
+	static PreparedStatement pst = null;
+	static LocalDate date;
+	static ObservableList<Person> listPerson;
+	static ObservableList<Rechnung> listRechnung;
+	static ObservableList<Bauteil> listBauteil;
+	static ObservableList<Bauteil> listBauteilWk;
+	static ObservableList options = FXCollections.observableArrayList();
+	static ObservableList leer = FXCollections.observableArrayList();
 	
 	
 	@FXML
@@ -24,7 +46,7 @@ public class ControllerRechnungEingabe {
 	@FXML
 	private TextField ansprechpartnerFeld;
 	@FXML
-	private TextField topfFeld;
+	private ComboBox <String> topfComboBox;
 	@FXML
 	private TextField kontoFeld;
 	
@@ -35,19 +57,20 @@ public class ControllerRechnungEingabe {
 	private Button speichernButtonRechnung;
 	@FXML
 	void rechnungSpeichern(ActionEvent event) {
+		String topf = topfComboBox.getSelectionModel().getSelectedItem().toString();
 		String name = nameFeld.getText();
 		String auftraggeber = auftraggeberFeld.getText();
 		String kasse = kasseFeld.getText();
 		String art = artFeld.getText();
 		String ansprechpartner = ansprechpartnerFeld.getText();
-		String topf = topfFeld.getText();
+	
 		String kontoId = kontoFeld.getText();
 		String betrag = betragFeld.getText();
 		
 		if(name.isEmpty() || auftraggeber.isEmpty()
 				|| kasse.isEmpty() || art.isEmpty()
 				 || ansprechpartner.isEmpty() 
-				|| topf.isEmpty() || kontoId.isEmpty() || betrag.isEmpty()){
+				 || kontoId.isEmpty() || betrag.isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
 			alert.showAndWait();
 		}
@@ -62,6 +85,8 @@ public class ControllerRechnungEingabe {
 	}
 	
 	public void initialize() {
+		options.setAll(leer);
+		load();
 	}
 	
 	public void setzeRechnung(Rechnung p) {
@@ -70,12 +95,27 @@ public class ControllerRechnungEingabe {
 		kasseFeld.setText(p.getKassenId());
 		artFeld.setText(p.getArt());
 		ansprechpartnerFeld.setText(p.getAnsprechpartner());
-		topfFeld.setText(p.getTopf());
+		
 		kontoFeld.setText(p.getKontoId());
 		betragFeld.setText(p.getBetrag());
 	}
 	public void setzeRechnungAufrag(Auftrag a) {
 		nameFeld.setText(a.getTitel());
 		betragFeld.setText(a.getRkosten());
+	}
+	public void load() {
+		try {
+			Connection con = Verwaltung.dbconnection();
+			String query = "SELECT DISTINCT name FROM Topf";
+			pst = con.prepareStatement(query);
+			resultSet = pst.executeQuery();
+			while(resultSet.next()) {
+				options.add(resultSet.getString("name"));
+			}
+			resultSet = resultSetLeer;
+		}catch(SQLException ex) {
+			System.out.println("LOL");
+		}
+		topfComboBox.setItems(options);
 	}
 }
