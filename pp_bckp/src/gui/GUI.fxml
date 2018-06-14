@@ -50,11 +50,11 @@
                                                     <TableColumn fx:id="vornameCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Vorname" />
                                                     <TableColumn fx:id="nachnameCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Nachname" />
                                                       <TableColumn fx:id="rolleCol" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" text="Rolle" />
-                                                      <TableColumn fx:id="emailCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Email" />
-                                                      <TableColumn fx:id="telefonCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Telefon" />
+                                                      <TableColumn fx:id="emailCol" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="Email" />
+                                                      <TableColumn fx:id="telefonCol" maxWidth="-1.0" minWidth="120.0" prefWidth="120.0" text="Telefon" />
                                                       <TableColumn fx:id="stadtCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Stadt" />
                                                       <TableColumn fx:id="adresseCol" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" text="Adresse" />
-                                                      <TableColumn fx:id="nummerCol" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" text="Nr" />
+                                                      <TableColumn fx:id="nummerCol" maxWidth="-1.0" minWidth="30.0" prefWidth="30.0" text="Nr" />
                                                       <TableColumn fx:id="stempelCol" maxWidth="-1.0" minWidth="120.0" prefWidth="-1.0" text="Stempel" />
                                                   </columns>
                                                    <columnResizePolicy>
@@ -137,7 +137,7 @@
                            <center>
                               <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <center>
-                                    <TableView fx:id="auftragTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <TableView fx:id="auftragTable" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                                       <columns>
                                         <TableColumn fx:id="titelAuftrag" prefWidth="200.0" text="Titel" />
                                         <TableColumn fx:id="artAuftrag" prefWidth="150.0" text="Art" />
@@ -145,8 +145,8 @@
                                           <TableColumn fx:id="pKostenAuftrag" prefWidth="105.0" text="prog. Kosten" />
                                           <TableColumn fx:id="rKostenAuftrag" prefWidth="100.0" text="reele Kosten" />
                                           <TableColumn fx:id="statusAuftrag" prefWidth="150.0" text="Status" />
-                                          <TableColumn fx:id="datumAuftrag" prefWidth="75.0" text="Datum" />
-                                          <TableColumn fx:id="ortAuftrag" prefWidth="75.0" text="Dateiort" />
+                                          <TableColumn fx:id="datumAuftrag" prefWidth="150.0" text="Datum" />
+                                          <TableColumn fx:id="ortAuftrag" prefWidth="150.0" text="Dateiort" />
                                       </columns>
                                     </TableView>
                                  </center>
@@ -231,7 +231,7 @@
                            <center>
                               <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <center>
-                                    <TableView fx:id="rechnungTabelle" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <TableView fx:id="rechnungTabelle" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                                        <columns>
                                           <TableColumn fx:id="nameRechnung" prefWidth="119.0" text="Name" />
                                           <TableColumn fx:id="topfName" prefWidth="112.0" text="Topf" />
@@ -241,7 +241,7 @@
                                           <TableColumn fx:id="bezahlungRechnung" prefWidth="134.0" text="Bezahlungsart" />
                                           <TableColumn fx:id="kontoRechnung" prefWidth="121.0" text="Konto" />
                                           <TableColumn fx:id="betragRechnung" prefWidth="136.0" text="Betrag" />
-                                          <TableColumn fx:id="statusRechnung" prefWidth="121.0" text="Status" />
+                                          <TableColumn fx:id="statusRechnung" text="Status" />
                                           <TableColumn fx:id="stempelRechnung" prefWidth="62.0" text="Stempel" />
                                        </columns>
                                     </TableView>
@@ -352,7 +352,7 @@
                            <center>
                               <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <center>
-                                    <TableView fx:id="bauteileTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <TableView fx:id="bauteileTable" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                                        <columns>
                                           <TableColumn fx:id="nameBauteil" prefWidth="200.0" text="Name" />
                                           <TableColumn fx:id="preisBauteil" prefWidth="150.0" text="Preis" />
