@@ -156,51 +156,61 @@ public class ControllerBauteilEingabe{
 	public boolean validate(){
 		
 		
-			try{
-				epreis = Double.parseDouble(preisFeld.getText());
-			}catch(Exception e){
-				Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Preis", ButtonType.OK);
-				alert.showAndWait();
-				return false;
-			}
-			
-			try{
-				bestandLager = Integer.parseInt(lagerndFeld.getText());
-			}catch(Exception e){
-				Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Lagerbestand!", ButtonType.OK);
-				alert.showAndWait();
-				return false;
-			}
-			
-			try{
-				bestandBestellt = Integer.parseInt(bestelltFeld.getText());
-			}catch(Exception e){
-				Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim bestellten Lagerbestand!", ButtonType.OK);
-				alert.showAndWait();
-				return false;
-			}
-			
-			try{
-				bestandGeplant = Integer.parseInt(geplantFeld.getText());
-			}catch(Exception e){
-				Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim geplanten Lagerbestand!", ButtonType.OK);
-				alert.showAndWait();
-				return false;
-			}
-			
-			
-			 Pattern p = Pattern.compile("[^A-Za-z0-9]");
-		     Matcher m = p.matcher(lagerortFeld.getText());
-		     boolean b = m.find();
-		     
-		     if(b){
-		    	 Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Lagerort", ButtonType.OK);
-					alert.showAndWait();
-		    	 return false;
-		     }	
-		return true;
+		try{
+			epreis = Double.parseDouble(preisFeld.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Preis", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
 		
-	}
+		try{
+			bestandLager = Integer.parseInt(lagerndFeld.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Lagerbestand!", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
+		
+		try{
+			bestandBestellt = Integer.parseInt(bestelltFeld.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim bestellten Lagerbestand!", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
+		
+		try{
+			bestandGeplant = Integer.parseInt(geplantFeld.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim geplanten Lagerbestand!", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
+		
+		
+		 Pattern p = Pattern.compile("[^A-Za-z0-9]");
+	     Matcher m = p.matcher(lagerortFeld.getText());
+	     boolean b = m.find();
+	     
+	     if(b){
+	    	 Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Lagerort", ButtonType.OK);
+				alert.showAndWait();
+	    	 return false;
+	     }
+	     String PATTERN="\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+	     Pattern p2 = Pattern.compile(PATTERN);
+	     Matcher m2 = p2.matcher(linkFeld.getText());
+	     
+	     if(!m2.matches()){
+	    	 Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Link", ButtonType.OK);
+				alert.showAndWait();
+	    	 return false;
+	     }
+	     
+	return true;
+	
+}
 
 
 
