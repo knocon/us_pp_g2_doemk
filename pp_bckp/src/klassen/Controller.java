@@ -709,7 +709,12 @@ public class Controller extends Application {
 	private Button statusAButton;
 
 	@FXML
-	void aendernStatus(ActionEvent event) {
+	void aendernStatus(ActionEvent event) throws SQLException {
+		long time = System.currentTimeMillis();
+		Date date = new Date(time);
+
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy HH:mm");
+		String dateString = format.format(date);
 		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
 		String statusParam = statusCombo.getValue();
 		if (rechnung != null) {
@@ -717,21 +722,29 @@ public class Controller extends Application {
 					ButtonType.YES, ButtonType.NO);
 			abfrage.showAndWait();
 			if (abfrage.getResult() == ButtonType.YES) {
+				
+				System.out.println("StatusDatum:" + dateString);
+				System.out.println(rechnung.getRechId());
+				int rechId =rechnung.getRechId();
 				switch (statusParam) {
 				case "Bearbeitung":
 					verwaltung.statusRechnung("Bearbeitung", rechnung.getRechId());
+					verwaltung.datumEingabeRech(dateString, rechnung, "bearbeitung", rechId);
 					;
 					break;
 				case "Eingereicht":
 					verwaltung.statusRechnung("Eingereicht", rechnung.getRechId());
+					verwaltung.datumEingabeRech(dateString, rechnung, "eingereicht", rechId);
 					;
 					break;
 				case "Abgewickelt":
-					verwaltung.statusRechnung("Abgewickel", rechnung.getRechId());
+					verwaltung.statusRechnung("Abgewickelt", rechnung.getRechId());
+					verwaltung.datumEingabeRech(dateString, rechnung, "abgewickelt", rechId);
 					;
 					break;
 				case "Ausstehend":
 					verwaltung.statusRechnung("Ausstehend", rechnung.getRechId());
+					verwaltung.datumEingabeRech(dateString, rechnung, "ausstehend", rechId);
 					;
 					break;
 
@@ -799,6 +812,26 @@ public class Controller extends Application {
 		rechnungTabelle.setItems(aList);
 		System.out.println(filterFieldPerson.getText());
 	}
+	@FXML
+	private Button datumButtonRech;
+
+	@FXML
+	void datumanlegenRech(ActionEvent event) {
+		Rechnung rechnung = rechnungTabelle.getSelectionModel().getSelectedItem();
+		if (rechnung != null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie diesen Status wirklich bearbeiten?",
+					ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if (abfrage.getResult() == ButtonType.YES) {
+				verwaltung.addDatumRech(rechnung);
+			}
+		} else {
+			Alert ab = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+			ab.showAndWait();
+		}
+		
+	}
+
 
 	@FXML
 	private Button pdfExport;

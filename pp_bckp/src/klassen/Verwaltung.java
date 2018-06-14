@@ -379,14 +379,11 @@ public class Verwaltung {
 	//Rechnung
 	
 	public void datumEingabeRech(String time, Rechnung r, String status, int rechId) throws SQLException {
-		statement.executeUpdate("UPDATE  DatumRech SET " + status + " = '" + time + "' WHERE aufId=" + rechId);
+		statement.executeUpdate("UPDATE  DatumRechnung SET " + status + " = '" + time + "' WHERE rechId=" + rechId);
 	}
 	
 	public void addDatumRech(Rechnung r) {
-		String query1= "INSERT INTO DatumRechung (bearbeitung, eingereicht, abgewickelt, ausstehend,rechId) VALUES("
-				+ "'"+null+"',"
-				+ "'"+null+"',"
-				+ "'"+null+"',"
+		String query1= "INSERT INTO DatumRechnung (bearbeitung, eingereicht, abgewickelt, ausstehend,rechId) VALUES("
 				+ "'"+null+"',"
 				+ "'"+null+"',"
 				+ "'"+null+"',"

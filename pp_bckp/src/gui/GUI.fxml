@@ -338,6 +338,7 @@
                                     <Button fx:id="statusButtonFin" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#statusRechnungen" prefHeight="50.0" prefWidth="200.0" text="Status" />
                                     <Button fx:id="loeschenButtonRechnung" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#loeschenGeklicktRechnung" prefHeight="50.0" prefWidth="200.0" text="Löschen" />
                                     <Button fx:id="pdfExport" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#pdfExportGeklickt" prefHeight="50.0" prefWidth="200.0" text="PDF Export" />
+                                    <Button fx:id="datumButtonRech" alignment="CENTER" contentDisplay="BOTTOM" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#datumanlegenRech" prefHeight="50.0" prefWidth="200.0" text="Datum " />
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
