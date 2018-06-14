@@ -51,8 +51,8 @@ public class ControllerStatusAuftrag {
 				datum3.setText(nue.getKostenK());
 				datum4.setText(nue.getAbgeholt());
 				datum5.setText(nue.getAbgerechnet());
-				datum6.setText("jaja");
-				datum6.setText("nö");
+				datum6.setText(nue.getWarten());
+				datum7.setText(nue.getFertigungU());
 			}
 		}
 		

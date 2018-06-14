@@ -74,4 +74,8 @@ public class ControllerRechnungEingabe {
 		kontoFeld.setText(p.getKontoId());
 		betragFeld.setText(p.getBetrag());
 	}
+	public void setzeRechnungAufrag(Auftrag a) {
+		nameFeld.setText(a.getTitel());
+		betragFeld.setText(a.getRkosten());
+	}
 }

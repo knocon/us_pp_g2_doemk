@@ -317,6 +317,7 @@ public class Controller extends Application {
 		System.out.println(filterFieldPerson.getText());
 	}
 
+	
 	@FXML
 	private Button anlegenButtonAuftrag;
 
@@ -366,10 +367,24 @@ public class Controller extends Application {
 
 	@FXML
 	void personenGeklicktAuftrag(ActionEvent event) {
-		
+		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
 
 		try {
 			neuesFenster("/gui/auftrag_pers.fxml", "Person");
+			/*Stage st = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_pers.fxml"));
+
+			Parent sceneEingabe;
+			sceneEingabe = loader.load();
+
+			ControllerAuftragBetreuer controller = loader.<ControllerAuftragBetreuer>getController();
+			// controller.setzeAuftrag(auftrag);
+			verwaltung.namen("typ", "Betreuer", "Person", auftrag);
+			Scene scene = new Scene(sceneEingabe);
+			st.setScene(scene);
+			st.setTitle("Bearbeiten der Betreuer");
+			st.show();
+			schreibeStatus("Betreuer bearbeitet");*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -429,15 +444,31 @@ public class Controller extends Application {
 	private Button exportButtonAuftrag;
 
 	@FXML
-	void exportGeklicktAuftrag(ActionEvent event) {
+	void exportGeklicktAuftrag(ActionEvent event) throws IOException {
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
 		if (auftrag != null) {
 			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie diesen Auftrag wirklich exportieren?",
 					ButtonType.YES, ButtonType.NO);
 			abfrage.showAndWait();
 			if (abfrage.getResult() == ButtonType.YES) {
-				verwaltung.exportAuftrag(auftrag);
+				//verwaltung.exportAuftrag(auftrag);
+				Stage st = new Stage();
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/rechnung_eingabe.fxml"));
+
+				Parent sceneEingabe;
+				sceneEingabe = loader.load();
+				ControllerRechnungEingabe controller = loader.<ControllerRechnungEingabe>getController();
+				//controller.setzeRechnung(rechnung);
+				controller.setzeRechnungAufrag(auftrag);
+				Scene scene = new Scene(sceneEingabe);
+				st.setScene(scene);
+				st.setTitle("Bearbeiten einer neuen Rechnung");
+				st.show();
+				schreibeStatus("Rechnung bearbeitet");
 			}
+		} else {
+			Alert ab = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+			ab.showAndWait();
 		}
 	}
 
@@ -447,7 +478,18 @@ public class Controller extends Application {
 	@FXML
 	void datumAnlegenAuftrag(ActionEvent event) {
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
-		verwaltung.addDatum(auftrag);
+		if (auftrag != null) {
+			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie diesen Status wirklich bearbeiten?",
+					ButtonType.YES, ButtonType.NO);
+			abfrage.showAndWait();
+			if (abfrage.getResult() == ButtonType.YES) {
+				verwaltung.addDatum(auftrag);
+			}
+		} else {
+			Alert ab = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
+			ab.showAndWait();
+		}
+		
 	}
 
 	@FXML
@@ -516,7 +558,6 @@ public class Controller extends Application {
 		}
 
 	}
-
 	///////////////////////////////// Rechnungen
 	///////////////////////////////// //////////////////////////////////////////////
 	@FXML
