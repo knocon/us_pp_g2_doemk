@@ -311,7 +311,7 @@
                                                 <Insets top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <ComboBox fx:id="comboRechnungTopf">
+                                          <ComboBox fx:id="comboRechnungTopf" onMouseClicked="#comboTopfLaden">
                                              <HBox.margin>
                                                 <Insets left="10.0" top="15.0" />
                                              </HBox.margin>

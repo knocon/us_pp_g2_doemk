@@ -1,5 +1,10 @@
 package klassen;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,12 +20,15 @@ public class ControllerTopf {
 
 	
 	static ObservableList options = FXCollections.observableArrayList();
+
 	@FXML
 	private TextField nameFeld;
 	@FXML
 	private TextField soll;
 	@FXML
 	private TextField ist;
+	
+
 	
 	@FXML
 	private Button speichernButton;
@@ -40,4 +48,6 @@ public class ControllerTopf {
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		}
 	}
+	
+
 }

@@ -1285,8 +1285,6 @@ public class Controller extends Application {
 		statusRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("status"));
 		stempelRechnung.setCellValueFactory(new PropertyValueFactory<Rechnung, String>("dateString"));
 		ladeAlleRechnungen();
-		comboRechnungTopf.setItems(Verwaltung.fillComboBoxTopf());
-		comboRechnungTopf.getSelectionModel().selectFirst();
 
 		// Bauteile
 		nameBauteil.setCellValueFactory(new PropertyValueFactory<Bauteil, String>("name"));
@@ -1479,8 +1477,22 @@ public class Controller extends Application {
 		comboBauteilKategorie.setItems(options);
 	}
 	
-	
-
+	@FXML
+	public void comboTopfLaden() {
+		options.setAll(leer);
+		try {
+			Connection con = Verwaltung.dbconnection();
+			String query = "SELECT DISTINCT name FROM Topf";
+			pst = con.prepareStatement(query);
+			resultSet = pst.executeQuery();
+			while (resultSet.next()) {
+				options.add(resultSet.getString("name"));
+			}
+		} catch (SQLException ex) {
+			System.out.println("LOL");
+		}
+		comboRechnungTopf.setItems(options);
+	}
 
 	public boolean checkBerechtigungAdmin() {
 
