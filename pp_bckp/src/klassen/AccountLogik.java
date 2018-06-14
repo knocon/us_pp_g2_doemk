@@ -62,22 +62,54 @@ public class AccountLogik {
 	 */
 	
 	public void addAccount(String name, String pw, String rolle, int id) {
-		String query = "INSERT INTO Account(username,pw,rolle,persId) VALUES("
-				+ "'"+name+"',"
-				+ "'"+pw+"',"
-				+ "'"+rolle+"',"
-				+ "'"+id+"')";
-
+		String que = "SELECT * FROM Person WHERE persId = '"
+				+ id +"'";
 		try {
-			statement.executeUpdate(query);
-			Alert abfrage = new Alert(AlertType.INFORMATION,"Account wurde angelegt.", ButtonType.OK);
-			abfrage.show();
-			System.out.println("Query ausgefuehrt.");
-		} catch (SQLException e) {
-			Alert abfrage = new Alert(AlertType.ERROR,"Account konnte nicht angelegt werden.", ButtonType.OK);
+			ResultSet result = statement.executeQuery(que);
+			if(result.next()==false) {
+				Alert abfrage = new Alert(AlertType.ERROR,"Kein Nutzer mit dieser ID vorhanden", ButtonType.OK);
+				abfrage.show();
+			}
+			else {
+				String quer = "SELECT * FROM Account WHERE username = '"
+						+ name +"'";
+				try {
+					ResultSet res = statement.executeQuery(quer);
+					if(res.next()==true) {
+						Alert abfrage = new Alert(AlertType.ERROR,"Nutzername bereits vergeben.", ButtonType.OK);
+						abfrage.show();
+					}
+					else {
+						String query = "INSERT INTO Account(username,pw,rolle,persId) VALUES("
+								+ "'"+name+"',"
+								+ "'"+pw+"',"
+								+ "'"+rolle+"',"
+								+ "'"+id+"')";
+
+						try {
+							statement.executeUpdate(query);
+							Alert abfrage = new Alert(AlertType.INFORMATION,"Account wurde angelegt.", ButtonType.OK);
+							abfrage.show();
+							System.out.println("Query ausgefuehrt.");
+						} catch (SQLException e) {
+							Alert abfrage = new Alert(AlertType.ERROR,"Account konnte nicht angelegt werden.", ButtonType.OK);
+							abfrage.show();
+							e.printStackTrace();
+						}
+					}
+				} catch (SQLException e1) {
+					Alert abfrage = new Alert(AlertType.ERROR,"SQL ERROR", ButtonType.OK);
+					abfrage.show();
+					e1.printStackTrace();
+				}
+			}
+		}
+		catch(Exception e) {
+			Alert abfrage = new Alert(AlertType.ERROR,"SQL ERROR", ButtonType.OK);
 			abfrage.show();
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public void aendereRolle(Account a) {
