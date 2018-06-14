@@ -233,6 +233,7 @@ public class Verwaltung {
 		return null;
 	}
 	
+	
 	public ArrayList<StatusAuftrag> filterDatum(String parameter, int value, String tabellenname) {
 		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
 		System.out.println(query);
@@ -369,6 +370,62 @@ public class Verwaltung {
 			resultSet = statement
 					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
 			ObservableList<Auftrag> list = getAuftraege(resultSet);
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	//Rechnung
+	
+	public void datumEingabeRech(String time, Rechnung r, String status, int rechId) throws SQLException {
+		statement.executeUpdate("UPDATE  DatumRech SET " + status + " = '" + time + "' WHERE aufId=" + rechId);
+	}
+	
+	public void addDatumRech(Rechnung r) {
+		String query1= "INSERT INTO DatumRechung (bearbeitung, eingereicht, abgewickelt, ausstehend,rechId) VALUES("
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+ "'"+null+"',"
+				+"'"+ r.getRechId()+"')";
+		System.out.println(query1);
+		try {
+			
+			statement.executeUpdate(query1);
+			System.out.println("RechId" + r.getRechId() ); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public ArrayList<statusRechnung> getDatumRechnung(ResultSet rs) throws SQLException {
+		try {
+			ArrayList<statusRechnung> listDatumRechnung = new ArrayList<statusRechnung>();
+			while (rs.next()) {
+				// System.out.println(rs.getLong("date"));
+				statusRechnung sa = new statusRechnung(rs.getString("bearbeitung"), rs.getString("eingereicht"), rs.getString("abgewickelt"), rs.getString("ausstehend"),  rs.getInt("rechId"));
+				listDatumRechnung.add(sa);
+			}
+			return listDatumRechnung;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<statusRechnung> filterDatumRech(String parameter, int value, String tabellenname) {
+		String query = "SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'";
+		System.out.println(query);
+		try {
+			resultSet = statement
+					.executeQuery("SELECT * FROM " + tabellenname + " where " + parameter + " = " + "'" + value + "'");
+			ArrayList<statusRechnung> list = (ArrayList<statusRechnung>) getDatumRechnung(resultSet);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();

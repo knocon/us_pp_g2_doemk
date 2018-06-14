@@ -1,5 +1,8 @@
 package klassen;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -28,7 +31,22 @@ public class ControllerStatusRechnung {
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
-	public void setStatus(Auftrag[] auftrag) {
+	public void setStatus(Rechnung r) {
+		Verwaltung verwaltung = new Verwaltung();
+		ArrayList<statusRechnung> sa=  verwaltung.filterDatumRech("aufId", r.getRechId(), "DatumAuftrag");
+		Iterator<statusRechnung> it = sa.iterator();
+		
+		while ( it.hasNext()) {
+			statusRechnung nue = it.next();
+			if(nue.getRechId()==r.getRechId()) {
+				datum1.setText(nue.getBearbeitung());
+				datum2.setText(nue.getEingereicht());
+				datum3.setText(nue.getAbgewickelt());
+				datum4.setText(nue.getAusstehend());
+				
+			}
+		}
+		
 		
 		//  Hier müssen die Daten an die Labels übergeben werden
 		
