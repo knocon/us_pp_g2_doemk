@@ -412,21 +412,21 @@ public class Controller extends Application {
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
 
 		try {
-			neuesFenster("/gui/auftrag_pers.fxml", "Person");
-			/*Stage st = new Stage();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_pers.fxml"));
+			
+			Stage st = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/betreuer.fxml"));
 
 			Parent sceneEingabe;
 			sceneEingabe = loader.load();
 
 			ControllerAuftragBetreuer controller = loader.<ControllerAuftragBetreuer>getController();
-			// controller.setzeAuftrag(auftrag);
-			verwaltung.namen("typ", "Betreuer", "Person", auftrag);
+			 controller.setzeAuftrag(auftrag);
+			//verwaltung.namen("typ", "Betreuer", "Person", auftrag);
 			Scene scene = new Scene(sceneEingabe);
 			st.setScene(scene);
 			st.setTitle("Bearbeiten der Betreuer");
 			st.show();
-			schreibeStatus("Betreuer bearbeitet");*/
+			schreibeStatus("Betreuer bearbeitet");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
