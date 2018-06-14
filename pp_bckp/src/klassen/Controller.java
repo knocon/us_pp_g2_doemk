@@ -894,9 +894,11 @@ public class Controller extends Application {
 					PDFexport export = new PDFexport();
 					String pdfName = rechnung.getRechnungsName();
 					export.exportPDF(id, pdfName);
-					System.out.println("111");
+					Alert e = new Alert(AlertType.INFORMATION, "PDF wurde erfolgreich exportiert!",
+							ButtonType.OK);
+					e.showAndWait();
 					schreibeStatus("Rechnung exportiert");
-					System.out.println("222");
+					
 				} catch (FileNotFoundException | SQLException | DocumentException e) {
 					e.printStackTrace();
 				}
