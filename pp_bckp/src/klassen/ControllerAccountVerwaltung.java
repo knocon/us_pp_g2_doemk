@@ -89,21 +89,17 @@ public class ControllerAccountVerwaltung{
 		Account account = accountTable.getSelectionModel().getSelectedItem();
 		if(account!=null) {
 			System.out.println(account.getRolle());
-			if(account.getRolle().equals("Benutzer")) {
-				Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie den Account wirklich aufstufen?",ButtonType.YES, ButtonType.NO);
+				Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie die Rolle des Accounts wirklich ändern?",ButtonType.YES, ButtonType.NO);
 				abfrage.showAndWait();
 				if(abfrage.getResult()==ButtonType.YES) {
 					AccountLogik accLogik = new AccountLogik();
 					accLogik.aendereRolle(account);
 				}
 				else {
-					
+					Alert error = new Alert(AlertType.ERROR, "Dann halt nicht",ButtonType.OK);
+					error.show();
 				}
-			}
-			else {
-				Alert abfrage = new Alert(AlertType.ERROR, "Account ist bereits Verwalter",ButtonType.OK);
-				abfrage.showAndWait();
-			}
+
 		}
 		else {
 			Alert abfrage = new Alert(AlertType.ERROR, "Wählen Sie eine Zeile in der Tabelle aus", ButtonType.OK);

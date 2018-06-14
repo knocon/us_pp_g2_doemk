@@ -82,15 +82,20 @@ public class AccountLogik {
 	
 	public void aendereRolle(Account a) {
 		String query = "UPDATE Account SET rolle = 'Verwalter' WHERE username = '"
-				+ a.getName() + "'";
+					+ a.getName() + "'";
+		if(a.getRolle().equals("Verwalter")) {
+			query = "UPDATE Account SET rolle = 'Benutzer' WHERE username = '"
+					+ a.getName() + "'";
+		}
+		System.out.println(query);
 		try {
 			statement.executeUpdate(query);
-			Alert abfrage = new Alert(AlertType.INFORMATION,"Account wurde aufgestuft.", ButtonType.OK);
+			Alert abfrage = new Alert(AlertType.INFORMATION,"Account Rolle wurde geändert.", ButtonType.OK);
 			abfrage.show();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			Alert abfrage = new Alert(AlertType.ERROR,"SQL ERROR: Account konnte nicht aufgestuft werden.", ButtonType.OK);
+			Alert abfrage = new Alert(AlertType.ERROR,"SQL ERROR: Account Rolle konnte nicht geändert werden.", ButtonType.OK);
 			abfrage.show();
 		}
 	}
