@@ -133,17 +133,24 @@ public class AccountLogik {
 	}
 	
 	public void loescheAccount(Account a) {
-		String query = "DELETE FROM Account WHERE username = '"
-				+ a.getName() +"'";
-		try {
-			statement.executeUpdate(query);
-			Alert abfrage = new Alert(AlertType.INFORMATION,"Account wurde gelöscht.", ButtonType.OK);
+		String nutzername = Controller.getEingeloggterAccountName();
+		if(a.getName().equals(nutzername)) {
+			Alert abfrage = new Alert(AlertType.ERROR,"Eingeloggter Account kann nicht gelöscht werden.", ButtonType.OK);
 			abfrage.show();
 		}
-		catch(Exception e) {
-			e.printStackTrace();
-			Alert abfrage = new Alert(AlertType.ERROR,"SQL ERROR: Account konnte nicht gelöscht werden.", ButtonType.OK);
-			abfrage.show();
+		else {
+			String query = "DELETE FROM Account WHERE username = '"
+					+ a.getName() +"'";
+			try {
+				statement.executeUpdate(query);
+				Alert abfrage = new Alert(AlertType.INFORMATION,"Account wurde gelöscht.", ButtonType.OK);
+				abfrage.show();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				Alert abfrage = new Alert(AlertType.ERROR,"SQL ERROR: Account konnte nicht gelöscht werden.", ButtonType.OK);
+				abfrage.show();
+			}
 		}
 	}
 	

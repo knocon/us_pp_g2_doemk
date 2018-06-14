@@ -54,7 +54,8 @@ public class Controller extends Application {
 	 */
 	private static int eingeloggterAccount = 0;
 	private static String eingeloggterAccountName = null;
-
+	private static String eingeloggterVorNachName = null;
+	
 	public static void main(String[] args) {
 		Application.launch(Controller.class, args);
 	}
@@ -1418,9 +1419,19 @@ public class Controller extends Application {
 	public static void setEingeloggterAccountName(String eingeloggterAccountName) {
 		Controller.eingeloggterAccountName = eingeloggterAccountName;
 	}
+	
+	public static String getEingeloggterVorNachName() {
+		return eingeloggterVorNachName;
+	}
+
+	public static void setEingeloggterVorNachname(String eingeloggterAccountName) {
+		Controller.eingeloggterVorNachName = eingeloggterAccountName;
+	}
+		
 
 	public void login(Account acc) {
-		setEingeloggterAccountName(acc.getVorname() + " " + acc.getNachname());
+		setEingeloggterVorNachname(acc.getVorname() + " " + acc.getNachname());
+		setEingeloggterAccountName(acc.getName());
 		String rolle = acc.getRolle();
 		switch (rolle) {
 		case "Benutzer":
@@ -1439,6 +1450,7 @@ public class Controller extends Application {
 
 	public void logout() {
 		setEingeloggterAccountName(null);
+		setEingeloggterVorNachname(null);
 		setEingeloggterAccount(0);
 		veraenderBerechtigung(0);	
 	}
@@ -1450,7 +1462,7 @@ public class Controller extends Application {
 		anmeldenMenu.setText("Anmelden");
 		break;
 		case 1 : bauteilTab.setDisable(false); 
-		menuLogin.setText("Benutzer: " + getEingeloggterAccountName());
+		menuLogin.setText("Benutzer: " + getEingeloggterVorNachName());
 		anmeldenMenu.setText("Abmelden");
 		plusButton.setDisable(true);
 		minusButton.setDisable(true);
@@ -1460,7 +1472,7 @@ public class Controller extends Application {
 		loeschenButtonBauteil.setDisable(true);
 		break;
 		case 2 : bauteilTab.setDisable(false); 
-		menuLogin.setText("Verwalter: " + getEingeloggterAccountName());
+		menuLogin.setText("Verwalter: " + getEingeloggterVorNachName());
 		anmeldenMenu.setText("Abmelden");
 		plusButton.setDisable(false);
 		minusButton.setDisable(false);
