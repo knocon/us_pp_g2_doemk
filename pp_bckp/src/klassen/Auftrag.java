@@ -12,12 +12,12 @@ public class Auftrag {
 	private String titel;
 	private String art;
 	private String dateiname;
-	private String rkosten;
-	private String pkosten;
+	private double rkosten;
+	private double pkosten;
 	private int persId;
 	private String status;
 	
-	public Auftrag( int id,String titel, String art, String dateiname, String rkosten, String pkosten, long datum, String status) {
+	public Auftrag( int id,String titel, String art, String dateiname, double rkosten, double pkosten, long datum, String status) {
 		super();
 		this.aufId= id;
 		this.datum = datum;
@@ -97,28 +97,28 @@ public class Auftrag {
 	/**
 	 * @return the rkosten
 	 */
-	public String getRkosten() {
+	public double getRkosten() {
 		return rkosten;
 	}
 
 	/**
 	 * @param rkosten the rkosten to set
 	 */
-	public void setRkosten(String rkosten) {
+	public void setRkosten(double rkosten) {
 		this.rkosten = rkosten;
 	}
 
 	/**
 	 * @return the pkosten
 	 */
-	public String getPkosten() {
+	public double getPkosten() {
 		return pkosten;
 	}
 
 	/**
 	 * @param pkosten the pkosten to set
 	 */
-	public void setPkosten(String pkosten) {
+	public void setPkosten(double pkosten) {
 		this.pkosten = pkosten;
 	}
 

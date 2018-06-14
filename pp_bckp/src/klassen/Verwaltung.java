@@ -356,7 +356,7 @@ public class Verwaltung {
 			while (rs.next()) {
 				// System.out.println(rs.getLong("date"));
 				Auftrag a = new Auftrag(rs.getInt("aufId"), rs.getString("titel"), rs.getString("art"),
-						rs.getString("dateiname"), rs.getString("rkosten"), rs.getString("pkosten"),
+						rs.getString("dateiname"), rs.getDouble("rkosten"), rs.getDouble("pkosten"),
 						rs.getLong("statusZeitstempel"), rs.getString("status"));
 				listAuftraege.add(a);
 			}

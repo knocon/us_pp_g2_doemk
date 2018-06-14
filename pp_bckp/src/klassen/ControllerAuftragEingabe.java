@@ -27,6 +27,8 @@ public class ControllerAuftragEingabe {
 	@FXML
 	private ComboBox<String> comboAuftragEin;
 	
+	String titel;
+	
 	@FXML
 	private Button speichernButtonAuftrag;
 	@FXML
@@ -34,7 +36,9 @@ public class ControllerAuftragEingabe {
 		String titel = titelFeld.getText();
 		String datei = dateiFeld.getText();
 		String pKosten = pKostenFeld.getText();
+		double Pkosten = Double.parseDouble(pKosten);
 		String rKosten = reeleKFeld.getText();
+		double Rkosten = Double.parseDouble(rKosten);
 		String art = comboAuftragEin.getValue();
 		
 		if(titel.isEmpty() || datei.isEmpty()
@@ -44,7 +48,7 @@ public class ControllerAuftragEingabe {
 		}
 		else {
 			long time = System.currentTimeMillis();
-			Auftrag a = new Auftrag(1, titel, art, datei, rKosten, pKosten, time,null);
+			Auftrag a = new Auftrag(1, titel, art, datei, Rkosten, Pkosten, time,null);
 			Verwaltung verwaltung = new Verwaltung();
 			verwaltung.addAuftrag(a);
 			((Node)(event.getSource())).getScene().getWindow().hide();
@@ -59,8 +63,12 @@ public class ControllerAuftragEingabe {
 	public void setzeAuftrag(Auftrag a) {
 		titelFeld.setText(a.getTitel());
 		dateiFeld.setText(a.getDateiname());
-		pKostenFeld.setText(a.getPkosten());
-		reeleKFeld.setText(a.getRkosten());
+		double pKosten = a.getPkosten();
+		String Pkosten = String.valueOf(pKosten);
+		pKostenFeld.setText(Pkosten);
+		double rKosten = a.getRkosten();
+		String Rkosten = String.valueOf(rKosten);
+		reeleKFeld.setText(Rkosten);
 	}
 	
 }
