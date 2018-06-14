@@ -61,7 +61,10 @@ public class ControllerBauteilEingabe{
 		String link = linkFeld.getText();
 		
 		String preis = preisFeld.getText();
-		double epreis = Double.parseDouble(preis);
+		double epreis = 0;
+		if(validatePreis(preisFeld.getText())){
+			epreis = Double.parseDouble(preisFeld.getText());
+		}
 		
 		String lagerort = lagerortFeld.getText();
 		
@@ -138,6 +141,17 @@ public class ControllerBauteilEingabe{
 			System.out.println("LOL");
 		}
 		comboKategorie.setItems(options);
+	}
+	
+	public boolean validatePreis(String input){
+		try{
+			double wert = Double.parseDouble(input);
+			return true;
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Preis ist kein gültiger Wert", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
 	}
 	
 

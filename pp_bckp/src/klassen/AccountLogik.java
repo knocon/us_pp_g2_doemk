@@ -96,6 +96,8 @@ public class AccountLogik {
 						"",
 						"",
 						"");
+				result.close();
+				ps.close();
 			}
 			else {
 				System.out.println("error");
