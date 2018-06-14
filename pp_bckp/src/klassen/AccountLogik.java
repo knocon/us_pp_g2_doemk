@@ -61,11 +61,12 @@ public class AccountLogik {
 	 * Registration
 	 */
 	
-	public void addAccount(String name, String pw, String rolle) {
-		String query = "INSERT INTO Account(username,pw,rolle) VALUES("
+	public void addAccount(String name, String pw, String rolle, int id) {
+		String query = "INSERT INTO Account(username,pw,rolle,persId) VALUES("
 				+ "'"+name+"',"
 				+ "'"+pw+"',"
-				+ "'"+rolle+"')";
+				+ "'"+rolle+"',"
+				+ "'"+id+"')";
 
 		try {
 			statement.executeUpdate(query);

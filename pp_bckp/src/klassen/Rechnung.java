@@ -16,7 +16,7 @@ public class Rechnung {
 	private String kassenId;
 	private String topf;
 	private String art;
-	private String kontoId; 
+	private String kontoId;
 	private String betrag;
 	private String status;
 	private String statusZeitstempel;
