@@ -38,6 +38,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 
 public class Controller extends Application {
 	private Verwaltung verwaltung;
@@ -90,6 +91,7 @@ public class Controller extends Application {
 				controller.setzeController(this);
 
 				Scene scene = new Scene(sceneEingabe);
+				st.getIcons().addAll(new Image("file:images/icon.png"));
 				st.setScene(scene);
 				st.setTitle("Login");
 				st.show();
@@ -196,6 +198,7 @@ public class Controller extends Application {
 				Scene scene = new Scene(sceneEingabe);
 				st.setScene(scene);
 				st.setTitle("Bearbeiten einer neuen Person");
+				st.getIcons().addAll(new Image("file:images/icon.png"));
 				st.show();
 				schreibeStatus("Person bearbeitet");
 			} catch (Exception e) {
@@ -374,6 +377,7 @@ public class Controller extends Application {
 					Scene scene = new Scene(sceneEingabe);
 					st.setScene(scene);
 					st.setTitle("Bearbeiten eines neuen Auftrags");
+					st.getIcons().addAll(new Image("file:images/icon.png"));
 					st.show();
 					schreibeStatus("Auftrag bearbeitet");
 				}
@@ -408,6 +412,7 @@ public class Controller extends Application {
 		Scene scene = new Scene(sceneEingabe);
 		st.setScene(scene);
 		st.setTitle("Bearbeiten der Betreuer");
+		st.getIcons().addAll(new Image("file:images/icon.png"));
 		st.show();
 		schreibeStatus("Betreuer bearbeitet");
 		}catch (Exception e) {
@@ -441,6 +446,7 @@ public class Controller extends Application {
 			Scene scene = new Scene(sceneEingabe);
 			st.setScene(scene);
 			st.setTitle("Bearbeiten der Betreuer");
+			st.getIcons().addAll(new Image("file:images/icon.png"));
 			st.show();
 			schreibeStatus("Betreuer bearbeitet");
 		} catch (Exception e) {
@@ -473,6 +479,7 @@ public class Controller extends Application {
 			Scene scene = new Scene(sceneEingabe);
 			st.setScene(scene);
 			st.setTitle("Bearbeiten einer neuen Person");
+			st.getIcons().addAll(new Image("file:images/icon.png"));
 			st.show();
 			schreibeStatus("Person bearbeitet");
 
@@ -532,6 +539,7 @@ public class Controller extends Application {
 				Scene scene = new Scene(sceneEingabe);
 				st.setScene(scene);
 				st.setTitle("Bearbeiten einer neuen Rechnung");
+				st.getIcons().addAll(new Image("file:images/icon.png"));
 				st.show();
 				schreibeStatus("Rechnung bearbeitet");
 			}
@@ -703,6 +711,7 @@ public class Controller extends Application {
 				Scene scene = new Scene(sceneEingabe);
 				st.setScene(scene);
 				st.setTitle("Bearbeiten einer neuen Rechnung");
+				st.getIcons().addAll(new Image("file:images/icon.png"));
 				st.show();
 				schreibeStatus("Rechnung bearbeitet");
 			} catch (Exception e) {
@@ -735,6 +744,7 @@ public class Controller extends Application {
 			Scene scene = new Scene(sceneEingabe);
 			st.setScene(scene);
 			st.setTitle("Bearbeiten einer neuen Person");
+			st.getIcons().addAll(new Image("file:images/icon.png"));
 			st.show();
 			schreibeStatus("Person bearbeitet");
 		} catch (Exception e) {
@@ -1205,6 +1215,7 @@ public class Controller extends Application {
 				Scene scene = new Scene(sceneEingabe);
 				st.setScene(scene);
 				st.setTitle("Bearbeiten eines Bauteils");
+				st.getIcons().addAll(new Image("file:images/icon.png"));
 				st.show();
 				schreibeStatus("Bauteil bearbeitet");
 				Verwaltung.deleteBauteil(bauteil.getTeilId());
@@ -1273,6 +1284,7 @@ public class Controller extends Application {
 				e.consume();
 				beenden();
 			});
+			hauptFenster.getIcons().addAll(new Image("file:images/icon.png"));
 			// primaryStage.setMaximized(true);
 			hauptFenster.show();
 		} catch (IOException e) {
@@ -1404,6 +1416,7 @@ public class Controller extends Application {
 			Scene scene = new Scene(page);
 			dialog.setScene(scene);
 			dialog.setTitle(fensterTitel);
+			dialog.getIcons().addAll(new Image("file:images/icon.png"));
 			dialog.show();
 		} catch (IOException e) {
 			e.printStackTrace();
