@@ -27,6 +27,9 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 
 public class Verwaltung {
 	static Connection conn = null;
@@ -822,7 +825,8 @@ public class Verwaltung {
 			statement.executeUpdate(query);
 			System.out.println("Query ausgefuehrt.");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR,"Constraint verletzt. Kategorie kann nicht angelegt werden.", ButtonType.OK);
+			alert.showAndWait();
 		}
 
 	}

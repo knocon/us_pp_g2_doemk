@@ -56,7 +56,12 @@ public class ControllerVerwaltung{
 		
 		BauteileRechnung w = brechTable.getSelectionModel().getSelectedItem();
 		
-		Verwaltung.setzeBezahlt(w);
+		try{
+			Verwaltung.setzeBezahlt(w);
+		}catch(NullPointerException npe) {
+			Alert abfrage = new Alert(AlertType.ERROR, "Bitte Tupel aus dem Datenbestand wählen!", ButtonType.OK);
+			abfrage.showAndWait();
+		}
 		
 		try {
 			Connection con = Verwaltung.dbconnection();
@@ -85,7 +90,12 @@ public class ControllerVerwaltung{
 		
 BauteileRechnung w = brechTable.getSelectionModel().getSelectedItem();
 		
-		Verwaltung.setzeAusstehend(w);
+		try{
+			Verwaltung.setzeAusstehend(w);
+		}catch(NullPointerException npe) {
+			Alert abfrage = new Alert(AlertType.ERROR, "Bitte Tupel aus dem Datenbestand wählen!", ButtonType.OK);
+			abfrage.showAndWait();
+		}
 		
 		try {
 			Connection con = Verwaltung.dbconnection();

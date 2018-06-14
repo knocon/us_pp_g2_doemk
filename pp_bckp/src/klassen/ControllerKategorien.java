@@ -1,5 +1,7 @@
 package klassen;
 
+import org.sqlite.SQLiteException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +21,7 @@ public class ControllerKategorien {
 	@FXML
 	private Button speichernButton;
 	@FXML
-	void speichern(ActionEvent event) {
+	void speichern(ActionEvent event) throws SQLiteException {
 		String name = nameFeld.getText();
 		Kategorie k = new Kategorie(name);
 		
