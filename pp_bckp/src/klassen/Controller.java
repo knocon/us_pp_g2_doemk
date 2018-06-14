@@ -582,6 +582,7 @@ public class Controller extends Application {
 		String dateString = format.format(date);
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
 		String statusParam = comboAuftragFilter.getValue();
+		if(verwaltung.auftraginDatum(auftrag)) {
 		if (auftrag != null) {
 			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie diesen Status wirklich bearbeiten?",
 					ButtonType.YES, ButtonType.NO);
@@ -633,6 +634,9 @@ public class Controller extends Application {
 				Alert ab = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.", ButtonType.OK);
 				ab.showAndWait();
 			}
+		}}else {
+			Alert ab = new Alert(AlertType.ERROR, "Sie müssen zuerst ein Datum anlegen!", ButtonType.OK);
+			ab.showAndWait();
 		}
 
 	}
