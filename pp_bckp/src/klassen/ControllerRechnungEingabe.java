@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +35,11 @@ public class ControllerRechnungEingabe {
 	static ObservableList options = FXCollections.observableArrayList();
 	static ObservableList leer = FXCollections.observableArrayList();
 	
+	private double epreis;
+	int konto;
+	int kasse;
+	
+	String kategorie = "";
 	
 	@FXML
 	private TextField nameFeld;
@@ -57,7 +64,7 @@ public class ControllerRechnungEingabe {
 	private Button speichernButtonRechnung;
 	@FXML
 	void rechnungSpeichern(ActionEvent event) {
-		String topf = topfComboBox.getSelectionModel().getSelectedItem().toString();
+		String topf = topfComboBox.getValue();
 		String name = nameFeld.getText();
 		String auftraggeber = auftraggeberFeld.getText();
 		String kasse = kasseFeld.getText();
@@ -74,7 +81,7 @@ public class ControllerRechnungEingabe {
 			Alert alert = new Alert(AlertType.ERROR,"Es fehlen noch Angaben", ButtonType.OK);
 			alert.showAndWait();
 		}
-		else {
+		else if(validate()) {
 			long time = System.currentTimeMillis();
 			Rechnung r = new Rechnung(1,time, name, auftraggeber, ansprechpartner, kasse, topf, art, kontoId, betrag, null);
 			Verwaltung verwaltung = new Verwaltung();
@@ -118,4 +125,42 @@ public class ControllerRechnungEingabe {
 		}
 		topfComboBox.setItems(options);
 	}
+	
+public boolean validate(){
+		
+		
+		try{
+			epreis = Double.parseDouble(betragFeld.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Betrag", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
+		
+		try{
+			konto = Integer.parseInt(kontoFeld.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe beim Konto!", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
+		
+		try{
+			kasse = Integer.parseInt(kasseFeld.getText());
+		}catch(Exception e){
+			Alert alert = new Alert(AlertType.ERROR,"Fehlerhafte Eingabe bei Kasse!", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+		}
+		
+		
+		
+		 
+	     
+	return true;
+	
+}
+
+
+
 }

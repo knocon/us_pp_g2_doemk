@@ -251,12 +251,12 @@ public class Verwaltung {
 	}
 	
 	
-	/*public void exportAuftrag(Auftrag a) {
+	public void exportAuftrag(Auftrag a) {
 		long time = System.currentTimeMillis();
-		Rechnung r = new Rechnung(1,a.getTitel(), " ", " ",
+		Rechnung r = new Rechnung(1,time, a.getTitel(), " ", " ",
 				" ", " ", " ", "",a.getRkosten()," ");
 		addRechnung(r);
-	}*/
+	}
 	
 	public ObservableList<Auftrag> ladeAlleAuftraege() {
 		try {
