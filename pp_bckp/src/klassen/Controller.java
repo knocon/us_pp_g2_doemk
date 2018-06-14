@@ -137,6 +137,8 @@ public class Controller extends Application {
 	@FXML
 	private TableView<Person> tableView;
 	@FXML
+	private TableColumn<Person, Integer> idCol;
+	@FXML
 	private TableColumn<Person, String> vornameCol;
 	@FXML
 	private TableColumn<Person, String> nachnameCol;
@@ -1226,7 +1228,8 @@ public class Controller extends Application {
 		ObservableList<String> optionsPers = FXCollections.observableArrayList("Vorname", "Nachname", "Rolle", "Stadt");
 		comboPersonen.setItems(optionsPers);
 		comboPersonen.getSelectionModel().selectFirst();
-
+		
+		idCol.setCellValueFactory(new PropertyValueFactory<Person, Integer>("persId"));
 		vornameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("vorname"));
 		nachnameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("nachname"));
 		emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
