@@ -190,6 +190,7 @@ public class Controller extends Application {
 
 				ControllerPersonEingabe controller = loader.<ControllerPersonEingabe>getController();
 				controller.setzePerson(person);
+				controller.setzeController(this);
 
 				Scene scene = new Scene(sceneEingabe);
 				st.setScene(scene);

@@ -10,7 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
 public class ControllerPersonEingabe {
-	
+	Person person;
+	Controller controller;
 	
 	@FXML
 	private TextField vornameFeld;
@@ -54,18 +55,33 @@ public class ControllerPersonEingabe {
 		}
 		else {
 			long time = System.currentTimeMillis();
-			Person p = new Person(1, time ,vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
 			Verwaltung verwaltung = new Verwaltung();
+			Person p;
+			if(person!=null) {
+				int id = person.getPersId();
+				verwaltung.deletePerson(id);
+				p = new Person(id, time ,vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
+			}
+			else {
+				p = new Person(1, time ,vorname, nachname, rolle, strasse, nummer, stadt, telefon, email);
+			}
 			verwaltung.addPerson(p);
 			((Node)(event.getSource())).getScene().getWindow().hide();
 			System.out.println("Person angelegt");
+			controller.ladeAllePersonen();
 		}
 	}
 	
 	public void initialize() {
 	}
 	
+	public void setzeController(Controller controller) {
+		this.controller = controller;
+	}
+	
 	public void setzePerson(Person p) {
+		this.person = p;
+	
 		vornameFeld.setText(p.getVorname());
 		nachnameFeld.setText(p.getNachname());
 		rolleFeld.setText(p.getTyp());
