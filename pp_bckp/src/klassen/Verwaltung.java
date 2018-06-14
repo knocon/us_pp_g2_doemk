@@ -652,7 +652,7 @@ public class Verwaltung {
 		}
 
 		public static void deleteTopf(String name) {
-		String query = "DELETE FROM Topf WHERE name =" + name;
+		String query = "DELETE FROM Topf WHERE name ='" + name+"'";
 		try {
 			statement.executeUpdate(query);
 			System.out.println("geloescht");
