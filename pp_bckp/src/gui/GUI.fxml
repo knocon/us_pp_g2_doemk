@@ -155,6 +155,7 @@
                                           <TableColumn fx:id="rKostenAuftrag" prefWidth="100.0" text="reele Kosten" />
                                           <TableColumn fx:id="statusAuftrag" prefWidth="150.0" text="Status" />
                                           <TableColumn fx:id="datumAuftrag" prefWidth="75.0" text="Datum" />
+                                          <TableColumn fx:id="typAuftrag" prefWidth="75.0" text="Typ" />
                                       </columns>
                                     </TableView>
                                  </center>
