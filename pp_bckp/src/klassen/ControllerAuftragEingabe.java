@@ -3,6 +3,8 @@ package klassen;
 
 import com.sun.glass.ui.Application;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -29,6 +31,10 @@ public class ControllerAuftragEingabe {
 	@FXML
 	private TextField ortFeld;
 	
+	@FXML
+	ComboBox<String> artComboBox;
+	
+	
 	double rKosten;
 	double pKosten;
 	
@@ -39,7 +45,7 @@ public class ControllerAuftragEingabe {
 		String titel = titelFeld.getText();
 		String datei = dateiFeld.getText();
 		String pKosten = pKostenFeld.getText();
-		String art = artFeld.getText();
+		String art = artComboBox.getValue();
 		//double Pkosten = Double.parseDouble(pKosten);
 		String rKosten = reeleKFeld.getText();
 		//double Rkosten = Double.parseDouble(rKosten);
@@ -64,9 +70,13 @@ public class ControllerAuftragEingabe {
 	}
 	
 	public void initialize() {
-		
+		load();
 	}
 	
+	public void load() {		
+		ObservableList<String> art = FXCollections.observableArrayList("Leiterplatte", "3D-Druck", "Sonstiges");
+		artComboBox.setItems(art);
+	}
 	public void setzeAuftrag(Auftrag a) {
 		titelFeld.setText(a.getTitel());
 		dateiFeld.setText(a.getDateiname());

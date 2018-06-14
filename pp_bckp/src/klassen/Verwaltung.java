@@ -198,6 +198,19 @@ public class Verwaltung {
 
 	// Fertigung
 	
+	public boolean auftraginDatum(Auftrag a) {
+		boolean wert = false;
+		ArrayList<StatusAuftrag> list = filterDatum("aufId", a.getAufId(), "DatumAuftrag"); 
+		Iterator<StatusAuftrag> it = list.iterator();
+		while(it.hasNext()) {
+			StatusAuftrag sa = it.next();
+			if(sa.getId()==a.getAufId()) {
+				return true;
+			}
+		}
+		return wert;
+	}
+	
 	public int sucheAuftrag(Auftrag a) {
 		
 		return a.getAufId();
