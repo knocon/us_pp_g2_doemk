@@ -45,7 +45,6 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="pwFeld" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Label text="Rolle" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
@@ -54,6 +53,7 @@
             <ComboBox fx:id="comboRolle" prefWidth="220.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
             <Label text="Person ID" GridPane.rowIndex="2" />
             <TextField fx:id="idFeld" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <PasswordField fx:id="pwFeld" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>
