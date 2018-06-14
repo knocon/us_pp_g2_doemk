@@ -16,6 +16,7 @@ public class Auftrag {
 	private String pkosten;
 	private String persId;
 	private String status;
+	private String dateiName;
 	
 	public Auftrag( int id,String titel, String art, String dateiname, String rkosten, String pkosten, long datum, String status) {
 		super();
@@ -29,7 +30,7 @@ public class Auftrag {
 		this.titel = titel;
 		this.art = art;
 		this.dateiname = dateiname;
-		this.status=status;
+		this.status = status;
 		this.setRkosten(rkosten);
 		this.setPkosten(pkosten);
 	}
@@ -44,12 +45,14 @@ public class Auftrag {
 		return output;
 	}
 	
-	public String getStatus() {
-		return status;
+	
+
+	public String getDateiName() {
+		return dateiName;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setDateiName(String dateiName) {
+		this.dateiName = dateiName;
 	}
 
 	public String getDateString() {
@@ -70,6 +73,14 @@ public class Auftrag {
 
 	public void setPersId(String persId) {
 		this.persId = persId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public int getAufId() {

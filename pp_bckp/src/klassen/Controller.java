@@ -291,7 +291,9 @@ public class Controller extends Application {
 	private TableColumn<Auftrag, String> statusAuftrag;
 	@FXML
 	private TableColumn<Auftrag, String> datumAuftrag;
-
+	@FXML
+	private TableColumn<Auftrag, String> ortAuftrag;
+	
 	@FXML
 	ComboBox<String> comboAuftrag;
 	@FXML
@@ -315,7 +317,7 @@ public class Controller extends Application {
 	void filterAuftrag(ActionEvent event) {
 		String filterParam = comboAuftrag.getValue();
 		String filterWert = eingabeAuftrag.getText();
-		ObservableList<Auftrag> aList = null;
+		ObservableList<Auftrag> aList = FXCollections.observableArrayList();
 		if (!filterWert.isEmpty()) {
 			switch (filterParam) {
 			case "Titel":
@@ -328,10 +330,11 @@ public class Controller extends Application {
 				aList = verwaltung.filterByParameterAuftrag("art", filterWert, "Auftrag");
 				break;
 			}
+			auftragTable.setItems(aList);
+		}else {Alert abfrage = new Alert(AlertType.WARNING, "Keine Eingabe vorhanden!");
+		abfrage.showAndWait();
 		}
-
-		auftragTable.setItems(aList);
-		System.out.println(filterFieldPerson.getText());
+		
 	}
 
 	
@@ -355,20 +358,25 @@ public class Controller extends Application {
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
 		if (auftrag != null) {
 			try {
-				Stage st = new Stage();
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_eingabe.fxml"));
+				Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie diesen Auftrag wirklich bearbeiten?",
+						ButtonType.YES, ButtonType.NO);
+				abfrage.showAndWait();
+				if (abfrage.getResult() == ButtonType.YES) {
+					Stage st = new Stage();
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_eingabe.fxml"));
 
-				Parent sceneEingabe;
-				sceneEingabe = loader.load();
-				verwaltung.deleteAuftrag(auftrag.getAufId());
-				ControllerAuftragEingabe controller = loader.<ControllerAuftragEingabe>getController();
-				controller.setzeAuftrag(auftrag);
+					Parent sceneEingabe;
+					sceneEingabe = loader.load();
+					verwaltung.deleteAuftrag(auftrag.getAufId());
+					ControllerAuftragEingabe controller = loader.<ControllerAuftragEingabe>getController();
+					controller.setzeAuftrag(auftrag);
 
-				Scene scene = new Scene(sceneEingabe);
-				st.setScene(scene);
-				st.setTitle("Bearbeiten eines neuen Auftrags");
-				st.show();
-				schreibeStatus("Auftrag bearbeitet");
+					Scene scene = new Scene(sceneEingabe);
+					st.setScene(scene);
+					st.setTitle("Bearbeiten eines neuen Auftrags");
+					st.show();
+					schreibeStatus("Auftrag bearbeitet");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -385,6 +393,7 @@ public class Controller extends Application {
 	@FXML
 	void personenKlickAuftrag(ActionEvent event) throws IOException {
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		if (auftrag != null) {
 		try {
 		Stage st = new Stage();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auftrag_pers.fxml"));
@@ -404,6 +413,11 @@ public class Controller extends Application {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		}else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
+					ButtonType.OK);
+			abfrage.showAndWait();
+		}
 	}
 
 	@FXML
@@ -412,7 +426,7 @@ public class Controller extends Application {
 	@FXML
 	void personenGeklicktAuftrag(ActionEvent event) {
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
-
+		if (auftrag != null) {
 		try {
 			
 			Stage st = new Stage();
@@ -432,6 +446,11 @@ public class Controller extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		}else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
+					ButtonType.OK);
+			abfrage.showAndWait();
+		}
 	}
 
 	@FXML
@@ -440,6 +459,7 @@ public class Controller extends Application {
 	@FXML
 	void statusAuftrag(ActionEvent event) {
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
+		if (auftrag != null) {
 		try {
 			Stage st = new Stage();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/status_auftrag.fxml"));
@@ -459,6 +479,11 @@ public class Controller extends Application {
 		} catch (Exception e) {
 			Alert abfrage = new Alert(AlertType.ERROR, "Error.", ButtonType.OK);
 			e.printStackTrace();
+		}
+		}else {
+			Alert abfrage = new Alert(AlertType.ERROR, "Sie müssen eine Zeile in der Tabelle auswählen.",
+					ButtonType.OK);
+			abfrage.showAndWait();
 		}
 	}
 
