@@ -157,7 +157,7 @@ public class Verwaltung {
 		try {
 			listRechnung = FXCollections.observableArrayList();
 			while (rs.next()) {
-				Rechnung r = new Rechnung(rs.getInt("rechId"),
+				Rechnung r = new Rechnung(rs.getInt("rechId"), rs.getLong("date"),
 						rs.getString("rechnungsName"), rs.getString("auftraggeber"), rs.getString("ansprechpartner"),
 						rs.getString("kassenId"), rs.getString("topf"), rs.getString("art"),
 						rs.getString("kontoId"),rs.getString("betrag"), rs.getString("status") );

@@ -24,5 +24,10 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Button fx:id="aendernButton" layoutX="14.0" layoutY="323.0" mnemonicParsing="false" onAction="#aendern" prefHeight="63.0" prefWidth="122.0" text="Ändern" textAlignment="CENTER" textFill="#65dd08">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
