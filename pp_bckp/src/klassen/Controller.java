@@ -582,6 +582,7 @@ public class Controller extends Application {
 		String dateString = format.format(date);
 		Auftrag auftrag = auftragTable.getSelectionModel().getSelectedItem();
 		String statusParam = comboAuftragFilter.getValue();
+		if (auftrag != null) {
 		if(verwaltung.auftraginDatum(auftrag)) {
 		if (auftrag != null) {
 			Alert abfrage = new Alert(AlertType.CONFIRMATION, "Wollen Sie diesen Status wirklich bearbeiten?",
@@ -637,7 +638,7 @@ public class Controller extends Application {
 		}}else {
 			Alert ab = new Alert(AlertType.ERROR, "Sie müssen zuerst ein Datum anlegen!", ButtonType.OK);
 			ab.showAndWait();
-		}
+		}}
 
 	}
 	///////////////////////////////// Rechnungen
@@ -1342,7 +1343,7 @@ public class Controller extends Application {
 		ladeAlleAuftraege();
 
 		ObservableList<String> optionStatus = FXCollections.observableArrayList("Angenommen", "Gefertigt", "Abgeholt",
-				"Abgerechnet", "Kosten kalkuliert", "Warten auf Material", "Fertigung");
+				"Abgerechnet", "Kosten kalkuliert", "Warten auf Material", "Fertigung unterbrochen");
 		comboAuftragFilter.setItems(optionStatus);
 		comboAuftragFilter.getSelectionModel().selectFirst();
 
